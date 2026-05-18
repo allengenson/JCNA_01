@@ -4,7 +4,7 @@ import Footer from "@/components/footer";
 import Image from "next/image";
 import React from "react";
 
-// ── Shared styles (declared FIRST so infoCards can reference them) ───────────
+// ── Shared styles ─────────────────────────────────────────────────────────────
 
 const bodyTextStyle: React.CSSProperties = {
   fontFamily: "'DM Sans', sans-serif",
@@ -29,7 +29,7 @@ const serviceTextStyle: React.CSSProperties = {
   color: "#4A7C2F",
 };
 
-// ── SVG Icons (declared BEFORE infoCards) ────────────────────────────────────
+// ── SVG Icons ─────────────────────────────────────────────────────────────────
 
 function LocationIcon() {
   return (
@@ -70,7 +70,7 @@ function ContactIcon() {
   );
 }
 
-// ── Info Card Data (styles and icons are now declared above) ─────────────────
+// ── Info Card Data ─────────────────────────────────────────────────────────────
 
 const infoCards = [
   {
@@ -78,13 +78,9 @@ const infoCards = [
     title: "Our Location",
     content: (
       <p style={bodyTextStyle}>
-        N.B Bacalso National Highway,
+        Natalio B. Bacalso National Highway,
         <br />
-        Tughaan, Minglanilla 6046 Near
-        <br />
-        Shell Gasoline Station. Across
-        <br />
-        Dr. Pena Clinic, Minglanilla, Cebu
+        Upper Tulay, Minglanilla, Cebu, Philippines (near Shell Gasoline Station, across Dr. Peña Clinic.)
       </p>
     ),
   },
@@ -118,13 +114,13 @@ const infoCards = [
     title: null,
     content: (
       <p style={bodyTextStyle}>
-        You can expect a friendly atmosphere,
+        You can expect a friendly atmosphere, uplifting praise
         <br />
-        uplifting praise and worship, and a
+        and worship, and a
         <br />
-        Bible-based message that encourages
+        Bible based message that encourages and strengthens
         <br />
-        and strengthens your faith.
+        your faith.
       </p>
     ),
   },
@@ -133,14 +129,14 @@ const infoCards = [
     title: null,
     content: (
       <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-        <p style={bodyTextStyle}>+63 950 948 3903</p>
-        <p style={bodyTextStyle}>jcnamingla@gmail.com</p>
+        <p style={bodyTextStyle}>+63 951 491 1577</p>
+        <p style={bodyTextStyle}>onefoldassembly@gmail.com</p>
       </div>
     ),
   },
 ];
 
-// ── Page ─────────────────────────────────────────────────────────────────────
+// ── Page ──────────────────────────────────────────────────────────────────────
 
 export default function VisitUsPage() {
   return (
@@ -287,11 +283,11 @@ export default function VisitUsPage() {
             minHeight: "300px",
           }}
         >
-          {/* Map */}
+          {/* Map — iframe embed src stays as-is, this is correct */}
           <div className="flex-1 relative" style={{ minHeight: "260px" }}>
             <iframe
               title="JCNA Location"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3925.4!2d123.7!3d10.23!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33a999b2a2e2a2a1%3A0x0!2sN.B+Bacalso+National+Hwy%2C+Minglanilla%2C+Cebu!5e0!3m2!1sen!2sph!4v1700000000000!5m2!1sen!2sph"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d74704.02732368202!2d123.78717022278703!3d10.249742118941036!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33a977fac09dc6af%3A0xda93be23da18c422!2sJESUS%20CHRIST%20OF%20NAZARETH%20ONEFOLD%20ASSEMBLY!5e0!3m2!1sen!2sph!4v1778646023673!5m2!1sen!2sph"
               style={{ width: "100%", height: "100%", border: 0, display: "block", minHeight: "260px" }}
               allowFullScreen
               loading="lazy"
@@ -337,8 +333,10 @@ export default function VisitUsPage() {
               a Christ-centered community filled with worship, fellowship, and
               faith.
             </p>
+
+            {/* ✅ FIXED: href now links to the real Google Maps place URL, not the embed URL */}
             <a
-              href="https://maps.google.com/?q=N.B+Bacalso+National+Highway,+Minglanilla,+Cebu"
+              href="https://maps.google.com/?q=JESUS+CHRIST+OF+NAZARETH+ONEFOLD+ASSEMBLY,Minglanilla,Cebu,Philippines"
               target="_blank"
               rel="noopener noreferrer"
               style={{
@@ -361,7 +359,7 @@ export default function VisitUsPage() {
                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
                 <circle cx="12" cy="10" r="3" />
               </svg>
-              Open in Google Map
+              Open in Google Maps
             </a>
           </div>
         </div>

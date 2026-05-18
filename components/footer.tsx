@@ -152,11 +152,11 @@ const Footer = () => {
                 className="font-dm mb-4"
                 style={{ fontSize: "14px", color: "#4A7C2F", lineHeight: 1.7 }}
               >
-                N.B Bacalso National Highway, Tughaan,
+                Natalio B. Bacalso National Highway, 
                 <br />
-                Minglanilla 6046 Near Shell Gasoline
+                Upper Tulay, Minglanilla, Cebu, Philippines
                 <br />
-                Station. Across Dr. Pena Clinic, Minglanilla, Cebu
+                (near Shell Gasoline Station, across Dr. Peña Clinic.)
               </p>
 
               <div className="flex items-center gap-2 mb-2">
