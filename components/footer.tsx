@@ -89,9 +89,9 @@ const Footer = () => {
   };
 
   const handleExploreClick = (item: string) => {
-    if (item === "What we do") scrollOrNavigate("what-we-do");
-    else if (item === "Who we are") router.push("/WhoWeAre");
-    else if (item === "Outreaches") scrollOrNavigate("outreaches");
+            if (item === "Who we are") router.push("who-we-are");
+            else if (item === "What we do") scrollOrNavigate("what-we-do");
+    else if (item === "Visit Us") router.push("VisitUs");
     else if (item === "Church Ministries") scrollOrNavigate("church-ministries");
   };
 
@@ -147,7 +147,7 @@ const Footer = () => {
                 messages, and genuine community. All are welcome.
               </p>
 
-              <p style={labelStyle}>LOCATION</p>
+              <p style={labelStyle}>MAIN CHURCH</p>
               <p
                 className="font-dm mb-4"
                 style={{ fontSize: "14px", color: "#4A7C2F", lineHeight: 1.7 }}
@@ -161,13 +161,13 @@ const Footer = () => {
 
               <div className="flex items-center gap-2 mb-2">
                 <PhoneIcon />
-                <span style={contactTextStyle}>+63 950 948 3903</span>
+                <span style={contactTextStyle}>+63 951 491 1577</span>
               </div>
 
               <div className="flex items-center gap-2">
                 <MailIcon />
                 <span style={{ ...contactTextStyle, wordBreak: "break-all" }}>
-                  jcnamingla@gmail.com
+                  onefoldassembly@gmail.com
                 </span>
               </div>
             </div>
@@ -176,7 +176,7 @@ const Footer = () => {
             <div>
               <p style={labelStyle}>EXPLORE</p>
               <div className="flex flex-col gap-3 mb-6">
-                {["What we do", "Who we are", "Outreaches", "Church Ministries"].map((item) => (
+                {["Home", "Who we are", "What we do", "Visit Us", ].map((item) => (
                   <button
                     key={item}
                     onClick={() => handleExploreClick(item)}

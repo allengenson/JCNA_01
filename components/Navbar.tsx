@@ -7,7 +7,7 @@ import PrayerRequestModal from "./PrayerRequestModal";
 const SERMONS_URL =
   "https://web.facebook.com/watch/live/?share_url=https%3A%2F%2Fweb.facebook.com%2Fshare%2Fv%2F1E21t363eA%2F%3F_rdc%3D1%26_rdr&ref=watch_permalink&v=1466177158314042&rdid=6Ar7woilInyAAOrb";
 
-const menuItems = ["HOME", "WHO WE ARE", "WHAT WE DO", "SERMONS", "VISIT US"];
+const menuItems = ["HOME", "WHO WE ARE", "WHAT WE DO", "CONTACT US", "VISIT US"];
 
 const scrollToId = (id: string) => {
   const el = document.getElementById(id);
@@ -39,11 +39,12 @@ const Navbar = () => {
     setOpen(false);
     setActiveItem(item);
 
-    if (item === "SERMONS") {
+    if (item === "CONTACT US") {
       window.open(SERMONS_URL, "_blank", "noopener,noreferrer");
       return;
     }
     if (item === "WHO WE ARE") { router.push("/WhoWeAre"); return; }
+    if (item === "CONTACT US") { router.push("/ContactUs"); return; }
     if (item === "VISIT US") { router.push("/VisitUs"); return; }
     if (item === "WHAT WE DO") {
       isHome ? scrollToId("what-we-do") : router.push("/#what-we-do");
