@@ -26,8 +26,8 @@ import ChildrenMinistryPanel from "./ministryPanels/ChildrenMinistryPanel";
 // ── Panel imports (Special Events) ──
 import BaptismPanel from "./eventPanels/BaptismPanel";
 import AnniversariesPanel from "./eventPanels/AnniversariesPanel";
-import WeddingsPanel from "./eventPanels/Weddingspanel";
-import DedicationsPanel from  "./eventPanels/Dedicationspanel";
+import WeddingsPanel from "./eventPanels/WeddingsPanel";
+import DedicationsPanel from "./eventPanels/DedicationsPanel";
 
 // ─────────────────────────────────────────────
 // Types
@@ -35,7 +35,7 @@ import DedicationsPanel from  "./eventPanels/Dedicationspanel";
 type TopTab = "church-service" | "service-volunteers" | "church-ministries" | "special-events";
 
 // ─────────────────────────────────────────────
-// Tab data — each tab has its own accordion items
+// Tab data — label only, no icons
 // ─────────────────────────────────────────────
 const tabData: Record<TopTab, { id: string; label: string }[]> = {
   "church-service": [
@@ -54,10 +54,10 @@ const tabData: Record<TopTab, { id: string; label: string }[]> = {
     { id: "workers",          label: "Workers"          },
   ],
   "church-ministries": [
-    { id: "word",              label: "Ministry of the Word & Evangelism" },
-    { id: "couples",           label: "Couples Ministry"                  },
-    { id: "youth",             label: "Youth Ministry"                    },
-    { id: "children-ministry", label: "Children Ministry"                 },
+    { id: "word",              label: "Word & Evangelism" },
+    { id: "couples",           label: "Couples Ministry"  },
+    { id: "youth",             label: "Youth Ministry"    },
+    { id: "children-ministry", label: "Children Ministry" },
   ],
   "special-events": [
     { id: "baptism",       label: "Baptism"       },
@@ -68,10 +68,10 @@ const tabData: Record<TopTab, { id: string; label: string }[]> = {
 };
 
 const topTabs: { id: TopTab; label: string }[] = [
-  { id: "church-service",    label: "Church Service"    },
-  { id: "service-volunteers",label: "Service Volunteers"},
-  { id: "church-ministries", label: "Church Ministries" },
-  { id: "special-events",    label: "Special Events"    },
+  { id: "church-service",     label: "Church Service" },
+  { id: "service-volunteers", label: "Volunteers"     },
+  { id: "church-ministries",  label: "Ministries"     },
+  { id: "special-events",     label: "Events"         },
 ];
 
 // ─────────────────────────────────────────────
@@ -140,20 +140,18 @@ const WhatWeDo = () => {
   const sectionRef = useRef<HTMLDivElement>(null!);
   const inView     = useInView(sectionRef);
 
-  // which top tab is selected
   const [activeTab,    setActiveTab]    = useState<TopTab>("church-service");
   const [displayedTab, setDisplayedTab] = useState<TopTab>("church-service");
   const [tabFading,    setTabFading]    = useState(false);
 
-  // which accordion item is open — one per tab, all independent
+  // One open item per tab — null means none open
   const [openItems, setOpenItems] = useState<Record<TopTab, string | null>>({
-    "church-service":    null,
+    "church-service":     null,
     "service-volunteers": null,
-    "church-ministries": null,
-    "special-events":    null,
+    "church-ministries":  null,
+    "special-events":     null,
   });
 
-  // switch top tab with fade
   const handleTabSwitch = (tab: TopTab) => {
     if (tab === activeTab) return;
     setTabFading(true);
@@ -164,7 +162,7 @@ const WhatWeDo = () => {
     }, 220);
   };
 
-  // toggle accordion item
+  // Clicking the open card closes it; clicking another card replaces it
   const handleToggle = (tab: TopTab, id: string) => {
     setOpenItems(prev => ({
       ...prev,
@@ -178,7 +176,6 @@ const WhatWeDo = () => {
   return (
     <>
       <style>{`
-        /* ── entrance ── */
         @keyframes wwd-fadeUp {
           from { opacity:0; transform:translateY(20px); }
           to   { opacity:1; transform:translateY(0);    }
@@ -187,18 +184,9 @@ const WhatWeDo = () => {
           from { transform:scaleX(0); opacity:0; }
           to   { transform:scaleX(1); opacity:1; }
         }
-        /* ── accordion ── */
         @keyframes wwd-contentIn {
-          from { opacity:0; transform:translateY(10px); }
-          to   { opacity:1; transform:translateY(0);    }
-        }
-        @keyframes wwd-barIn {
-          from { transform:scaleY(0); }
-          to   { transform:scaleY(1); }
-        }
-        @keyframes wwd-dotPulse {
-          0%,100% { box-shadow:0 0 0 0   rgba(45,80,22,.4); }
-          50%      { box-shadow:0 0 0 5px rgba(45,80,22,0);  }
+          from { opacity:0; transform:translateY(8px); }
+          to   { opacity:1; transform:translateY(0);   }
         }
 
         /* ── top tab pills ── */
@@ -223,98 +211,93 @@ const WhatWeDo = () => {
           transition:background 220ms ease, color 220ms ease,
                       border-color 220ms ease, transform 120ms ease;
         }
-        .wwd-top-pill:active   { transform:scale(0.96); }
-        .wwd-top-pill.active   { background:#2D5016; border-color:#2D5016; color:#F6F8F1; font-weight:700; }
+        .wwd-top-pill:active { transform:scale(0.96); }
+        .wwd-top-pill.active { background:#2D5016; border-color:#2D5016; color:#F6F8F1; font-weight:700; }
         .wwd-top-pill:not(.active):hover { border-color:#82B657; color:#82B657; }
-
-        /* Special Events pill — subtle golden glow when inactive */
-        .wwd-top-pill.special:not(.active) {
-          border-color:#D4A017;
-          color:#D4A017;
-        }
-        .wwd-top-pill.special:not(.active):hover {
-          border-color:#B8860B;
-          color:#B8860B;
-          background:rgba(212,160,23,0.06);
-        }
-        .wwd-top-pill.special.active {
-          background:#2D5016;
-          border-color:#2D5016;
-          color:#F6F8F1;
-        }
 
         /* ── tab body fade ── */
         .wwd-tab-body { transition:opacity 220ms ease, transform 220ms ease; }
         .wwd-tab-body.fading  { opacity:0; transform:translateY(8px); }
         .wwd-tab-body.visible { opacity:1; transform:translateY(0);   }
 
-        /* ── accordion row — no borders, just words ── */
-        .wwd-acc-row {
-          position:relative;
-          overflow:hidden; transition:background 300ms ease;
+        /* ── card grid ── */
+        .wwd-card-grid {
+          display:grid;
+          grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));
+          gap:12px;
+          margin-top:28px;
         }
-        .wwd-acc-row.is-open { background:rgba(130,182,87,0.04); }
-
-        .wwd-left-bar {
-          position:absolute; left:0; top:0; bottom:0; width:3px;
-          background:#82B657; border-radius:0 2px 2px 0;
-          transform-origin:top;
-          animation:wwd-barIn 0.35s cubic-bezier(0.22,1,0.36,1) both;
+        @media(max-width:420px){
+          .wwd-card-grid { grid-template-columns:repeat(2, 1fr); gap:8px; }
         }
 
-        .wwd-acc-header {
+        .wwd-card {
           display:flex; align-items:center; justify-content:center;
-          position:relative; width:100%; padding:14px 56px;
-          background:transparent; border:none; cursor:pointer; gap:12px;
+          padding:20px 14px;
+          background:#fff;
+          border:1.5px solid #E5DECA;
+          border-radius:10px; cursor:pointer;
+          transition:border-color 250ms ease, background 250ms ease,
+                      transform 150ms ease, box-shadow 250ms ease;
+          text-align:center;
         }
-        @media(max-width:520px){
-          .wwd-acc-header { padding:12px 48px 12px 16px; }
-          .wwd-close-btn  { right:14px; }
+        .wwd-card:hover {
+          border-color:#82B657;
+          box-shadow:0 4px 16px rgba(45,80,22,0.10);
+          transform:translateY(-2px);
         }
-
-        .wwd-acc-label {
+        .wwd-card.is-open {
+          background:#F0F5E8;
+          border-color:#2D5016;
+          box-shadow:0 4px 18px rgba(45,80,22,0.13);
+        }
+        .wwd-card-label {
           font-family:'Cormorant Garamond',serif;
-          font-size:clamp(17px,3vw,24px); letter-spacing:0.12em;
-          font-weight:500; line-height:1; color:#D4A017;
-          display:flex; align-items:center; gap:10px;
-          transition:color 250ms ease, font-style 250ms ease;
+          font-size:clamp(14px,2.2vw,16px);
+          letter-spacing:0.07em; font-weight:500;
+          color:#D4A017; line-height:1.3;
+          transition:color 250ms ease;
         }
-        /* when open: italic, green, no bullet */
-        .wwd-acc-row.is-open .wwd-acc-label {
+        .wwd-card.is-open .wwd-card-label {
           color:#2D5016; font-weight:600; font-style:italic;
         }
-        /* hover on closed rows */
-        .wwd-acc-row:not(.is-open) .wwd-acc-header:hover .wwd-acc-label {
-          color:#82B657;
-        }
 
-        /* close button — only shown when open */
-        .wwd-close-btn {
-          position:absolute; right:24px; top:50%; transform:translateY(-50%);
-          width:26px; height:26px; border-radius:50%;
+        /* ── expanded panel ── */
+        .wwd-panel-wrap {
+          margin-top:20px;
+          border:1.5px solid #2D5016;
+          border-radius:12px;
+          background:#fff;
+          overflow:hidden;
+          animation:wwd-contentIn 0.38s cubic-bezier(0.22,1,0.36,1) both;
+        }
+        .wwd-panel-header {
+          display:flex; align-items:center; justify-content:space-between;
+          padding:14px 20px;
+          border-bottom:1px solid #E5DECA;
+          background:#F0F5E8;
+        }
+        .wwd-panel-title {
+          font-family:'Cormorant Garamond',serif;
+          font-size:clamp(16px,2.8vw,20px);
+          color:#2D5016; font-weight:600;
+          letter-spacing:0.08em; font-style:italic;
+        }
+        .wwd-panel-close {
+          width:28px; height:28px; border-radius:50%;
           background:#2D5016; border:none; flex-shrink:0;
           display:flex; align-items:center; justify-content:center;
-          color:#fff; cursor:pointer;
-          animation:wwd-contentIn 0.25s ease both;
+          cursor:pointer;
+          transition:background 200ms ease, transform 150ms ease;
         }
-        .wwd-close-btn svg {
+        .wwd-panel-close:hover { background:#3d6e20; transform:scale(1.08); }
+        .wwd-panel-close svg {
           width:12px; height:12px; stroke:#fff;
           stroke-width:2.5; stroke-linecap:round;
         }
-
-        /* ── collapsible body ── */
-        .wwd-acc-body {
-          display:grid; grid-template-rows:0fr;
-          transition:grid-template-rows 420ms cubic-bezier(0.22,1,0.36,1);
-        }
-        .wwd-acc-row.is-open .wwd-acc-body { grid-template-rows:1fr; }
-        .wwd-acc-inner   { overflow:hidden; }
-        .wwd-acc-content {
-          padding:4px 40px 36px;
-          animation:wwd-contentIn 0.4s cubic-bezier(0.22,1,0.36,1) 0.15s both;
-        }
+        .wwd-panel-body { padding:24px 28px 32px; }
         @media(max-width:520px){
-          .wwd-acc-content { padding:4px 16px 28px; }
+          .wwd-panel-body { padding:18px 16px 24px; }
         }
       `}</style>
 
@@ -327,7 +310,6 @@ const WhatWeDo = () => {
           className="w-full max-w-[960px] lg:max-w-full mx-auto px-4 sm:px-8 lg:px-20
                      pt-14 pb-0 lg:pt-[70px]"
         >
-
           {/* ── HEADING ── */}
           <div
             className="text-center mb-8 lg:mb-10"
@@ -348,7 +330,7 @@ const WhatWeDo = () => {
                 lineHeight: 1,
               }}
             >
-              What We Do —
+              What We Do
             </h2>
             <div
               style={{
@@ -378,7 +360,7 @@ const WhatWeDo = () => {
               <button
                 key={tab.id}
                 onClick={() => handleTabSwitch(tab.id)}
-                className={`wwd-top-pill${tab.id === "special-events" ? " special" : ""}${activeTab === tab.id ? " active" : ""}`}
+                className={`wwd-top-pill${activeTab === tab.id ? " active" : ""}`}
               >
                 {tab.label}
               </button>
@@ -386,60 +368,68 @@ const WhatWeDo = () => {
           </div>
 
           {/* thin rule under pills */}
-          <div style={{ height:"1px", background:"#C5D09B", margin:"18px 0 0" }} />
+          <div style={{ height: "1px", background: "#C5D09B", margin: "18px 0 0" }} />
 
-        </div>
+          {/* ── CARD GRID + PANEL ── */}
+          <div className={`wwd-tab-body${tabFading ? " fading" : " visible"} pb-16 lg:pb-[80px]`}>
 
-        {/* ── ACCORDION (full width, switches per tab) ── */}
-        <div
-          className={`wwd-tab-body${tabFading ? " fading" : " visible"}`}
-        >
-          <div className="w-full max-w-[960px] lg:max-w-full mx-auto px-4 sm:px-8 lg:px-20 pb-16 lg:pb-[80px]">
-            {items.map((item, i) => {
-              const isOpen = openId === item.id;
-              return (
-                <div
-                  key={item.id}
-                  className={`wwd-acc-row${isOpen ? " is-open" : ""}`}
-                  style={{
-                    animation: inView
-                      ? `wwd-fadeUp 0.6s cubic-bezier(0.22,1,0.36,1) ${0.22 + i * 0.06}s both`
-                      : undefined,
-                    opacity: inView ? undefined : 0,
-                  }}
-                >
-                  {isOpen && <div className="wwd-left-bar" />}
-
+            {/* Cards */}
+            <div
+              className="wwd-card-grid"
+              style={{
+                animation: inView
+                  ? "wwd-fadeUp 0.65s cubic-bezier(0.22,1,0.36,1) 0.22s both"
+                  : undefined,
+                opacity: inView ? undefined : 0,
+              }}
+            >
+              {items.map(item => {
+                const isOpen = openId === item.id;
+                return (
                   <button
-                    className="wwd-acc-header"
+                    key={item.id}
+                    className={`wwd-card${isOpen ? " is-open" : ""}`}
                     onClick={() => handleToggle(displayedTab, item.id)}
                     aria-expanded={isOpen}
+                    aria-controls={`panel-${item.id}`}
                   >
-                    <span className="wwd-acc-label">
-                      {item.label}
-                    </span>
-                    {isOpen && (
-                      <span className="wwd-close-btn" aria-label="Close">
-                        <svg viewBox="0 0 14 14" fill="none">
-                          <line x1="2" y1="2" x2="12" y2="12" />
-                          <line x1="12" y1="2" x2="2" y2="12" />
-                        </svg>
-                      </span>
-                    )}
+                    <span className="wwd-card-label">{item.label}</span>
                   </button>
+                );
+              })}
+            </div>
 
-                  <div className="wwd-acc-body" aria-hidden={!isOpen}>
-                    <div className="wwd-acc-inner">
-                      {isOpen && (
-                        <div className="wwd-acc-content">
-                          {getPanel(displayedTab, item.id)}
-                        </div>
-                      )}
-                    </div>
+            {/* Single expanded panel — keyed so it re-animates on switch */}
+            {openId && (() => {
+              const item = items.find(i => i.id === openId)!;
+              return (
+                <div
+                  key={openId}
+                  id={`panel-${openId}`}
+                  className="wwd-panel-wrap"
+                  role="region"
+                  aria-label={item.label}
+                >
+                  <div className="wwd-panel-header">
+                    <span className="wwd-panel-title">{item.label}</span>
+                    <button
+                      className="wwd-panel-close"
+                      aria-label={`Close ${item.label}`}
+                      onClick={() => handleToggle(displayedTab, openId)}
+                    >
+                      <svg viewBox="0 0 14 14" fill="none">
+                        <line x1="2" y1="2" x2="12" y2="12" />
+                        <line x1="12" y1="2" x2="2" y2="12" />
+                      </svg>
+                    </button>
+                  </div>
+                  <div className="wwd-panel-body">
+                    {getPanel(displayedTab, openId)}
                   </div>
                 </div>
               );
-            })}
+            })()}
+
           </div>
         </div>
 
