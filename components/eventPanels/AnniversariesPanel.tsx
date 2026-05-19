@@ -3,12 +3,12 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 
 const images = [
-  "/word evangelism/1.jpg",
-  "/word evangelism/2.jpg",
-  "/word evangelism/3.jpg",
+  "/special-events/anniversaries/1.jpg",
+  "/special-events/anniversaries/2.jpg",
+  "/special-events/anniversaries/3.jpg",
 ];
 
-const WordEvangelismPanel = () => {
+const AnniversariesPanel = () => {
   const [current, setCurrent] = useState(0);
   const [animating, setAnimating] = useState(false);
   const touchStartX = useRef<number | null>(null);
@@ -49,11 +49,14 @@ const WordEvangelismPanel = () => {
       position: "absolute", top: "50%", width: "62%", aspectRatio: "4/3",
       borderRadius: 16, objectFit: "cover",
       transition: "all 0.35s cubic-bezier(0.4, 0, 0.2, 1)",
-      transform: isCenter ? "translateX(-50%) translateY(-50%) scale(1)"
-        : pos === 1 ? "translateX(28%) translateY(-50%) scale(0.82)"
-        : "translateX(-128%) translateY(-50%) scale(0.82)",
+      transform: isCenter
+        ? "translateX(-50%) translateY(-50%) scale(1)"
+        : pos === 1
+          ? "translateX(28%) translateY(-50%) scale(0.82)"
+          : "translateX(-128%) translateY(-50%) scale(0.82)",
       left: "50%",
-      opacity: isCenter ? 1 : 0.45, zIndex: isCenter ? 3 : 1,
+      opacity: isCenter ? 1 : 0.45,
+      zIndex: isCenter ? 3 : 1,
       boxShadow: isCenter ? "0 8px 32px rgba(45,80,22,0.18)" : "0 2px 8px rgba(45,80,22,0.08)",
       filter: isCenter ? "none" : "brightness(0.75)",
     };
@@ -66,7 +69,7 @@ const WordEvangelismPanel = () => {
       <div className="w-full lg:flex-1 flex-shrink-0" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
         <div className="relative w-full overflow-hidden" style={{ height: "clamp(190px, 54vw, 290px)", borderRadius: 20 }}>
           {images.map((src, i) => (
-            <img key={i} src={src} alt={`Evangelism photo ${i + 1}`} style={getSlideStyle(i)} />
+            <img key={i} src={src} alt={`Anniversary photo ${i + 1}`} style={getSlideStyle(i)} />
           ))}
           <button onClick={prev} aria-label="Previous" style={{ position: "absolute", left: 8, top: "50%", transform: "translateY(-50%)", background: "rgba(255,255,255,0.85)", border: "1px solid #82B657", borderRadius: "50%", width: 30, height: 30, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: "#2D5016", fontSize: 16, zIndex: 10, boxShadow: "0 2px 6px rgba(0,0,0,0.1)" }}>‹</button>
           <button onClick={next} aria-label="Next" style={{ position: "absolute", right: 8, top: "50%", transform: "translateY(-50%)", background: "rgba(255,255,255,0.85)", border: "1px solid #82B657", borderRadius: "50%", width: 30, height: 30, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: "#2D5016", fontSize: 16, zIndex: 10, boxShadow: "0 2px 6px rgba(0,0,0,0.1)" }}>›</button>
@@ -81,16 +84,14 @@ const WordEvangelismPanel = () => {
       {/* Right — Text */}
       <div className="w-full lg:flex-1 flex flex-col justify-center">
         <p className="font-dm text-center lg:text-left mb-7" style={{ fontSize: "clamp(12px, 3vw, 14px)", color: "#4A7C2F", lineHeight: 1.8, letterSpacing: "0.02em" }}>
-          The Ministry of the Word &amp; Evangelism is focused on preaching, teaching, and explaining
-          the Bible to strengthen the faith of believers. It also involves sharing the Gospel with people
-          who have not yet known Christ, encouraging them to develop a personal relationship with God.
-          Through sermons, outreach, and Bible studies, this ministry spreads the message of salvation
-          and spiritual truth.
+          Anniversaries are moments of gratitude and remembrance — celebrating the faithfulness of God
+          over the years. Whether marking the church's founding, a ministry milestone, or years of
+          dedicated service, these gatherings inspire the congregation to reflect on what God has done
+          and to press forward with renewed vision and hope.
         </p>
         <p className="font-dm italic text-center lg:text-left" style={{ fontSize: "clamp(12px, 3vw, 14px)", color: "#4A7C2F", lineHeight: 1.75, letterSpacing: "0.01em" }}>
-          How then shall they call on him in whom they have not believed? and how shall they believe
-          in him of whom they have not heard? and how shall they hear without a preacher?&nbsp;
-          <span style={{ fontStyle: "normal", fontWeight: 600 }}>Romans 10:14</span>
+          I have not stopped giving thanks for you, remembering you in my prayers.&nbsp;
+          <span style={{ fontStyle: "normal", fontWeight: 600 }}>Ephesians 1:16</span>
         </p>
       </div>
 
@@ -98,4 +99,4 @@ const WordEvangelismPanel = () => {
   );
 };
 
-export default WordEvangelismPanel;
+export default AnniversariesPanel;

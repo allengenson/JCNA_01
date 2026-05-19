@@ -10,16 +10,12 @@ type SubTab = "joyful" | "solemn";
 
 /* ── Joyful Content ─────────────────────────────────────────────────────── */
 const JoyfulContent = () => (
-  <div className="flex flex-col items-center w-full">
-    <p
-      className="font-cormorant italic text-center mb-4"
-      style={{ fontSize: "clamp(14px, 2.8vw, 17px)", color: "#D4A017", lineHeight: 1.5 }}
-    >
-      "Where joy overflows, His glory fills the room."
-    </p>
+  <div className="flex flex-col lg:flex-row items-center lg:items-start w-full gap-8 lg:gap-10">
 
-    <div className="w-full rounded-[20px] overflow-hidden border border-[#6AAD4F] mb-6"
-      style={{ maxWidth: 540, aspectRatio: "16/9" }}
+    {/* Left — Video */}
+    <div
+      className="w-full lg:flex-1 rounded-[20px] overflow-hidden flex-shrink-0"
+      style={{ border: "1px solid #6AAD4F", aspectRatio: "16/9" }}
     >
       <iframe
         src="https://www.youtube.com/embed/VAstQmugNP4?si=-mpSHoR0nc8kGVDr"
@@ -32,35 +28,42 @@ const JoyfulContent = () => (
       />
     </div>
 
-    <p
-      className="font-dm text-center mb-6"
-      style={{ fontSize: "clamp(12px, 2.5vw, 14px)", color: "#4A7C2F", lineHeight: 1.85, maxWidth: 520 }}
-    >
-      <span style={{ fontWeight: 700, color: "#2D5016" }}>Joyful praise</span> is an exuberant, celebratory expression of worship offered to God with singing, clapping, and uplifted voices. It celebrates His goodness, faithfulness, and the victory found only in Him — an outward declaration of an inward joy that cannot be contained.
-    </p>
+    {/* Right — Text */}
+    <div className="w-full lg:flex-1 flex flex-col justify-center">
+      <p
+        className="font-cormorant italic text-center lg:text-left mb-4"
+        style={{ fontSize: "clamp(14px, 2.8vw, 17px)", color: "#D4A017", lineHeight: 1.5 }}
+      >
+        "Where joy overflows, His glory fills the room."
+      </p>
 
-    <p
-      className="font-cormorant italic text-center"
-      style={{ fontSize: "clamp(14px, 2.8vw, 17px)", color: "#D4A017", lineHeight: 1.75, maxWidth: 500 }}
-    >
-      "Make a joyful noise unto the Lord, all ye lands. Serve the Lord with gladness: come before his presence with singing."{" "}
-      <span style={{ fontStyle: "normal", fontWeight: 600, color: "#2D5016" }}>— Psalm 100:1–2</span>
-    </p>
+      <p
+        className="font-dm text-center lg:text-left mb-6"
+        style={{ fontSize: "clamp(12px, 2.5vw, 14px)", color: "#4A7C2F", lineHeight: 1.85 }}
+      >
+        <span style={{ fontWeight: 700, color: "#2D5016" }}>Joyful praise</span> is an exuberant, celebratory expression of worship offered to God with singing, clapping, and uplifted voices. It celebrates His goodness, faithfulness, and the victory found only in Him — an outward declaration of an inward joy that cannot be contained.
+      </p>
+
+      <p
+        className="font-cormorant italic text-center lg:text-left"
+        style={{ fontSize: "clamp(14px, 2.8vw, 17px)", color: "#D4A017", lineHeight: 1.75 }}
+      >
+        "Make a joyful noise unto the Lord, all ye lands. Serve the Lord with gladness: come before his presence with singing."{" "}
+        <span style={{ fontStyle: "normal", fontWeight: 600, color: "#2D5016" }}>— Psalm 100:1–2</span>
+      </p>
+    </div>
+
   </div>
 );
 
 /* ── Solemn Content ─────────────────────────────────────────────────────── */
 const SolemnContent = () => (
-  <div className="flex flex-col items-center w-full">
-    <p
-      className="font-cormorant italic text-center mb-4"
-      style={{ fontSize: "clamp(14px, 2.8vw, 17px)", color: "#D4A017", lineHeight: 1.5 }}
-    >
-      "In stillness and reverence, we draw near to the Holy."
-    </p>
+  <div className="flex flex-col lg:flex-row items-center lg:items-start w-full gap-8 lg:gap-10">
 
-    <div className="w-full rounded-[20px] overflow-hidden border border-[#6AAD4F] mb-6"
-      style={{ maxWidth: 540, aspectRatio: "16/9" }}
+    {/* Left — Video */}
+    <div
+      className="w-full lg:flex-1 rounded-[20px] overflow-hidden flex-shrink-0"
+      style={{ border: "1px solid #6AAD4F", aspectRatio: "16/9" }}
     >
       <iframe
         src="https://www.youtube.com/embed/wIoWbOO636s?si=9o9Q6BhCdUX6M-bU"
@@ -73,20 +76,31 @@ const SolemnContent = () => (
       />
     </div>
 
-    <p
-      className="font-dm text-center mb-6"
-      style={{ fontSize: "clamp(12px, 2.5vw, 14px)", color: "#4A7C2F", lineHeight: 1.85, maxWidth: 520 }}
-    >
-      <span style={{ fontWeight: 700, color: "#2D5016" }}>Solemn worship</span> is a reverent, quiet, and deeply heartfelt form of praise offered before God with humility and awe. It acknowledges His holiness, His majesty, and the weight of His presence — a sacred stillness where the soul bows low and listens for His voice.
-    </p>
+    {/* Right — Text */}
+    <div className="w-full lg:flex-1 flex flex-col justify-center">
+      <p
+        className="font-cormorant italic text-center lg:text-left mb-4"
+        style={{ fontSize: "clamp(14px, 2.8vw, 17px)", color: "#D4A017", lineHeight: 1.5 }}
+      >
+        "In stillness and reverence, we draw near to the Holy."
+      </p>
 
-    <p
-      className="font-cormorant italic text-center"
-      style={{ fontSize: "clamp(14px, 2.8vw, 17px)", color: "#D4A017", lineHeight: 1.75, maxWidth: 500 }}
-    >
-      "God is greatly to be feared in the assembly of the saints, and to be had in reverence of all them that are about him."{" "}
-      <span style={{ fontStyle: "normal", fontWeight: 600, color: "#2D5016" }}>— Psalm 89:7</span>
-    </p>
+      <p
+        className="font-dm text-center lg:text-left mb-6"
+        style={{ fontSize: "clamp(12px, 2.5vw, 14px)", color: "#4A7C2F", lineHeight: 1.85 }}
+      >
+        <span style={{ fontWeight: 700, color: "#2D5016" }}>Solemn worship</span> is a reverent, quiet, and deeply heartfelt form of praise offered before God with humility and awe. It acknowledges His holiness, His majesty, and the weight of His presence — a sacred stillness where the soul bows low and listens for His voice.
+      </p>
+
+      <p
+        className="font-cormorant italic text-center lg:text-left"
+        style={{ fontSize: "clamp(14px, 2.8vw, 17px)", color: "#D4A017", lineHeight: 1.75 }}
+      >
+        "God is greatly to be feared in the assembly of the saints, and to be had in reverence of all them that are about him."{" "}
+        <span style={{ fontStyle: "normal", fontWeight: 600, color: "#2D5016" }}>— Psalm 89:7</span>
+      </p>
+    </div>
+
   </div>
 );
 
@@ -96,14 +110,6 @@ const PraiseWorshipPanel = ({ onNavigate }: Props) => {
 
   return (
     <div className="flex flex-col items-center w-full">
-
-      {/* intro text */}
-      <p
-        className="font-dm text-center mb-6"
-        style={{ fontSize: "clamp(12px, 2.5vw, 14px)", color: "#4A7C2F", lineHeight: 1.85, maxWidth: 520 }}
-      >
-        Praise and worship is the act of honoring God through songs, prayer, and heartfelt devotion. It expresses gratitude for who He is and what He has done, bringing believers together in unity to glorify His name and draw people into His presence.
-      </p>
 
       {/* sub-tab toggle */}
       <div className="flex justify-center mb-8">
@@ -145,7 +151,7 @@ const PraiseWorshipPanel = ({ onNavigate }: Props) => {
       `}</style>
       <div
         key={sub}
-        className="w-full flex flex-col items-center"
+        className="w-full"
         style={{ animation: "pw-contentIn 0.35s cubic-bezier(0.22,1,0.36,1) both" }}
       >
         {sub === "joyful" ? <JoyfulContent /> : <SolemnContent />}
