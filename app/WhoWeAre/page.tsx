@@ -7,7 +7,7 @@ import React, { useEffect, useRef } from "react";
 const sections = [
   {
     icon: "🌿",
-    title: "Purpose",
+    title: "Goals",
     text: "We exist to be the end-time one fold church of the One Shepherd — Jesus Christ (John 10:16). Born in 2015 from a conviction that the Bible alone is the final authority, JCNA was established to gather the lost, stand firm on sound doctrine, and pursue holiness inside and out.",
   },
   {
@@ -142,7 +142,7 @@ export default function WhoWeArePage() {
             }}
           >
             <Image
-              src="/who-we-are.jpg"
+              src="/1.jpg"
               alt="Who We Are"
               fill
               style={{ objectFit: "cover" }}

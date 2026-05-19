@@ -13,15 +13,15 @@ const BibleStudyPanel = ({ onNavigate }: Props) => {
         className="w-full lg:flex-1 rounded-[20px] overflow-hidden flex-shrink-0"
         style={{ border: "1px solid #6AAD4F", aspectRatio: "16/9" }}
       >
-        <iframe
-          src="https://www.youtube.com/embed/p3LQ91OYZjw?si=f_2wcwPT6DFDx-at"
-          className="w-full h-full"
-          style={{ border: "none", display: "block" }}
-          title="Bible Study Video"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerPolicy="strict-origin-when-cross-origin"
-          allowFullScreen
-        />
+   <iframe
+  src="https://www.youtube.com/embed/2Qm7kDJ-B0M?si=W23554QDyN2otuXo"
+  className="w-full h-full"
+  style={{ border: "none", display: "block" }}
+  title="YouTube video player"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  referrerPolicy="strict-origin-when-cross-origin"
+  allowFullScreen
+/>
       </div>
 
       {/* Right — Text */}
