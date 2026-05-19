@@ -10,7 +10,7 @@ const YouthMinistryPanel = () => {
         style={{ border: "1px solid #82B657", borderRadius: 20, height: "clamp(190px, 54vw, 290px)" }}
       >
         <img
-          src="/gospel/gospel 1.jpg"
+          src="/gospel/1.jpg"
           alt="Youth Ministry"
           className="w-full h-full object-cover"
           style={{ borderRadius: 20 }}

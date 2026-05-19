@@ -3,9 +3,17 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 
 const images = [
-  "/special-events/weddings/1.jpg",
-  "/special-events/weddings/2.jpg",
-  "/special-events/weddings/3.jpg",
+  "/wedding/1.jpg",
+  "/wedding/2.jpg",
+  "/wedding/3.jpg",
+  "/wedding/4.jpg",
+  "/wedding/5.jpg",
+  "/wedding/6.jpg",
+  "/wedding/7.jpg",
+  "/wedding/8.jpg",
+  "/wedding/9.jpg",
+  "/wedding/10.jpg",
+  "/wedding/11.jpg",
 ];
 
 const WeddingsPanel = () => {

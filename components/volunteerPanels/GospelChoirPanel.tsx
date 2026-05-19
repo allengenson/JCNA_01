@@ -3,9 +3,13 @@
 import { useState, useEffect, useCallback } from "react";
 
 const slides = [
-  "/gospel/gospel 1.jpg",
-  "/gospel/gospel 2.jpg",
-  "/gospel/gospel.jpg",
+  "/gospel/1.jpg",
+  "/gospel/2.jpg",
+  "/gospel/3.jpg",
+  "/gospel/4.jpg",
+  "/gospel/5.jpg",
+  "/gospel/6.jpg",
+  "/gospel/7.jpg",
 ];
 
 const GospelChoirPanel = () => {

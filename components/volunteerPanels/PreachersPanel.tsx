@@ -3,8 +3,9 @@
 import { useState, useEffect, useCallback } from "react";
 
 const slides = [
-  "/preacher/preacher 1.jpg",
-  "/preacher/preachers.jpg",
+  "/preacher/1.jpg",
+  "/preacher/2.jpg",
+  "/preacher/3.jpg",
 ];
 
 const PreachersPanel = () => {

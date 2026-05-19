@@ -3,9 +3,13 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 
 const images = [
-  "/special-events/baptism/1.jpg",
-  "/special-events/baptism/2.jpg",
-  "/special-events/baptism/3.jpg",
+  "/baptism/1.jpg",
+  "/baptism/2.jpg",
+  "/baptism/3.jpg",
+   "/baptism/4.jpg",
+    "/baptism/5.jpg",
+     "/baptism/6.jpg",
+      "/baptism/7.jpg",
 ];
 
 const BaptismPanel = () => {

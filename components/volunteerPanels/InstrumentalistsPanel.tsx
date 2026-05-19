@@ -3,14 +3,14 @@
 import { useState, useEffect, useCallback } from "react";
 
 const slides = [
-  "/instru/instru 1.jpg",
-  "/instru/instru 2.jpg",
-  "/instru/instru 3.jpg",
-  "/instru/instru 4.jpg",
-  "/instru/instru 5.jpg",
-  "/instru/instru 6.jpg",
-  "/instru/instru 7.jpg",
-  "/instru/instru.jpg",
+  "/instru/1.jpg",
+  "/instru/2.jpg",
+  "/instru/3.jpg",
+  "/instru/4.jpg",
+  "/instru/5.jpg",
+  "/instru/6.jpg",
+  "/instru/7.jpg",
+  "/instru/8.jpg",
 ];
 
 const InstrumentalistsPanel = () => {

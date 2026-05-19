@@ -3,9 +3,10 @@
 import { useState, useEffect, useCallback } from "react";
 
 const slides = [
-  "/Adults/adults 1.jpg",
-  "/Adults/adults 2.jpg",
-  "/Adults/adults.jpg",
+  "/Adults/1.jpg",
+  "/Adults/2.jpg",
+  "/Adults/3.jpg",
+  "/Adults/4.jpg",
 ];
 
 const AdultsChoirPanel = () => {

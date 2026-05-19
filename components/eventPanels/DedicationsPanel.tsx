@@ -3,9 +3,9 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 
 const images = [
-  "/special-events/dedications/1.jpg",
-  "/special-events/dedications/2.jpg",
-  "/special-events/dedications/3.jpg",
+  "/dedication/1.jpg",
+  "/dedication/2.jpg",
+  "/dedication/3.jpg",
 ];
 
 const DedicationsPanel = () => {
