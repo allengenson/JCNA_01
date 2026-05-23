@@ -126,114 +126,155 @@ const Hero = () => {
         }
       `}</style>
 
-      <section className="w-full flex justify-center">
-        <div className="flex flex-col lg:flex-row w-full max-w-[1418px] min-h-[auto] lg:min-h-[676px]">
+      {/*
+        THE FIX:
+        The right panel's gradient background was clipped inside the Container's padding.
+        Solution: use a 2-layer approach:
+          - Outer section splits into left (bg FAFDF5) and right (bg gradient) at the lg breakpoint
+          - Left content is padded normally
+          - Right panel bg bleeds to the viewport edge, matching how the navbar border-b does
+        This makes the visual width appear identical to the navbar.
+      */}
 
-          {/* ── LEFT ── */}
-          <div className="flex-1 bg-[#FAFDF5] flex flex-col justify-start pt-6 lg:pt-10 px-5 sm:px-8 lg:px-12 py-10 lg:py-0
-            items-center lg:items-start text-center lg:text-left
-          ">
+      {/* Mobile & tablet: stacked layout (original behaviour) */}
+      <section className="w-full bg-[#FAFDF5] lg:hidden">
+        <div className="mx-auto w-full max-w-[1418px] px-6">
+          <div className="flex flex-col min-h-[auto]">
+            {/* LEFT */}
+            <div className="flex-1 flex flex-col justify-start pt-6 py-10 items-center text-center">
+              <p className={`welcome-label font-dm text-[11px] sm:text-[13px] text-[#D4A017] mb-4 sm:mb-6 ${visible ? "show" : ""}`}>
+                — WELCOME HOME
+              </p>
+              {titleLines.map((line, index) => (
+                <h1
+                  key={index}
+                  className={`title-line font-cormorant text-[32px] leading-[38px] sm:text-[42px] sm:leading-[48px] tracking-[0.05em] ${line.italic ? "italic" : ""} ${visible ? "show" : ""}`}
+                  style={{ color: line.color, transitionDelay: `${120 + index * 130}ms` }}
+                >
+                  {line.text}
+                </h1>
+              ))}
+              <p
+                className={`body-text font-dm text-[14px] sm:text-[16px] text-[#4A7C2F] max-w-[420px] mt-5 sm:mt-6 mb-6 sm:mb-8 leading-[1.6] ${visible ? "show" : ""}`}
+                style={{ transitionDelay: "520ms" }}
+              >
+                We are a community of believers rooted in grace, committed to one another, and growing together in the light of God's word.
+              </p>
+              <div
+                className={`btn-wrap flex flex-col sm:flex-row items-center gap-4 sm:gap-6 ${visible ? "show" : ""}`}
+                style={{ transitionDelay: "660ms" }}
+              >
+                <Link href="/VisitUs">
+                  <button className="btn-visit w-full sm:w-auto font-dm text-[14px] sm:text-[16px] text-white px-6 py-3 rounded-full bg-gradient-to-r from-[#4A7C2F] to-[#2D5016]">
+                    VISIT US
+                  </button>
+                </Link>
+                <a
+                  href="https://web.facebook.com/watch/live/?ref=watch_permalink&v=1466177158314042&rdid=N3v7QbbwKdr60noS"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="sermon-link font-dm text-[14px] sm:text-[16px] text-[#4A7C2F]"
+                >
+                  Watch latest sermon
+                </a>
+              </div>
+            </div>
 
-            {/* Welcome label */}
-            <p className={`welcome-label font-dm text-[11px] sm:text-[13px] text-[#D4A017] mb-4 sm:mb-6 ${visible ? "show" : ""}`}>
+            {/* RIGHT — mobile */}
+            <div
+              className={`right-panel w-full flex flex-col items-center justify-start pt-10 pb-10 ${visible ? "show" : ""}`}
+              style={{ background: "linear-gradient(to top left, #E8F5D6 0%, #FDF8E1 53%, #E8F0D0 98%)", borderRadius: "8px" }}
+            >
+              <div className={`logo-entrance ${visible ? "show" : ""}`}>
+                <img
+                  src="/logo.png"
+                  alt="Logo"
+                  className="logo-float w-[220px] h-[200px] sm:w-[300px] sm:h-[260px] object-contain"
+                />
+              </div>
+              <div
+                className={`card-entrance service-card mt-0 flex flex-col items-center justify-center w-[160px] h-[70px] sm:w-[185px] sm:h-[76px] rounded-full bg-white border ${visible ? "show" : ""}`}
+                style={{ borderColor: "rgba(212,160,23,0.5)" }}
+              >
+                <p className="font-semibold text-[12px] sm:text-[13px] text-[#4A7C2F] font-dm">Sunday Service</p>
+                <p className="text-[12px] sm:text-[13px] text-[#4A7C2F] font-dm">10:00 AM - 3:00 PM</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Desktop: side-by-side, right panel bg bleeds to viewport edge */}
+      <section className="hidden lg:flex w-full min-h-[676px]">
+
+        {/* LEFT — same bg as navbar, padded from left edge to center */}
+        <div className="flex-1 bg-[#FAFDF5] flex items-stretch">
+          {/*
+            This inner div pushes content to the right naturally.
+            max-w is half of 1418px = 709px, plus we use ml-auto to right-align it.
+            px-12 matches Container's lg:px-12.
+          */}
+          <div className="ml-auto w-full max-w-[709px] px-12 flex flex-col justify-center py-10">
+            <p className={`welcome-label font-dm text-[13px] text-[#D4A017] mb-6 ${visible ? "show" : ""}`}>
               — WELCOME HOME
             </p>
-
-            {/* Title lines — staggered */}
             {titleLines.map((line, index) => (
               <h1
                 key={index}
-                className={`title-line font-cormorant
-                  text-[32px] leading-[38px]
-                  sm:text-[42px] sm:leading-[48px]
-                  md:text-[52px] md:leading-[60px]
-                  lg:text-[65px] lg:leading-[79px]
-                  tracking-[0.05em]
-                  ${line.italic ? "italic" : ""}
-                  ${visible ? "show" : ""}
-                `}
-                style={{
-                  color: line.color,
-                  transitionDelay: `${120 + index * 130}ms`,
-                }}
+                className={`title-line font-cormorant text-[52px] leading-[60px] md:text-[65px] md:leading-[79px] tracking-[0.05em] ${line.italic ? "italic" : ""} ${visible ? "show" : ""}`}
+                style={{ color: line.color, transitionDelay: `${120 + index * 130}ms` }}
               >
                 {line.text}
               </h1>
             ))}
-
-            {/* Body text */}
             <p
-              className={`body-text font-dm text-[14px] sm:text-[16px] text-[#4A7C2F] max-w-[100%] sm:max-w-[420px] mt-5 sm:mt-6 mb-6 sm:mb-8 leading-[1.6] ${visible ? "show" : ""}`}
+              className={`body-text font-dm text-[16px] text-[#4A7C2F] max-w-[420px] mt-6 mb-8 leading-[1.6] ${visible ? "show" : ""}`}
               style={{ transitionDelay: "520ms" }}
             >
-              We are a community of believers rooted in grace, committed to one
-              another, and growing together in the light of God's word.
+              We are a community of believers rooted in grace, committed to one another, and growing together in the light of God's word.
             </p>
-
-            {/* Buttons */}
             <div
-              className={`btn-wrap flex flex-col sm:flex-row items-center lg:items-start gap-4 sm:gap-6 ${visible ? "show" : ""}`}
+              className={`btn-wrap flex items-center gap-6 ${visible ? "show" : ""}`}
               style={{ transitionDelay: "660ms" }}
             >
               <Link href="/VisitUs">
-                <button className="btn-visit w-full sm:w-auto font-dm text-[14px] sm:text-[16px] text-white px-6 py-3 rounded-full bg-gradient-to-r from-[#4A7C2F] to-[#2D5016]">
+                <button className="btn-visit font-dm text-[16px] text-white px-6 py-3 rounded-full bg-gradient-to-r from-[#4A7C2F] to-[#2D5016]">
                   VISIT US
                 </button>
               </Link>
-
               <a
                 href="https://web.facebook.com/watch/live/?ref=watch_permalink&v=1466177158314042&rdid=N3v7QbbwKdr60noS"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="sermon-link font-dm text-[14px] sm:text-[16px] text-[#4A7C2F]"
+                className="sermon-link font-dm text-[16px] text-[#4A7C2F]"
               >
                 Watch latest sermon
               </a>
             </div>
           </div>
-
-          {/* ── RIGHT ── */}
-          <div
-            className={`right-panel w-full lg:w-[47.5%] flex flex-col items-center justify-start pt-10 lg:pt-0 ${visible ? "show" : ""}`}
-            style={{
-              background: "linear-gradient(to top left, #E8F5D6 0%, #FDF8E1 53%, #E8F0D0 98%)",
-              borderRadius: "8px",
-            }}
-          >
-            {/* Logo */}
-            <div className={`logo-entrance ${visible ? "show" : ""}`}>
-              <img
-                src="/logo.png"
-                alt="Logo"
-                className="logo-float
-                  w-[220px] h-[200px]
-                  sm:w-[300px] sm:h-[260px]
-                  md:w-[360px] md:h-[320px]
-                  lg:w-[600px] lg:h-[550px]
-                  object-contain
-                "
-              />
-            </div>
-
-            {/* Service Card */}
-            <div
-              className={`card-entrance service-card mt-0 flex flex-col items-center justify-center
-                w-[160px] h-[70px]
-                sm:w-[185px] sm:h-[76px]
-                rounded-full bg-white border ${visible ? "show" : ""}
-              `}
-              style={{ borderColor: "rgba(212,160,23,0.5)" }}
-            >
-              <p className="font-semibold text-[12px] sm:text-[13px] text-[#4A7C2F] font-dm">
-                Sunday Service
-              </p>
-              <p className="text-[12px] sm:text-[13px] text-[#4A7C2F] font-dm">
-                10:00 AM - 3:00 PM
-              </p>
-            </div>
-          </div>
-
         </div>
+
+        {/* RIGHT — gradient bg bleeds to right viewport edge, content is left-padded */}
+        <div
+          className={`right-panel w-[47.5%] flex flex-col items-center justify-start pt-0 ${visible ? "show" : ""}`}
+          style={{ background: "linear-gradient(to top left, #E8F5D6 0%, #FDF8E1 53%, #E8F0D0 98%)" }}
+        >
+          <div className={`logo-entrance ${visible ? "show" : ""}`}>
+            <img
+              src="/logo.png"
+              alt="Logo"
+              className="logo-float w-[360px] h-[320px] md:w-[600px] md:h-[550px] object-contain"
+            />
+          </div>
+          <div
+            className={`card-entrance service-card mt-0 flex flex-col items-center justify-center w-[185px] h-[76px] rounded-full bg-white border ${visible ? "show" : ""}`}
+            style={{ borderColor: "rgba(212,160,23,0.5)" }}
+          >
+            <p className="font-semibold text-[13px] text-[#4A7C2F] font-dm">Sunday Service</p>
+            <p className="text-[13px] text-[#4A7C2F] font-dm">10:00 AM - 3:00 PM</p>
+          </div>
+        </div>
+
       </section>
     </>
   );

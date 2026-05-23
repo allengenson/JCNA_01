@@ -2,14 +2,12 @@
 
 import { useState, useEffect, useRef } from "react";
 
-// ── Panel imports (Church Service) ──
 import TestimoniesPanel from "./panels/TestimoniesPanel";
 import PreachingPanel from "./panels/PreachingPanel";
 import BibleStudyPanel from "./panels/BibleStudyPanel";
 import PraiseWorshipPanel from "./panels/PraiseWorshipPanel";
 import TithesPanel from "./panels/TithesPanel";
 
-// ── Panel imports (Service Volunteers) ──
 import PreachersPanel from "./volunteerPanels/PreachersPanel";
 import InstrumentalistsPanel from "./volunteerPanels/InstrumentalistsPanel";
 import WorkersPanel from "./volunteerPanels/WorkersPanel";
@@ -17,26 +15,18 @@ import ChildrenChoirPanel from "./volunteerPanels/ChildrenChoirPanel";
 import GospelChoirPanel from "./volunteerPanels/GospelChoirPanel";
 import AdultsChoirPanel from "./volunteerPanels/AdultsChoirPanel";
 
-// ── Panel imports (Church Ministries) ──
 import WordEvangelismPanel from "./ministryPanels/WordEvangelismPanel";
 import CouplesMinistryPanel from "./ministryPanels/CouplesMinistryPanel";
 import YouthMinistryPanel from "./ministryPanels/YouthMinistryPanel";
 import ChildrenMinistryPanel from "./ministryPanels/ChildrenMinistryPanel";
 
-// ── Panel imports (Special Events) ──
 import BaptismPanel from "./eventPanels/BaptismPanel";
 import AnniversariesPanel from "./eventPanels/AnniversariesPanel";
 import WeddingsPanel from "./eventPanels/WeddingsPanel";
 import DedicationsPanel from "./eventPanels/DedicationsPanel";
 
-// ─────────────────────────────────────────────
-// Types
-// ─────────────────────────────────────────────
 type TopTab = "church-service" | "service-volunteers" | "church-ministries" | "special-events";
 
-// ─────────────────────────────────────────────
-// Tab data — label only, no icons
-// ─────────────────────────────────────────────
 const tabData: Record<TopTab, { id: string; label: string }[]> = {
   "church-service": [
     { id: "praise-worship", label: "Praise and Worship"       },
@@ -74,9 +64,6 @@ const topTabs: { id: TopTab; label: string }[] = [
   { id: "special-events",     label: "Events"         },
 ];
 
-// ─────────────────────────────────────────────
-// Panel renderer
-// ─────────────────────────────────────────────
 function getPanel(tabId: TopTab, itemId: string) {
   if (tabId === "church-service") {
     switch (itemId) {
@@ -116,9 +103,6 @@ function getPanel(tabId: TopTab, itemId: string) {
   return null;
 }
 
-// ─────────────────────────────────────────────
-// InView hook
-// ─────────────────────────────────────────────
 function useInView(ref: React.RefObject<Element>, threshold = 0.08) {
   const [visible, setVisible] = useState(false);
   useEffect(() => {
@@ -133,9 +117,6 @@ function useInView(ref: React.RefObject<Element>, threshold = 0.08) {
   return visible;
 }
 
-// ─────────────────────────────────────────────
-// Main component
-// ─────────────────────────────────────────────
 const WhatWeDo = () => {
   const sectionRef = useRef<HTMLDivElement>(null!);
   const inView     = useInView(sectionRef);
@@ -144,7 +125,6 @@ const WhatWeDo = () => {
   const [displayedTab, setDisplayedTab] = useState<TopTab>("church-service");
   const [tabFading,    setTabFading]    = useState(false);
 
-  // One open item per tab — null means none open
   const [openItems, setOpenItems] = useState<Record<TopTab, string | null>>({
     "church-service":     null,
     "service-volunteers": null,
@@ -162,12 +142,8 @@ const WhatWeDo = () => {
     }, 220);
   };
 
-  // Clicking the open card closes it; clicking another card replaces it
   const handleToggle = (tab: TopTab, id: string) => {
-    setOpenItems(prev => ({
-      ...prev,
-      [tab]: prev[tab] === id ? null : id,
-    }));
+    setOpenItems(prev => ({ ...prev, [tab]: prev[tab] === id ? null : id }));
   };
 
   const items  = tabData[displayedTab];
@@ -189,7 +165,6 @@ const WhatWeDo = () => {
           to   { opacity:1; transform:translateY(0);   }
         }
 
-        /* ── top tab pills ── */
         .wwd-top-strip {
           display:flex; gap:10px;
           overflow-x:auto; scrollbar-width:none;
@@ -215,17 +190,14 @@ const WhatWeDo = () => {
         .wwd-top-pill.active { background:#2D5016; border-color:#2D5016; color:#F6F8F1; font-weight:700; }
         .wwd-top-pill:not(.active):hover { border-color:#82B657; color:#82B657; }
 
-        /* ── tab body fade ── */
         .wwd-tab-body { transition:opacity 220ms ease, transform 220ms ease; }
         .wwd-tab-body.fading  { opacity:0; transform:translateY(8px); }
         .wwd-tab-body.visible { opacity:1; transform:translateY(0);   }
 
-        /* ── card grid ── */
         .wwd-card-grid {
           display:grid;
           grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));
-          gap:12px;
-          margin-top:28px;
+          gap:12px; margin-top:28px;
         }
         @media(max-width:420px){
           .wwd-card-grid { grid-template-columns:repeat(2, 1fr); gap:8px; }
@@ -233,10 +205,8 @@ const WhatWeDo = () => {
 
         .wwd-card {
           display:flex; align-items:center; justify-content:center;
-          padding:20px 14px;
-          background:#fff;
-          border:1.5px solid #E5DECA;
-          border-radius:10px; cursor:pointer;
+          padding:20px 14px; background:#fff;
+          border:1.5px solid #E5DECA; border-radius:10px; cursor:pointer;
           transition:border-color 250ms ease, background 250ms ease,
                       transform 150ms ease, box-shadow 250ms ease;
           text-align:center;
@@ -247,8 +217,7 @@ const WhatWeDo = () => {
           transform:translateY(-2px);
         }
         .wwd-card.is-open {
-          background:#F0F5E8;
-          border-color:#2D5016;
+          background:#F0F5E8; border-color:#2D5016;
           box-shadow:0 4px 18px rgba(45,80,22,0.13);
         }
         .wwd-card-label {
@@ -258,101 +227,70 @@ const WhatWeDo = () => {
           color:#D4A017; line-height:1.3;
           transition:color 250ms ease;
         }
-        .wwd-card.is-open .wwd-card-label {
-          color:#2D5016; font-weight:600; font-style:italic;
-        }
+        .wwd-card.is-open .wwd-card-label { color:#2D5016; font-weight:600; font-style:italic; }
 
-        /* ── expanded panel ── */
         .wwd-panel-wrap {
-          margin-top:20px;
-          border:1.5px solid #2D5016;
-          border-radius:12px;
-          background:#fff;
-          overflow:hidden;
+          margin-top:20px; border:1.5px solid #2D5016;
+          border-radius:12px; background:#fff; overflow:hidden;
           animation:wwd-contentIn 0.38s cubic-bezier(0.22,1,0.36,1) both;
         }
         .wwd-panel-header {
           display:flex; align-items:center; justify-content:space-between;
-          padding:14px 20px;
-          border-bottom:1px solid #E5DECA;
-          background:#F0F5E8;
+          padding:14px 20px; border-bottom:1px solid #E5DECA; background:#F0F5E8;
         }
         .wwd-panel-title {
           font-family:'Cormorant Garamond',serif;
           font-size:clamp(16px,2.8vw,20px);
-          color:#2D5016; font-weight:600;
-          letter-spacing:0.08em; font-style:italic;
+          color:#2D5016; font-weight:600; letter-spacing:0.08em; font-style:italic;
         }
         .wwd-panel-close {
           width:28px; height:28px; border-radius:50%;
           background:#2D5016; border:none; flex-shrink:0;
-          display:flex; align-items:center; justify-content:center;
-          cursor:pointer;
+          display:flex; align-items:center; justify-content:center; cursor:pointer;
           transition:background 200ms ease, transform 150ms ease;
         }
         .wwd-panel-close:hover { background:#3d6e20; transform:scale(1.08); }
-        .wwd-panel-close svg {
-          width:12px; height:12px; stroke:#fff;
-          stroke-width:2.5; stroke-linecap:round;
-        }
+        .wwd-panel-close svg { width:12px; height:12px; stroke:#fff; stroke-width:2.5; stroke-linecap:round; }
         .wwd-panel-body { padding:24px 28px 32px; }
-        @media(max-width:520px){
-          .wwd-panel-body { padding:18px 16px 24px; }
-        }
+        @media(max-width:520px){ .wwd-panel-body { padding:18px 16px 24px; } }
       `}</style>
 
-      <div
-        id="what-we-do"
-        ref={sectionRef}
-        className="w-full bg-[#F6F8F1] overflow-hidden"
-      >
-        <div
-          className="w-full max-w-[960px] lg:max-w-full mx-auto px-4 sm:px-8 lg:px-20
-                     pt-14 pb-0 lg:pt-[70px]"
-        >
-          {/* ── HEADING ── */}
+      {/* ✅ FIX: full-width section for bg, inner div matches Container */}
+      <div id="what-we-do" ref={sectionRef} className="w-full bg-[#F6F8F1] overflow-hidden">
+        <div className="mx-auto w-full max-w-[1418px] px-6 lg:px-12 pt-14 pb-0 lg:pt-[70px]">
+
+          {/* HEADING */}
           <div
             className="text-center mb-8 lg:mb-10"
             style={{
-              animation: inView
-                ? "wwd-fadeUp 0.7s cubic-bezier(0.22,1,0.36,1) both"
-                : undefined,
+              animation: inView ? "wwd-fadeUp 0.7s cubic-bezier(0.22,1,0.36,1) both" : undefined,
               opacity: inView ? undefined : 0,
             }}
           >
             <h2
               className="font-cormorant"
               style={{
-                fontSize: "clamp(30px,5.5vw,46px)",
-                color: "#D4A017",
-                letterSpacing: "0.15em",
-                fontWeight: 500,
-                lineHeight: 1,
+                fontSize: "clamp(30px,5.5vw,46px)", color: "#D4A017",
+                letterSpacing: "0.15em", fontWeight: 500, lineHeight: 1,
               }}
             >
               What We Do
             </h2>
             <div
               style={{
-                height: "1px",
-                background: "#C5D09B",
-                marginTop: "22px",
+                height: "1px", background: "#C5D09B", marginTop: "22px",
                 transformOrigin: "center",
-                animation: inView
-                  ? "wwd-growH 0.9s cubic-bezier(0.22,1,0.36,1) 0.15s both"
-                  : undefined,
+                animation: inView ? "wwd-growH 0.9s cubic-bezier(0.22,1,0.36,1) 0.15s both" : undefined,
                 opacity: inView ? undefined : 0,
               }}
             />
           </div>
 
-          {/* ── TOP TAB PILLS ── */}
+          {/* TOP TAB PILLS */}
           <div
             className="wwd-top-strip mb-0"
             style={{
-              animation: inView
-                ? "wwd-fadeUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.18s both"
-                : undefined,
+              animation: inView ? "wwd-fadeUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.18s both" : undefined,
               opacity: inView ? undefined : 0,
             }}
           >
@@ -367,19 +305,14 @@ const WhatWeDo = () => {
             ))}
           </div>
 
-          {/* thin rule under pills */}
           <div style={{ height: "1px", background: "#C5D09B", margin: "18px 0 0" }} />
 
-          {/* ── CARD GRID + PANEL ── */}
+          {/* CARD GRID + PANEL */}
           <div className={`wwd-tab-body${tabFading ? " fading" : " visible"} pb-16 lg:pb-[80px]`}>
-
-            {/* Cards */}
             <div
               className="wwd-card-grid"
               style={{
-                animation: inView
-                  ? "wwd-fadeUp 0.65s cubic-bezier(0.22,1,0.36,1) 0.22s both"
-                  : undefined,
+                animation: inView ? "wwd-fadeUp 0.65s cubic-bezier(0.22,1,0.36,1) 0.22s both" : undefined,
                 opacity: inView ? undefined : 0,
               }}
             >
@@ -399,7 +332,6 @@ const WhatWeDo = () => {
               })}
             </div>
 
-            {/* Single expanded panel — keyed so it re-animates on switch */}
             {openId && (() => {
               const item = items.find(i => i.id === openId)!;
               return (
@@ -429,7 +361,6 @@ const WhatWeDo = () => {
                 </div>
               );
             })()}
-
           </div>
         </div>
 
@@ -438,9 +369,7 @@ const WhatWeDo = () => {
           className="w-full h-[1px] bg-[#C5D09B]"
           style={{
             transformOrigin: "center",
-            animation: inView
-              ? "wwd-growH 1s cubic-bezier(0.22,1,0.36,1) 0.6s both"
-              : undefined,
+            animation: inView ? "wwd-growH 1s cubic-bezier(0.22,1,0.36,1) 0.6s both" : undefined,
             opacity: inView ? undefined : 0,
           }}
         />

@@ -8,7 +8,6 @@ const VerseSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // ── Particles ──────────────────────────────────────────────
     const particleConfigs = [
       { w: 4, h: 4, bg: "#9ABF5F", maxOp: 0.5,  dur: "6s",   delay: "0s",    left: "8%",  bottom: "10%" },
       { w: 3, h: 3, bg: "#F5E6A3", maxOp: 0.4,  dur: "8s",   delay: "1.2s",  left: "18%", bottom: "5%"  },
@@ -27,20 +26,14 @@ const VerseSection = () => {
         const p = document.createElement("div");
         p.className = "verse-particle";
         p.style.cssText = [
-          `width:${c.w}px`,
-          `height:${c.h}px`,
-          `background:${c.bg}`,
-          `--max-op:${c.maxOp}`,
-          `--dur:${c.dur}`,
-          `--delay:${c.delay}`,
-          `left:${c.left}`,
-          `bottom:${c.bottom}`,
+          `width:${c.w}px`, `height:${c.h}px`, `background:${c.bg}`,
+          `--max-op:${c.maxOp}`, `--dur:${c.dur}`, `--delay:${c.delay}`,
+          `left:${c.left}`, `bottom:${c.bottom}`,
         ].join(";");
         container.appendChild(p);
       });
     }
 
-    // ── Leaves on vine ─────────────────────────────────────────
     const leafPositions = [
       { bottom: "15%", left: "-8px", r: "-45deg", delay: "1.8s" },
       { bottom: "30%", left: "4px",  r: "45deg",  delay: "2.1s" },
@@ -54,10 +47,8 @@ const VerseSection = () => {
         const leaf = document.createElement("div");
         leaf.className = "verse-leaf";
         leaf.style.cssText = [
-          `bottom:${lp.bottom}`,
-          `left:${lp.left}`,
-          `--r:${lp.r}`,
-          `animation-delay:${lp.delay}`,
+          `bottom:${lp.bottom}`, `left:${lp.left}`,
+          `--r:${lp.r}`, `animation-delay:${lp.delay}`,
         ].join(";");
         vine.appendChild(leaf);
       });
@@ -66,7 +57,6 @@ const VerseSection = () => {
 
   return (
     <>
-      {/* ── Keyframes injected once ───────────────────────────── */}
       <style>{`
         @keyframes verseFadeRise {
           to { opacity: 1; transform: translateY(0); }
@@ -100,29 +90,19 @@ const VerseSection = () => {
           from { width: 0; opacity: 0; }
           to   { width: clamp(20px, 4vw, 40px); opacity: 1; }
         }
-
         .verse-particle {
-          position: absolute;
-          border-radius: 50%;
-          opacity: 0;
+          position: absolute; border-radius: 50%; opacity: 0;
           animation: verseFloatUp var(--dur) ease-in infinite;
           animation-delay: var(--delay);
         }
         .verse-leaf {
-          position: absolute;
-          width: 6px;
-          height: 10px;
-          border-radius: 50% 0;
-          background: #9ABF5F;
-          opacity: 0;
+          position: absolute; width: 6px; height: 10px;
+          border-radius: 50% 0; background: #9ABF5F; opacity: 0;
           animation: verseLeafAppear 0.6s ease-out forwards;
         }
-        .verse-ref-line::before,
-        .verse-ref-line::after {
-          content: '';
-          display: inline-block;
-          width: clamp(20px, 4vw, 40px);
-          height: 1px;
+        .verse-ref-line::before, .verse-ref-line::after {
+          content: ''; display: inline-block;
+          width: clamp(20px, 4vw, 40px); height: 1px;
           animation: verseExpandLine 1s ease-out 1.5s both;
         }
         .verse-ref-line::before {
@@ -135,123 +115,98 @@ const VerseSection = () => {
         }
       `}</style>
 
-      <div className="w-full flex justify-center overflow-hidden">
-        <div
-          ref={sectionRef}
-          className="w-full max-w-[1418px] text-center relative overflow-hidden"
-          style={{
-            padding: "clamp(48px, 8vw, 80px) clamp(16px, 6vw, 48px)",
-            background:
-              "linear-gradient(170deg, #1A3A08 0%, #2D5016 55%, #1e3d0a 100%)",
-            borderRadius: "8px",
-          }}
-        >
-          {/* Shimmer sweep */}
+      {/* ✅ FIX: full-width wrapper for bg, inner div matches Container */}
+      <div className="w-full bg-[#FAFDF5] py-4 sm:py-6">
+        <div className="mx-auto w-full max-w-[1418px] px-6 lg:px-12">
           <div
-            className="absolute top-0 h-full pointer-events-none"
+            ref={sectionRef}
+            className="w-full text-center relative overflow-hidden"
             style={{
-              left: "-100%",
-              width: "60%",
-              background:
-                "linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent)",
-              animation: "verseShimmer 4s ease-in-out 1.2s infinite",
-            }}
-          />
-
-          {/* Floating particles */}
-          <div
-            ref={particlesRef}
-            className="absolute inset-0 pointer-events-none overflow-hidden"
-          />
-
-          {/* Vine */}
-          <div
-            ref={vineRef}
-            className="absolute bottom-0 left-1/2"
-            style={{
-              transform: "translateX(-50%)",
-              width: "2px",
-              background: "linear-gradient(to top, rgba(154,191,95,0.27), transparent)",
-              animation: "verseGrowVine 2.2s ease-out forwards",
-              transformOrigin: "bottom center",
-              height: 0,
-            }}
-          />
-
-          {/* Decorative open-quote */}
-          <span
-            className="absolute pointer-events-none select-none"
-            style={{
-              top: "clamp(12px, 2vw, 24px)",
-              left: "clamp(12px, 3vw, 32px)",
-              fontFamily: "'Cormorant Garamond', Georgia, serif",
-              fontSize: "clamp(48px, 8vw, 96px)",
-              color: "rgba(154,191,95,0.12)",
-              lineHeight: 1,
-              fontStyle: "italic",
-              zIndex: 1,
-              animation: "verseFadeIn 1.5s ease 0.5s both",
+              padding: "clamp(48px, 8vw, 80px) clamp(16px, 6vw, 48px)",
+              background: "linear-gradient(170deg, #1A3A08 0%, #2D5016 55%, #1e3d0a 100%)",
+              borderRadius: "8px",
             }}
           >
-            &ldquo;
-          </span>
-
-          {/* Quote */}
-          <p
-            className="relative font-cormorant italic"
-            style={{
-              fontWeight: 500,
-              color: "#f0ede6",
-              fontSize: "clamp(22px, 4.5vw, 40px)",
-              lineHeight: 1.65,
-              zIndex: 2,
-              opacity: 0,
-              transform: "translateY(22px)",
-              animation:
-                "verseFadeRise 1.1s cubic-bezier(0.22,1,0.36,1) 0.3s forwards",
-              textShadow: "0 2px 20px rgba(0,0,0,0.3)",
-            }}
-          >
-            &ldquo;I am the vine, you are the branches. Whoever{" "}
-            <br className="hidden sm:block" />
-            <span
+            {/* Shimmer sweep */}
+            <div
+              className="absolute top-0 h-full pointer-events-none"
               style={{
-                color: "#9ABF5F",
-                display: "inline-block",
-                animation: "verseAccentPulse 3.5s ease-in-out 1.6s infinite",
+                left: "-100%", width: "60%",
+                background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent)",
+                animation: "verseShimmer 4s ease-in-out 1.2s infinite",
+              }}
+            />
+
+            {/* Floating particles */}
+            <div ref={particlesRef} className="absolute inset-0 pointer-events-none overflow-hidden" />
+
+            {/* Vine */}
+            <div
+              ref={vineRef}
+              className="absolute bottom-0 left-1/2"
+              style={{
+                transform: "translateX(-50%)", width: "2px",
+                background: "linear-gradient(to top, rgba(154,191,95,0.27), transparent)",
+                animation: "verseGrowVine 2.2s ease-out forwards",
+                transformOrigin: "bottom center", height: 0,
+              }}
+            />
+
+            {/* Decorative open-quote */}
+            <span
+              className="absolute pointer-events-none select-none"
+              style={{
+                top: "clamp(12px, 2vw, 24px)", left: "clamp(12px, 3vw, 32px)",
+                fontFamily: "'Cormorant Garamond', Georgia, serif",
+                fontSize: "clamp(48px, 8vw, 96px)", color: "rgba(154,191,95,0.12)",
+                lineHeight: 1, fontStyle: "italic", zIndex: 1,
+                animation: "verseFadeIn 1.5s ease 0.5s both",
               }}
             >
-              abides in me
-            </span>{" "}
-            and I in him, he it is that bears{" "}
-            <br className="hidden sm:block" />
-            much fruit.&rdquo;
-          </p>
-
-          {/* Reference */}
-          <p
-            className="font-dm"
-            style={{
-              fontWeight: 500,
-              color: "#F5E6A3",
-              letterSpacing: "0.12em",
-              fontSize: "clamp(11px, 2.5vw, 15px)",
-              marginTop: "clamp(16px, 3vw, 28px)",
-              position: "relative",
-              zIndex: 2,
-              opacity: 0,
-              transform: "translateY(10px)",
-              animation:
-                "verseFadeRise 0.9s cubic-bezier(0.22,1,0.36,1) 0.85s forwards",
-            }}
-          >
-            <span
-              className="verse-ref-line"
-              style={{ display: "inline-flex", alignItems: "center" }}
-            >
-              JOHN 15:5 · ESV
+              &ldquo;
             </span>
-          </p>
+
+            {/* Quote */}
+            <p
+              className="relative font-cormorant italic"
+              style={{
+                fontWeight: 500, color: "#f0ede6",
+                fontSize: "clamp(22px, 4.5vw, 40px)", lineHeight: 1.65, zIndex: 2,
+                opacity: 0, transform: "translateY(22px)",
+                animation: "verseFadeRise 1.1s cubic-bezier(0.22,1,0.36,1) 0.3s forwards",
+                textShadow: "0 2px 20px rgba(0,0,0,0.3)",
+              }}
+            >
+              &ldquo;I am the vine, you are the branches. Whoever{" "}
+              <br className="hidden sm:block" />
+              <span
+                style={{
+                  color: "#9ABF5F", display: "inline-block",
+                  animation: "verseAccentPulse 3.5s ease-in-out 1.6s infinite",
+                }}
+              >
+                abides in me
+              </span>{" "}
+              and I in him, he it is that bears{" "}
+              <br className="hidden sm:block" />
+              much fruit.&rdquo;
+            </p>
+
+            {/* Reference */}
+            <p
+              className="font-dm"
+              style={{
+                fontWeight: 500, color: "#F5E6A3", letterSpacing: "0.12em",
+                fontSize: "clamp(11px, 2.5vw, 15px)", marginTop: "clamp(16px, 3vw, 28px)",
+                position: "relative", zIndex: 2, opacity: 0, transform: "translateY(10px)",
+                animation: "verseFadeRise 0.9s cubic-bezier(0.22,1,0.36,1) 0.85s forwards",
+              }}
+            >
+              <span className="verse-ref-line" style={{ display: "inline-flex", alignItems: "center" }}>
+                JOHN 15:5 · ESV
+              </span>
+            </p>
+          </div>
         </div>
       </div>
     </>

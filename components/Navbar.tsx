@@ -7,7 +7,7 @@ import PrayerRequestModal from "./PrayerRequestModal";
 const SERMONS_URL =
   "https://web.facebook.com/watch/live/?share_url=https%3A%2F%2Fweb.facebook.com%2Fshare%2Fv%2F1E21t363eA%2F%3F_rdc%3D1%26_rdr&ref=watch_permalink&v=1466177158314042&rdid=6Ar7woilInyAAOrb";
 
-const menuItems = ["HOME", "WHO WE ARE", "WHAT WE DO", "CONTACT US", "VISIT US"];
+const menuItems = ["HOME", "WHO WE ARE", "WHAT WE DO", "CONTACT", "VISIT US"];
 
 const scrollToId = (id: string) => {
   const el = document.getElementById(id);
@@ -39,12 +39,11 @@ const Navbar = () => {
     setOpen(false);
     setActiveItem(item);
 
-    if (item === "CONTACT US") {
+    if (item === "CONTACT") {
       window.open(SERMONS_URL, "_blank", "noopener,noreferrer");
       return;
     }
     if (item === "WHO WE ARE") { router.push("/WhoWeAre"); return; }
-    if (item === "CONTACT US") { router.push("/ContactUs"); return; }
     if (item === "VISIT US") { router.push("/VisitUs"); return; }
     if (item === "WHAT WE DO") {
       isHome ? scrollToId("what-we-do") : router.push("/#what-we-do");
@@ -127,7 +126,6 @@ const Navbar = () => {
         }
         .nb-prayer:active { transform: translateY(0); }
 
-        /* ── Hamburger: hidden by default, shown only on mobile ── */
         .nb-burger {
           width: 24px;
           height: 18px;
@@ -141,12 +139,9 @@ const Navbar = () => {
           display: none;
         }
         @media (max-width: 767px) {
-          .nb-burger {
-            display: flex;
-          }
+          .nb-burger { display: flex; }
         }
 
-        /* ── Hamburger spans — explicit color to ensure visibility ── */
         .nb-burger span {
           display: block;
           height: 2px;
@@ -188,15 +183,24 @@ const Navbar = () => {
         }
       `}</style>
 
+      {/*
+        KEY FIX:
+        - Outer div: full-width for sticky bg/border, position-relative for mobile dropdown anchor
+        - Inner nav: uses the SAME max-w and px as your Container component so they align perfectly
+        - Added mx-auto so the nav is centered within the full-width outer div
+      */}
       <div
-        className={`nb-root w-full flex justify-center bg-[#FAFDF5] border-b border-[#E8F5D6] sticky top-0 z-50 ${mounted ? "mounted" : ""} ${scrolled ? "scrolled" : ""}`}
+        className={`nb-root w-full bg-[#FAFDF5] border-b border-[#E8F5D6] top-0 z-50 relative ${
+          mounted ? "mounted" : ""
+        } ${scrolled ? "scrolled" : ""}`}
       >
+        {/* This inner wrapper mirrors your Container exactly: max-w-[1418px] mx-auto px-6 lg:px-12 */}
         <nav
-          className={`w-full max-w-[1418px] flex items-center justify-between px-4 sm:px-6 transition-all duration-300 ${
+          className={`mx-auto w-full max-w-[1418px] px-6 lg:px-12 flex items-center justify-between transition-all duration-300 ${
             scrolled ? "h-[62px] sm:h-[72px]" : "h-[70px] sm:h-[83px]"
           }`}
         >
-          {/* LEFT */}
+          {/* LEFT — Logo + Church Name */}
           <div className="nb-logo flex items-center gap-2 sm:gap-4">
             <img
               src="/logo.png"
@@ -230,12 +234,12 @@ const Navbar = () => {
           </div>
 
           {/* DESKTOP MENU */}
-          <div className="hidden md:flex items-center gap-6 lg:gap-8">
+          <div className="hidden md:flex items-center gap-4 lg:gap-6">
             {menuItems.map((item) => (
               <div key={item} className="nb-ditem">
                 <button
                   onClick={() => handleClick(item)}
-                  className={`nb-link text-[13px] lg:text-[14px] text-[#4A7C2F] font-dm tracking-wide ${
+                  className={`nb-link text-[12px] lg:text-[13px] text-[#4A7C2F] font-dm tracking-wide whitespace-nowrap ${
                     activeItem === item ? "active" : ""
                   }`}
                 >
@@ -246,7 +250,7 @@ const Navbar = () => {
             <div className="nb-ditem">
               <button
                 onClick={() => setPrayerOpen(true)}
-                className="nb-prayer bg-[#2D5016] text-white text-[13px] lg:text-[14px] font-dm px-4 lg:px-6 py-2 rounded-full"
+                className="nb-prayer bg-[#2D5016] text-white text-[12px] lg:text-[13px] font-dm px-3 lg:px-5 py-2 rounded-full whitespace-nowrap"
               >
                 Prayer Request
               </button>
@@ -265,9 +269,9 @@ const Navbar = () => {
           </button>
         </nav>
 
-        {/* MOBILE MENU */}
+        {/* MOBILE DROPDOWN — absolute child of the relative outer div */}
         {open && (
-          <div className="nb-mobile absolute top-[70px] left-0 w-full bg-[#FAFDF5] border-t border-[#E8F5D6] flex flex-col items-center gap-4 py-6 z-50">
+          <div className="nb-mobile absolute top-full left-0 w-full bg-[#FAFDF5] border-t border-[#E8F5D6] flex flex-col items-center gap-4 py-6 z-50">
             {menuItems.map((item, i) => (
               <button
                 key={item}
@@ -279,7 +283,10 @@ const Navbar = () => {
               </button>
             ))}
             <button
-              onClick={() => { setOpen(false); setPrayerOpen(true); }}
+              onClick={() => {
+                setOpen(false);
+                setPrayerOpen(true);
+              }}
               className="nb-mitem nb-prayer bg-[#2D5016] text-white text-[14px] font-dm px-6 py-2 rounded-full"
               style={{ animationDelay: `${menuItems.length * 55}ms` }}
             >

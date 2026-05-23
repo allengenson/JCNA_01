@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import SpiritualServicesSection from "@/components/SpiritualServices/SpiritualServicesSection";
+
 import VerseSection from "@/components/VerseSection";
 import WhatWeDo from "@/components/WhatWeDo";
 import OutreachSection from "@/components/outreach";
@@ -26,15 +26,9 @@ export default function Home() {
       <div id="hero">
         <Hero />
       </div>
-      <SpiritualServicesSection />
       <VerseSection />
-      <div id="what-we-do">
-        <WhatWeDo />
-      </div>
-  
-      <div id="outreaches">
-        <OutreachSection />
-      </div>
+      <WhatWeDo />
+      <OutreachSection />
       <Footer />
     </>
   );
