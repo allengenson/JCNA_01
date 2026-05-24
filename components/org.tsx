@@ -4,19 +4,16 @@ import React, { useState, useEffect, useRef } from "react";
 const FONTS = `
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=DM+Sans:wght@400;500;600&display=swap');
 .org-root * { box-sizing: border-box; }
-@media (max-width: 700px) {
-  .org-desktop { display: none !important; }
-  .org-mobile  { display: flex !important; }
-}
+.org-desktop { display: none; }
+.org-mobile  { display: flex; }
 @media (min-width: 701px) {
   .org-mobile  { display: none !important; }
-  .org-desktop { display: block; }
+  .org-desktop { display: block !important; }
 }
 `;
 
 const LINE = "#4A7C2F";
 
-/* ── Data ─────────────────────────────────────────────────────── */
 const directorColumns = [
   {
     director: { name: "ANDONIE D. KADUSALE", role: "Ministries Director", preacher: true },
@@ -41,12 +38,11 @@ const directorColumns = [
 ];
 
 const bracketCards = [
-  { name: "ANALYN V. DURANGO",    role: "Treasurer",                preacher: false },
-  { name: "ROY C. MENDREZ",       role: "Auditor",                  preacher: false },
-  { name: "RICWARREN A. CORNILLO",role: "Public Relations Officer",  preacher: false },
+  { name: "ANALYN V. DURANGO",     role: "Treasurer",               preacher: false },
+  { name: "ROY C. MENDREZ",        role: "Auditor",                 preacher: false },
+  { name: "RICWARREN A. CORNILLO", role: "Public Relations Officer", preacher: false },
 ];
 
-/* ── Style helpers ────────────────────────────────────────────── */
 const goldBar = (r = 13): React.CSSProperties => ({
   position: "absolute", top: 0, left: 0, right: 0, height: 4,
   background: "#C8960E", borderRadius: `${r}px ${r}px 0 0`,
@@ -88,7 +84,7 @@ const VLine = ({ h = 20 }: { h?: number }) => (
   <div style={{ width: 2, height: h, background: LINE, flexShrink: 0, margin: "0 auto" }} />
 );
 
-/* ── Mobile accordion card ────────────────────────────────────── */
+/* ── Mobile accordion card ── */
 function MobileDirectorCard({
   name, role, preacher, subs,
 }: {
@@ -98,7 +94,7 @@ function MobileDirectorCard({
   const hasChildren = (subs?.length ?? 0) > 0;
 
   return (
-    <div style={{ borderRadius: 9 }}>
+    <div style={{ borderRadius: 9, width: "100%" }}>
       <button
         onClick={() => { if (hasChildren) setOpen(v => !v); }}
         style={{
@@ -111,40 +107,38 @@ function MobileDirectorCard({
         }}
       >
         <div style={goldBar(9)} />
-        <div style={{ flex: 1, paddingTop: 4 }}>
+        <div style={{ flex: 1, paddingTop: 4, minWidth: 0 }}>
           {preacher && (
             <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 8, color: "#C8960E", letterSpacing: "1.4px", marginBottom: 3 }}>
               PREACHER
             </div>
           )}
-          <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 14, fontWeight: 700, color: "#2D5016", lineHeight: 1.25 }}>
+          <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 14, fontWeight: 700, color: "#2D5016", lineHeight: 1.25, wordBreak: "break-word" }}>
             {name}
           </div>
-          <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 9, color: "#4A7C2F", marginTop: 3 }}>
+          <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 10, color: "#4A7C2F", marginTop: 3 }}>
             {role}
           </div>
         </div>
         {hasChildren && (
           <div style={{
-            flexShrink: 0, marginLeft: 10, width: 24, height: 24,
+            flexShrink: 0, marginLeft: 10, width: 26, height: 26,
             borderRadius: "50%", background: open ? LINE : "#EAF3DE",
             color: open ? "#fff" : "#2D5016",
             display: "flex", alignItems: "center", justifyContent: "center",
-            fontSize: 18, lineHeight: 1,
+            fontSize: 20, lineHeight: 1,
             transition: "transform .25s ease, background .25s ease",
             transform: open ? "rotate(45deg)" : "rotate(0deg)",
-            userSelect: "none",
+            userSelect: "none" as const,
           }}>+</div>
         )}
       </button>
 
-      {hasChildren && (
+      {hasChildren && open && (
         <div style={{
           borderLeft: `1.5px solid ${LINE}`, borderRight: `1.5px solid ${LINE}`,
-          borderBottom: open ? `1.5px solid ${LINE}` : "none",
+          borderBottom: `1.5px solid ${LINE}`,
           borderRadius: "0 0 9px 9px", background: "#F7FCF0",
-          overflow: "hidden", maxHeight: open ? 600 : 0,
-          transition: "max-height 0.3s ease",
         }}>
           <div style={{
             display: "flex", flexDirection: "column", gap: 6,
@@ -152,7 +146,9 @@ function MobileDirectorCard({
             borderLeft: "3px solid #A3C57A",
             margin: "0 8px 10px 8px",
           }}>
-            {subs!.map((sub, i) => <div key={i} style={s.sub}>{sub}</div>)}
+            {subs!.map((sub, i) => (
+              <div key={i} style={{ ...s.sub, fontSize: 11, padding: "6px 8px" }}>{sub}</div>
+            ))}
           </div>
         </div>
       )}
@@ -160,7 +156,7 @@ function MobileDirectorCard({
   );
 }
 
-/* ── Desktop director card ────────────────────────────────────── */
+/* ── Desktop director card ── */
 function DirCard({ name, role, preacher }: { name: string; role: string; preacher?: boolean }) {
   return (
     <div style={s.dirCard}>
@@ -180,7 +176,7 @@ function DirCard({ name, role, preacher }: { name: string; role: string; preache
   );
 }
 
-/* ── Bracket column (Analyn / Roy / Ricwarren) ────────────────── */
+/* ── Bracket column ── */
 function BracketColumn() {
   const cardsRef = useRef<HTMLDivElement>(null);
   const svgRef   = useRef<SVGSVGElement>(null);
@@ -192,29 +188,20 @@ function BracketColumn() {
     const bc = cardsRef.current;
     const svg = svgRef.current;
     if (!bc || !svg) return;
-
     const cards = bc.querySelectorAll<HTMLElement>(".bracket-dir-card");
     if (cards.length < 3) return;
-
-    const colRect  = bc.getBoundingClientRect();
-    const anRect   = cards[0].getBoundingClientRect();
-    const royRect  = cards[1].getBoundingClientRect();
-    const ricRect  = cards[2].getBoundingClientRect();
-
+    const colRect = bc.getBoundingClientRect();
+    const anRect  = cards[0].getBoundingClientRect();
+    const royRect = cards[1].getBoundingClientRect();
+    const ricRect = cards[2].getBoundingClientRect();
     const trunkTop = (anRect.top  + anRect.height  / 2) - colRect.top;
     const trunkBot = (ricRect.top + ricRect.height / 2) - colRect.top;
-    const trunkH   = trunkBot - trunkTop;
-
     svg.setAttribute("height", String(trunkBot + 4));
     if (rectRef.current) {
       rectRef.current.setAttribute("y",      String(trunkTop));
-      rectRef.current.setAttribute("height", String(trunkH));
+      rectRef.current.setAttribute("height", String(trunkBot - trunkTop));
     }
-
-    // size arms
-    const cardRight = royRect.right;
-    const colRight  = colRect.right;
-    const armW = Math.max(4, colRight - cardRight - 7);
+    const armW = Math.max(4, (colRect.right - royRect.right) - 7);
     if (armRoyRef.current) armRoyRef.current.style.width = armW + "px";
     if (armRicRef.current) armRicRef.current.style.width = armW + "px";
   };
@@ -232,88 +219,54 @@ function BracketColumn() {
     borderBottom: "5px solid transparent",
     borderRight: `7px solid ${LINE}`,
   };
-
-  const row: React.CSSProperties = {
-    display: "flex", alignItems: "center", width: "100%",
-  };
+  const row: React.CSSProperties = { display: "flex", alignItems: "center", width: "100%" };
 
   return (
     <div style={{ flex: 1, position: "relative", display: "flex", flexDirection: "column", alignItems: "flex-start", paddingTop: 16 }}>
-      {/* dot on horizontal bar */}
       <div style={{ position: "absolute", top: -4, left: "50%", transform: "translateX(-4px)", width: 8, height: 8, borderRadius: "50%", background: LINE }} />
-      {/* drop from bar */}
       <div style={{ position: "absolute", top: 0, left: "50%", transform: "translateX(-1px)", width: 2, height: 16, background: LINE }} />
-
-      {/* SVG trunk (right edge) */}
-      <svg
-        ref={svgRef}
-        style={{ position: "absolute", top: 16, right: 0, pointerEvents: "none" }}
-        width="2"
-        height="300"
-      >
+      <svg ref={svgRef} style={{ position: "absolute", top: 16, right: 0, pointerEvents: "none" }} width="2" height="300">
         <rect ref={rectRef} x="0" y="0" width="2" height="0" fill={LINE} />
       </svg>
-
       <div ref={cardsRef} style={{ display: "flex", flexDirection: "column", gap: 0, width: "100%", position: "relative" }}>
-
-        {/* Analyn — full width, trunk on its right */}
         <div style={row}>
           <div className="bracket-dir-card" style={{ ...s.dirCard, flex: 1 }}>
             <div style={goldBar(9)} />
-            <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 10, fontWeight: 700, color: "#fff", lineHeight: 1.25 }}>
-              ANALYN V. DURANGO
-            </div>
-            <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 8, color: "#A8D080", marginTop: 3 }}>
-              Treasurer
-            </div>
+            <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 10, fontWeight: 700, color: "#fff", lineHeight: 1.25 }}>ANALYN V. DURANGO</div>
+            <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 8, color: "#A8D080", marginTop: 3 }}>Treasurer</div>
           </div>
         </div>
-
-        {/* Roy — card + arrowhead + arm */}
         <div style={{ ...row, marginTop: 8 }}>
           <div className="bracket-dir-card" style={{ ...s.dirCard, flex: 1 }}>
             <div style={goldBar(9)} />
-            <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 10, fontWeight: 700, color: "#fff", lineHeight: 1.25 }}>
-              ROY C. MENDREZ
-            </div>
-            <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 8, color: "#A8D080", marginTop: 3 }}>
-              Auditor
-            </div>
+            <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 10, fontWeight: 700, color: "#fff", lineHeight: 1.25 }}>ROY C. MENDREZ</div>
+            <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 8, color: "#A8D080", marginTop: 3 }}>Auditor</div>
           </div>
           <div style={armArrow} />
           <div ref={armRoyRef} style={{ height: 2, background: LINE, flexShrink: 0, width: 14 }} />
         </div>
-
-        {/* Ricwarren — card + arrowhead + arm */}
         <div style={{ ...row, marginTop: 8 }}>
           <div className="bracket-dir-card" style={{ ...s.dirCard, flex: 1 }}>
             <div style={goldBar(9)} />
-            <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 10, fontWeight: 700, color: "#fff", lineHeight: 1.25 }}>
-              RICWARREN A. CORNILLO
-            </div>
-            <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 8, color: "#A8D080", marginTop: 3 }}>
-              Public Relations Officer
-            </div>
+            <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 10, fontWeight: 700, color: "#fff", lineHeight: 1.25 }}>RICWARREN A. CORNILLO</div>
+            <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 8, color: "#A8D080", marginTop: 3 }}>Public Relations Officer</div>
           </div>
           <div style={armArrow} />
           <div ref={armRicRef} style={{ height: 2, background: LINE, flexShrink: 0, width: 14 }} />
         </div>
-
       </div>
     </div>
   );
 }
 
-/* ── Main ─────────────────────────────────────────────────────── */
+/* ── Main ── */
 export default function OrgChart() {
   return (
     <div className="org-root" style={{ background: "#F4F8EE", borderRadius: 16, padding: "20px 8px", fontFamily: "'DM Sans', sans-serif" }}>
       <style>{FONTS}</style>
 
-      {/* ════════════ DESKTOP ════════════ */}
+      {/* ════ DESKTOP ════ */}
       <div className="org-desktop">
-
-        {/* L1: Chairman */}
         <div style={s.chairman}>
           <div style={goldBar(13)} />
           <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 9, color: "#C8960E", letterSpacing: "1.8px", marginBottom: 6 }}>
@@ -323,66 +276,38 @@ export default function OrgChart() {
             REBERO L. ARMENION
           </div>
         </div>
-
         <VLine h={20} />
-
-        {/* L2: Side boxes + VC */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
           <div style={s.sideBox}>
-            <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 13, fontWeight: 700, color: "#2D5016" }}>
-              CHURCH PREACHERS
-            </div>
+            <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 13, fontWeight: 700, color: "#2D5016" }}>CHURCH PREACHERS</div>
           </div>
           <div style={{ height: 2, width: 22, background: LINE, flexShrink: 0 }} />
           <div style={s.vc}>
             <div style={goldBar(11)} />
-            <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 9, color: "#C8960E", letterSpacing: "1.6px", marginBottom: 5 }}>
-              PASTOR · VICE CHAIRMAN
-            </div>
-            <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 16, fontWeight: 700, color: "#fff" }}>
-              BENJAMEN L. ARMENION, JR.
-            </div>
+            <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 9, color: "#C8960E", letterSpacing: "1.6px", marginBottom: 5 }}>PASTOR · VICE CHAIRMAN</div>
+            <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 16, fontWeight: 700, color: "#fff" }}>BENJAMEN L. ARMENION, JR.</div>
           </div>
           <div style={{ height: 2, width: 22, background: LINE, flexShrink: 0 }} />
           <div style={s.sideBox}>
-            <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 13, fontWeight: 700, color: "#2D5016" }}>
-              CHURCH WORKERS
-            </div>
+            <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 13, fontWeight: 700, color: "#2D5016" }}>CHURCH WORKERS</div>
           </div>
         </div>
-
         <VLine h={20} />
-
-        {/* Horizontal bar */}
         <div style={{ width: "100%", height: 2, background: LINE }} />
-
-        {/* L3: Director columns */}
         <div style={{ display: "flex", width: "100%", alignItems: "flex-start" }}>
-
           {directorColumns.map((col, i) => (
             <div key={i} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", paddingTop: 16, position: "relative" }}>
-              {/* drop line */}
               <div style={{ position: "absolute", top: 0, left: "50%", transform: "translateX(-1px)", width: 2, height: 16, background: LINE }} />
-              {/* dot */}
               <div style={{ position: "absolute", top: -4, left: "50%", transform: "translateX(-4px)", width: 8, height: 8, borderRadius: "50%", background: LINE }} />
-
               <DirCard name={col.director.name} role={col.director.role} preacher={col.director.preacher} />
-
               {col.subs.length > 0 && <VLine h={10} />}
               <div style={{ display: "flex", flexDirection: "column", gap: 4, width: "100%" }}>
-                {col.subs.map((sub, j) => (
-                  <div key={j} style={s.sub}>{sub}</div>
-                ))}
+                {col.subs.map((sub, j) => <div key={j} style={s.sub}>{sub}</div>)}
               </div>
             </div>
           ))}
-
-          {/* Bracket column: Analyn on top, Roy + Ricwarren with ◄── arms */}
           <BracketColumn />
-
         </div>
-
-        {/* Footer */}
         <div style={s.footer}>
           <div style={goldBar(12)} />
           <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 17, fontWeight: 700, color: "#fff", letterSpacing: "1.5px" }}>
@@ -391,38 +316,49 @@ export default function OrgChart() {
         </div>
       </div>
 
-      {/* ════════════ MOBILE ════════════ */}
-      <div className="org-mobile" style={{ display: "none", flexDirection: "column", gap: 10 }}>
+      {/* ════ MOBILE ════ */}
+      <div className="org-mobile" style={{ flexDirection: "column", gap: 10, alignItems: "stretch", padding: "0 4px" }}>
 
-        <div style={{ ...s.chairman, maxWidth: "100%" }}>
-          <div style={goldBar(13)} />
-          <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 8, color: "#C8960E", letterSpacing: "1.6px", marginBottom: 5 }}>
+        {/* Chairman */}
+        <div style={{ ...s.chairman, maxWidth: "100%", borderRadius: 11 }}>
+          <div style={goldBar(11)} />
+          <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 8, color: "#C8960E", letterSpacing: "1.5px", marginBottom: 4 }}>
             APOSTLE · CHAIRMAN &amp; CHIEF EXECUTIVE
           </div>
-          <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 17, fontWeight: 700, color: "#fff" }}>
+          <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 18, fontWeight: 700, color: "#fff", lineHeight: 1.2 }}>
             REBERO L. ARMENION
           </div>
         </div>
 
+        {/* Preachers + Workers side by side */}
         <div style={{ display: "flex", gap: 8 }}>
-          <div style={{ ...s.sideBox, flex: 1 }}>
+          <div style={{ ...s.sideBox, flex: 1, padding: "8px 10px" }}>
             <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 12, fontWeight: 700, color: "#2D5016" }}>CHURCH PREACHERS</div>
           </div>
-          <div style={{ ...s.sideBox, flex: 1 }}>
+          <div style={{ ...s.sideBox, flex: 1, padding: "8px 10px" }}>
             <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 12, fontWeight: 700, color: "#2D5016" }}>CHURCH WORKERS</div>
           </div>
         </div>
 
-        <div style={{ ...s.vc, width: "100%", minWidth: "unset" }}>
+        {/* Vice Chairman */}
+        <div style={{ ...s.vc, width: "100%", minWidth: "unset", borderRadius: 11 }}>
           <div style={goldBar(11)} />
-          <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 8, color: "#C8960E", letterSpacing: "1.4px", marginBottom: 4 }}>
+          <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 8, color: "#C8960E", letterSpacing: "1.3px", marginBottom: 4 }}>
             PASTOR · VICE CHAIRMAN
           </div>
-          <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 15, fontWeight: 700, color: "#fff" }}>
+          <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 16, fontWeight: 700, color: "#fff" }}>
             BENJAMEN L. ARMENION, JR.
           </div>
         </div>
 
+        {/* Divider label */}
+        <div style={{ display: "flex", alignItems: "center", gap: 8, margin: "2px 0" }}>
+          <div style={{ flex: 1, height: 1, background: "#A3C57A" }} />
+          <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 9, color: "#4A7C2F", letterSpacing: "1.2px", whiteSpace: "nowrap" }}>DIRECTORS &amp; OFFICERS</div>
+          <div style={{ flex: 1, height: 1, background: "#A3C57A" }} />
+        </div>
+
+        {/* Director accordion cards */}
         {directorColumns.map((col, i) => (
           <MobileDirectorCard
             key={i}
@@ -433,6 +369,7 @@ export default function OrgChart() {
           />
         ))}
 
+        {/* Bracket cards (no subs) */}
         {bracketCards.map((card, i) => (
           <MobileDirectorCard
             key={`b-${i}`}
@@ -442,12 +379,14 @@ export default function OrgChart() {
           />
         ))}
 
-        <div style={{ ...s.footer, marginTop: 6 }}>
-          <div style={goldBar(12)} />
+        {/* Footer */}
+        <div style={{ ...s.footer, marginTop: 4, borderRadius: 11 }}>
+          <div style={goldBar(11)} />
           <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 15, fontWeight: 700, color: "#fff", letterSpacing: "1.2px" }}>
             CHURCH MEMBERS &amp; OUTREACHES
           </div>
         </div>
+
       </div>
     </div>
   );
