@@ -86,17 +86,14 @@ const sections: {
         >
           {[
             "Love",
+            "Joy",
+            "Peace",
             "Honesty",
-            "Humility",
-            "Patience",
             "Kindness",
-            "Faithfulness",
+            "Respect",
             "Self-Control",
             "Gentleness",
             "Obedience",
-            "Joy",
-            "Peace",
-            "Respect",
           ].map((v) => (
             <span
               key={v}
@@ -118,11 +115,11 @@ const sections: {
         </p>
         <ul style={{ margin: 0, padding: "0 0 0 18px" }}>
           <li>Prayer and fasting</li>
-          <li>Giving — tithes, offerings, first fruits, and charity</li>
-          <li>Biblical dress code and food standards</li>
-          <li>Observance of the Sabbath / day of worship</li>
+          <li>Giving  ( tithes, offerings, first fruits, and charity )</li>
+          <li> Dress code </li>
+          <li>Food </li>
           <li>
-            All prophecy and revelation filtered through the Word of God
+            Day of Church worship or rest
           </li>
         </ul>
       </div>
