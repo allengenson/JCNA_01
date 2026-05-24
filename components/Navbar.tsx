@@ -183,18 +183,13 @@ const Navbar = () => {
         }
       `}</style>
 
-      {/*
-        KEY FIX:
-        - Outer div: full-width for sticky bg/border, position-relative for mobile dropdown anchor
-        - Inner nav: uses the SAME max-w and px as your Container component so they align perfectly
-        - Added mx-auto so the nav is centered within the full-width outer div
-      */}
+      {/* sticky — stays at top on scroll; full-width bg/border */}
       <div
-        className={`nb-root w-full bg-[#FAFDF5] border-b border-[#E8F5D6] top-0 z-50 relative ${
+        className={`nb-root w-full bg-[#FAFDF5] border-b border-[#E8F5D6] sticky top-0 z-50 ${
           mounted ? "mounted" : ""
         } ${scrolled ? "scrolled" : ""}`}
       >
-        {/* This inner wrapper mirrors your Container exactly: max-w-[1418px] mx-auto px-6 lg:px-12 */}
+        {/* Inner wrapper mirrors Container exactly */}
         <nav
           className={`mx-auto w-full max-w-[1418px] px-6 lg:px-12 flex items-center justify-between transition-all duration-300 ${
             scrolled ? "h-[62px] sm:h-[72px]" : "h-[70px] sm:h-[83px]"
@@ -269,7 +264,7 @@ const Navbar = () => {
           </button>
         </nav>
 
-        {/* MOBILE DROPDOWN — absolute child of the relative outer div */}
+        {/* MOBILE DROPDOWN */}
         {open && (
           <div className="nb-mobile absolute top-full left-0 w-full bg-[#FAFDF5] border-t border-[#E8F5D6] flex flex-col items-center gap-4 py-6 z-50">
             {menuItems.map((item, i) => (

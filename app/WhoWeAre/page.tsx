@@ -1,6 +1,7 @@
 "use client";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/footer";
+import Container from "@/components/Container";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import OrgChart from "@/components/org";
@@ -339,106 +340,101 @@ export default function WhoWeArePage() {
       <Navbar />
 
       {/* HERO */}
-      <section
-        ref={heroRef}
-        className="px-4 sm:px-10 lg:px-20 pt-10 sm:pt-14 lg:pt-[60px]"
-      >
-        <div
-          className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-[60px] items-center w-full"
-          style={{ maxWidth: "1260px", margin: "0 auto" }}
-        >
-          <div>
-            <p
-              style={{
-                fontFamily: "'DM Sans', sans-serif",
-                fontWeight: 500,
-                fontSize: "14px",
-                letterSpacing: "0.15em",
-                color: "#D4A017",
-                marginBottom: "12px",
-              }}
-            >
-              ABOUT US
-            </p>
-            <h1
-              style={{
-                fontFamily: "'Cormorant Garamond', serif",
-                fontWeight: 700,
-                fontSize: "clamp(36px, 7vw, 52px)",
-                color: "#2D5016",
-                lineHeight: 1.1,
-                marginBottom: "20px",
-              }}
-            >
-              Who We Are
-            </h1>
-            <p
-              style={{
-                fontFamily: "'DM Sans', sans-serif",
-                fontWeight: 400,
-                fontSize: "clamp(13px, 2vw, 15px)",
-                color: "#4A7C2F",
-                lineHeight: 1.8,
-                maxWidth: "420px",
-              }}
-            >
-              We are a Christ-centered community devoted to growing in faith,
-              living in truth, and sharing God&apos;s love with others. We gather as
-              one body, united in purpose and guided by His Word. Together, we
-              grow in Christ and are continually transformed to live out His love
-              each day.
-            </p>
-          </div>
+      <section ref={heroRef} className="pt-10 sm:pt-14 lg:pt-[60px]">
+        <Container>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-[60px] items-center w-full">
+            <div>
+              <p
+                style={{
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontWeight: 500,
+                  fontSize: "14px",
+                  letterSpacing: "0.15em",
+                  color: "#D4A017",
+                  marginBottom: "12px",
+                }}
+              >
+                ABOUT US
+              </p>
+              <h1
+                style={{
+                  fontFamily: "'Cormorant Garamond', serif",
+                  fontWeight: 700,
+                  fontSize: "clamp(36px, 7vw, 52px)",
+                  color: "#2D5016",
+                  lineHeight: 1.1,
+                  marginBottom: "20px",
+                }}
+              >
+                Who We Are
+              </h1>
+              <p
+                style={{
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontWeight: 400,
+                  fontSize: "clamp(13px, 2vw, 15px)",
+                  color: "#4A7C2F",
+                  lineHeight: 1.8,
+                  maxWidth: "420px",
+                }}
+              >
+                We are a Christ-centered community devoted to growing in faith,
+                living in truth, and sharing God&apos;s love with others. We gather as
+                one body, united in purpose and guided by His Word. Together, we
+                grow in Christ and are continually transformed to live out His love
+                each day.
+              </p>
+            </div>
 
-          <div
-            style={{
-              borderRadius: "16px",
-              overflow: "hidden",
-              boxShadow: "0 8px 40px rgba(45,80,22,0.15)",
-              width: "100%",
-              aspectRatio: "16/10",
-              position: "relative",
-              background: "#C5D09B",
-            }}
-          >
-            <Image
-              src="/1.jpg"
-              alt="Who We Are"
-              fill
-              style={{ objectFit: "cover" }}
-            />
+            <div
+              style={{
+                borderRadius: "16px",
+                overflow: "hidden",
+                boxShadow: "0 8px 40px rgba(45,80,22,0.15)",
+                width: "100%",
+                aspectRatio: "16/10",
+                position: "relative",
+                background: "#C5D09B",
+              }}
+            >
+              <Image
+                src="/1.jpg"
+                alt="Who We Are"
+                fill
+                style={{ objectFit: "cover" }}
+              />
+            </div>
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* DIVIDER */}
-      <div
-        style={{
-          maxWidth: "1260px",
-          margin: "48px auto",
-          height: "1px",
-          background: "rgba(197, 208, 155, 0.6)",
-          padding: "0 20px",
-        }}
-      />
+      <Container>
+        <div
+          style={{
+            margin: "48px 0",
+            height: "1px",
+            background: "rgba(197, 208, 155, 0.6)",
+          }}
+        />
+      </Container>
 
       {/* SECTION CARDS */}
-      <section
-        className="px-4 sm:px-10 lg:px-20 pb-16 lg:pb-[80px]"
-        style={{ maxWidth: "1260px", margin: "0 auto" }}
-      >
-        <div className="flex flex-col gap-4">
-          {sections.map((section, i) => (
-            <div
-              key={i}
-              ref={(el) => {
-                cardRefs.current[i] = el;
-              }}
-            >
-              <SectionCard section={section} />
-            </div>
-          ))}
-        </div>
+      <section className="pb-16 lg:pb-[80px]">
+        <Container>
+          <div className="flex flex-col gap-4">
+            {sections.map((section, i) => (
+              <div
+                key={i}
+                ref={(el) => {
+                  cardRefs.current[i] = el;
+                }}
+              >
+                <SectionCard section={section} />
+              </div>
+            ))}
+          </div>
+        </Container>
       </section>
 
       <Footer />

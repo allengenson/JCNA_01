@@ -1,6 +1,7 @@
 "use client";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/footer";
+import Container from "@/components/Container";
 import Image from "next/image";
 import React from "react";
 
@@ -150,219 +151,215 @@ export default function VisitUsPage() {
       <Navbar />
 
       {/* ── HERO SECTION ── */}
-      <section className="px-4 sm:px-10 lg:px-20 pt-10 sm:pt-14 lg:pt-[60px]">
-        <div
-          className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-[60px] items-center w-full"
-          style={{ maxWidth: "1260px", margin: "0 auto" }}
-        >
-          {/* Left: Text */}
-          <div>
-            <h1
-              style={{
-                fontFamily: "'Cormorant Garamond', serif",
-                fontWeight: 700,
-                fontSize: "clamp(36px, 7vw, 52px)",
-                color: "#2D5016",
-                lineHeight: 1.1,
-                marginBottom: "20px",
-              }}
-            >
-              Visit Us
-            </h1>
-            <p
-              style={{
-                fontFamily: "'DM Sans', sans-serif",
-                fontWeight: 400,
-                fontSize: "clamp(14px, 3vw, 16px)",
-                color: "#4A7C2F",
-                lineHeight: 1.8,
-                maxWidth: "380px",
-              }}
-            >
-              We would love to welcome you! Join us at our church and experience
-              a Christ-centered community filled with worship, fellowship, and
-              faith.
-            </p>
-          </div>
+      <section className="pt-10 sm:pt-14 lg:pt-[60px]">
+        <Container>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-[60px] items-center w-full">
+            {/* Left: Text */}
+            <div>
+              <h1
+                style={{
+                  fontFamily: "'Cormorant Garamond', serif",
+                  fontWeight: 700,
+                  fontSize: "clamp(36px, 7vw, 52px)",
+                  color: "#2D5016",
+                  lineHeight: 1.1,
+                  marginBottom: "20px",
+                }}
+              >
+                Visit Us
+              </h1>
+              <p
+                style={{
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontWeight: 400,
+                  fontSize: "clamp(14px, 3vw, 16px)",
+                  color: "#4A7C2F",
+                  lineHeight: 1.8,
+                  maxWidth: "380px",
+                }}
+              >
+                We would love to welcome you! Join us at our church and experience
+                a Christ-centered community filled with worship, fellowship, and
+                faith.
+              </p>
+            </div>
 
-          {/* Right: Church Photo */}
-          <div
-            style={{
-              borderRadius: "16px",
-              overflow: "hidden",
-              boxShadow: "0 8px 40px rgba(45,80,22,0.15)",
-              width: "100%",
-              aspectRatio: "16/10",
-              position: "relative",
-            }}
-          >
-            <Image
-              src="/church-photo.jpg"
-              alt="Jesus Christ of Nazareth One Fold Assembly"
-              fill
-              style={{ objectFit: "cover" }}
-            />
+            {/* Right: Church Photo */}
+            <div
+              style={{
+                borderRadius: "16px",
+                overflow: "hidden",
+                boxShadow: "0 8px 40px rgba(45,80,22,0.15)",
+                width: "100%",
+                aspectRatio: "16/10",
+                position: "relative",
+              }}
+            >
+              <Image
+                src="/church-photo.jpg"
+                alt="Jesus Christ of Nazareth One Fold Assembly"
+                fill
+                style={{ objectFit: "cover" }}
+              />
+            </div>
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* ── INFO CARDS SECTION ── */}
-      <section
-        className="px-4 sm:px-10 lg:px-20 py-10 lg:py-[60px]"
-        style={{ maxWidth: "1260px", margin: "0 auto" }}
-      >
-        <div
-          className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4"
-          style={{
-            gap: "1px",
-            background: "rgba(74,124,47,0.15)",
-            border: "1px solid rgba(74,124,47,0.15)",
-            borderRadius: "16px",
-            overflow: "hidden",
-          }}
-        >
-          {infoCards.map((card, i) => (
-            <div
-              key={i}
-              style={{
-                background: "#fff",
-                padding: "28px 24px",
-                display: "flex",
-                flexDirection: "column",
-                gap: "16px",
-              }}
-            >
-              {/* Icon circle */}
+      <section className="py-10 lg:py-[60px]">
+        <Container>
+          <div
+            className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4"
+            style={{
+              gap: "1px",
+              background: "rgba(74,124,47,0.15)",
+              border: "1px solid rgba(74,124,47,0.15)",
+              borderRadius: "16px",
+              overflow: "hidden",
+            }}
+          >
+            {infoCards.map((card, i) => (
               <div
+                key={i}
                 style={{
-                  width: "48px",
-                  height: "48px",
-                  borderRadius: "50%",
-                  background: "#82B657",
+                  background: "#fff",
+                  padding: "28px 24px",
                   display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  flexShrink: 0,
+                  flexDirection: "column",
+                  gap: "16px",
                 }}
               >
-                {card.icon}
-              </div>
-
-              {card.title && (
-                <p
+                {/* Icon circle */}
+                <div
                   style={{
-                    fontFamily: "'DM Sans', sans-serif",
-                    fontWeight: 500,
-                    fontSize: "13px",
-                    letterSpacing: "0.12em",
-                    color: "#2D5016",
-                    margin: 0,
+                    width: "48px",
+                    height: "48px",
+                    borderRadius: "50%",
+                    background: "#82B657",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexShrink: 0,
                   }}
                 >
-                  {card.title}
-                </p>
-              )}
+                  {card.icon}
+                </div>
 
-              <div>{card.content}</div>
-            </div>
-          ))}
-        </div>
+                {card.title && (
+                  <p
+                    style={{
+                      fontFamily: "'DM Sans', sans-serif",
+                      fontWeight: 500,
+                      fontSize: "13px",
+                      letterSpacing: "0.12em",
+                      color: "#2D5016",
+                      margin: 0,
+                    }}
+                  >
+                    {card.title}
+                  </p>
+                )}
+
+                <div>{card.content}</div>
+              </div>
+            ))}
+          </div>
+        </Container>
       </section>
 
       {/* ── DIRECTIONS SECTION ── */}
-      <section
-        className="px-4 sm:px-10 lg:px-20 pb-16 lg:pb-[80px]"
-        style={{ maxWidth: "1260px", margin: "0 auto" }}
-      >
-        <div
-          className="flex flex-col lg:flex-row"
-          style={{
-            borderRadius: "20px",
-            overflow: "hidden",
-            border: "1px solid #82B657",
-            minHeight: "300px",
-          }}
-        >
-          {/* Map — iframe embed src stays as-is, this is correct */}
-          <div className="flex-1 relative" style={{ minHeight: "260px" }}>
-            <iframe
-              title="JCNA Location"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d74704.02732368202!2d123.78717022278703!3d10.249742118941036!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33a977fac09dc6af%3A0xda93be23da18c422!2sJESUS%20CHRIST%20OF%20NAZARETH%20ONEFOLD%20ASSEMBLY!5e0!3m2!1sen!2sph!4v1778646023673!5m2!1sen!2sph"
-              style={{ width: "100%", height: "100%", border: 0, display: "block", minHeight: "260px" }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            />
-          </div>
-
-          {/* Directions Panel */}
+      <section className="pb-16 lg:pb-[80px]">
+        <Container>
           <div
-            className="w-full lg:w-[340px] lg:flex-shrink-0"
+            className="flex flex-col lg:flex-row"
             style={{
-              background: "#fff",
-              padding: "36px 28px",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              gap: "16px",
+              borderRadius: "20px",
+              overflow: "hidden",
+              border: "1px solid #82B657",
+              minHeight: "300px",
             }}
           >
-            <h2
-              style={{
-                fontFamily: "'Cormorant Garamond', serif",
-                fontWeight: 700,
-                fontSize: "clamp(26px, 5vw, 34px)",
-                color: "#2D5016",
-                lineHeight: 1.2,
-                margin: 0,
-              }}
-            >
-              Directions
-            </h2>
-            <p
-              style={{
-                fontFamily: "'DM Sans', sans-serif",
-                fontWeight: 400,
-                fontSize: "14px",
-                color: "#4A7C2F",
-                lineHeight: 1.8,
-                margin: 0,
-              }}
-            >
-              We would love to welcome you! Join us at our church and experience
-              a Christ-centered community filled with worship, fellowship, and
-              faith.
-            </p>
+            {/* Map */}
+            <div className="flex-1 relative" style={{ minHeight: "260px" }}>
+              <iframe
+                title="JCNA Location"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d74704.02732368202!2d123.78717022278703!3d10.249742118941036!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33a977fac09dc6af%3A0xda93be23da18c422!2sJESUS%20CHRIST%20OF%20NAZARETH%20ONEFOLD%20ASSEMBLY!5e0!3m2!1sen!2sph!4v1778646023673!5m2!1sen!2sph"
+                style={{ width: "100%", height: "100%", border: 0, display: "block", minHeight: "260px" }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
 
-            {/* ✅ FIXED: href now links to the real Google Maps place URL, not the embed URL */}
-            <a
-              href="https://maps.google.com/?q=JESUS+CHRIST+OF+NAZARETH+ONEFOLD+ASSEMBLY,Minglanilla,Cebu,Philippines"
-              target="_blank"
-              rel="noopener noreferrer"
+            {/* Directions Panel */}
+            <div
+              className="w-full lg:w-[340px] lg:flex-shrink-0"
               style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "8px",
-                background: "#82B657",
-                color: "#fff",
-                fontFamily: "'DM Sans', sans-serif",
-                fontWeight: 500,
-                fontSize: "14px",
-                textDecoration: "none",
-                padding: "12px 24px",
-                borderRadius: "999px",
-                width: "fit-content",
-                marginTop: "8px",
+                background: "#fff",
+                padding: "36px 28px",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                gap: "16px",
               }}
             >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
-                <circle cx="12" cy="10" r="3" />
-              </svg>
-              Open in Google Maps
-            </a>
+              <h2
+                style={{
+                  fontFamily: "'Cormorant Garamond', serif",
+                  fontWeight: 700,
+                  fontSize: "clamp(26px, 5vw, 34px)",
+                  color: "#2D5016",
+                  lineHeight: 1.2,
+                  margin: 0,
+                }}
+              >
+                Directions
+              </h2>
+              <p
+                style={{
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontWeight: 400,
+                  fontSize: "14px",
+                  color: "#4A7C2F",
+                  lineHeight: 1.8,
+                  margin: 0,
+                }}
+              >
+                We would love to welcome you! Join us at our church and experience
+                a Christ-centered community filled with worship, fellowship, and
+                faith.
+              </p>
+
+              <a
+                href="https://maps.google.com/?q=JESUS+CHRIST+OF+NAZARETH+ONEFOLD+ASSEMBLY,Minglanilla,Cebu,Philippines"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  background: "#82B657",
+                  color: "#fff",
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontWeight: 500,
+                  fontSize: "14px",
+                  textDecoration: "none",
+                  padding: "12px 24px",
+                  borderRadius: "999px",
+                  width: "fit-content",
+                  marginTop: "8px",
+                }}
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+                Open in Google Maps
+              </a>
+            </div>
           </div>
-        </div>
+        </Container>
       </section>
 
       <Footer />
