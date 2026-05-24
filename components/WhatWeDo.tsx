@@ -255,9 +255,11 @@ const WhatWeDo = () => {
         @media(max-width:520px){ .wwd-panel-body { padding:18px 16px 24px; } }
       `}</style>
 
-      {/* ✅ FIX: full-width section for bg, inner div matches Container */}
-      <div id="what-we-do" ref={sectionRef} className="w-full bg-[#F6F8F1] overflow-hidden">
-        <div className="mx-auto w-full max-w-[1418px] px-6 lg:px-12 pt-14 pb-0 lg:pt-[70px]">
+      {/* Full-width bg wrapper — NO overflow-hidden here so the border isn't clipped */}
+      <div id="what-we-do" ref={sectionRef} className="w-full bg-[#F6F8F1]">
+
+        {/* ── All content + the two divider lines live inside the same constrained inner div ── */}
+        <div className="mx-auto w-full max-w-[1418px] px-6 lg:px-12 pt-14 pb-16 lg:pt-[70px] lg:pb-[80px]">
 
           {/* HEADING */}
           <div
@@ -276,6 +278,7 @@ const WhatWeDo = () => {
             >
               What We Do
             </h2>
+            {/* ✅ Top divider — stays inside the constrained div, matches content edges */}
             <div
               style={{
                 height: "1px", background: "#C5D09B", marginTop: "22px",
@@ -305,10 +308,11 @@ const WhatWeDo = () => {
             ))}
           </div>
 
+          {/* ✅ Mid divider — stays inside the constrained div */}
           <div style={{ height: "1px", background: "#C5D09B", margin: "18px 0 0" }} />
 
           {/* CARD GRID + PANEL */}
-          <div className={`wwd-tab-body${tabFading ? " fading" : " visible"} pb-16 lg:pb-[80px]`}>
+          <div className={`wwd-tab-body${tabFading ? " fading" : " visible"}`}>
             <div
               className="wwd-card-grid"
               style={{
@@ -362,17 +366,18 @@ const WhatWeDo = () => {
               );
             })()}
           </div>
+
+          {/* ✅ Bottom border — now inside the constrained div so it aligns with navbar content */}
+          <div
+            className="h-[1px] bg-[#C5D09B] mt-16 lg:mt-[80px]"
+            style={{
+              transformOrigin: "center",
+              animation: inView ? "wwd-growH 1s cubic-bezier(0.22,1,0.36,1) 0.6s both" : undefined,
+              opacity: inView ? undefined : 0,
+            }}
+          />
         </div>
 
-        {/* bottom border */}
-        <div
-          className="w-full h-[1px] bg-[#C5D09B]"
-          style={{
-            transformOrigin: "center",
-            animation: inView ? "wwd-growH 1s cubic-bezier(0.22,1,0.36,1) 0.6s both" : undefined,
-            opacity: inView ? undefined : 0,
-          }}
-        />
       </div>
     </>
   );

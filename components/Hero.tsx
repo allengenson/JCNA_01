@@ -194,61 +194,70 @@ const Hero = () => {
         </div>
       </section>
 
-      {/* ── DESKTOP: constrained to same max-w as navbar ── */}
-      <section className="hidden lg:block w-full bg-[#FAFDF5]">
-        {/*
-          px-0 — no outer padding.
-          Left panel handles its own px-12 to match navbar.
-          Right panel fills its column edge-to-edge within max-w.
-          Both panels stay within the same 1418px boundary as the navbar.
-        */}
-        <div className="mx-auto w-full max-w-[1418px] px-0 flex min-h-[676px]">
+      {/* ── DESKTOP ── */}
+      {/*
+        FIX: Use the same mx-auto w-full max-w-[1418px] px-6 lg:px-12 as the navbar
+        so left and right edges are pixel-identical.
 
-          {/* LEFT — plain bg, content padded px-12 to match navbar */}
-          <div className="flex-1 bg-[#FAFDF5] flex items-stretch">
-            <div className="ml-auto w-full max-w-[709px] px-12 flex flex-col justify-center py-10">
-              <p className={`welcome-label font-dm text-[13px] text-[#D4A017] mb-6 ${visible ? "show" : ""}`}>
-                — WELCOME HOME
-              </p>
-              {titleLines.map((line, index) => (
-                <h1
-                  key={index}
-                  className={`title-line font-cormorant text-[52px] leading-[60px] md:text-[65px] md:leading-[79px] tracking-[0.05em] ${line.italic ? "italic" : ""} ${visible ? "show" : ""}`}
-                  style={{ color: line.color, transitionDelay: `${120 + index * 130}ms` }}
-                >
-                  {line.text}
-                </h1>
-              ))}
-              <p
-                className={`body-text font-dm text-[16px] text-[#4A7C2F] max-w-[420px] mt-6 mb-8 leading-[1.6] ${visible ? "show" : ""}`}
-                style={{ transitionDelay: "520ms" }}
+        The right panel's gradient bg needs to bleed to the right edge of the
+        viewport, so we use a negative right margin + padding trick:
+        - Give the outer container the standard px-12 padding
+        - Left panel content sits naturally within that
+        - Right panel uses -mr-12 to undo the right padding, then pr-0, so its
+          background reaches the viewport edge while content stays aligned
+      */}
+      <section className="hidden lg:block w-full bg-[#FAFDF5]">
+        <div className="mx-auto w-full max-w-[1418px] px-6 lg:px-12 flex min-h-[676px]">
+
+          {/* LEFT — text content, already inside the padded container */}
+          <div className="flex-1 flex flex-col justify-center py-10">
+            <p className={`welcome-label font-dm text-[13px] text-[#D4A017] mb-6 ${visible ? "show" : ""}`}>
+              — WELCOME HOME
+            </p>
+            {titleLines.map((line, index) => (
+              <h1
+                key={index}
+                className={`title-line font-cormorant text-[52px] leading-[60px] md:text-[65px] md:leading-[79px] tracking-[0.05em] ${line.italic ? "italic" : ""} ${visible ? "show" : ""}`}
+                style={{ color: line.color, transitionDelay: `${120 + index * 130}ms` }}
               >
-                We are a community of believers rooted in grace, committed to one another, and growing together in the light of God's word.
-              </p>
-              <div
-                className={`btn-wrap flex items-center gap-6 ${visible ? "show" : ""}`}
-                style={{ transitionDelay: "660ms" }}
+                {line.text}
+              </h1>
+            ))}
+            <p
+              className={`body-text font-dm text-[16px] text-[#4A7C2F] max-w-[420px] mt-6 mb-8 leading-[1.6] ${visible ? "show" : ""}`}
+              style={{ transitionDelay: "520ms" }}
+            >
+              We are a community of believers rooted in grace, committed to one another, and growing together in the light of God's word.
+            </p>
+            <div
+              className={`btn-wrap flex items-center gap-6 ${visible ? "show" : ""}`}
+              style={{ transitionDelay: "660ms" }}
+            >
+              <Link href="/VisitUs">
+                <button className="btn-visit font-dm text-[16px] text-white px-6 py-3 rounded-full bg-gradient-to-r from-[#4A7C2F] to-[#2D5016]">
+                  VISIT US
+                </button>
+              </Link>
+              <a
+                href="https://web.facebook.com/watch/live/?ref=watch_permalink&v=1466177158314042&rdid=N3v7QbbwKdr60noS"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="sermon-link font-dm text-[16px] text-[#4A7C2F]"
               >
-                <Link href="/VisitUs">
-                  <button className="btn-visit font-dm text-[16px] text-white px-6 py-3 rounded-full bg-gradient-to-r from-[#4A7C2F] to-[#2D5016]">
-                    VISIT US
-                  </button>
-                </Link>
-                <a
-                  href="https://web.facebook.com/watch/live/?ref=watch_permalink&v=1466177158314042&rdid=N3v7QbbwKdr60noS"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="sermon-link font-dm text-[16px] text-[#4A7C2F]"
-                >
-                  Watch latest sermon
-                </a>
-              </div>
+                Watch latest sermon
+              </a>
             </div>
           </div>
 
-          {/* RIGHT — gradient bg, clipped to max-w boundary */}
+          {/*
+            RIGHT — gradient bg panel.
+            -mr-12 cancels the container's right px-12 so the bg bleeds to the
+            viewport edge (matching how the original design looked).
+            pl-12 keeps the internal content (logo, card) inset from the left.
+            The bg colour fills from left edge of this div to the viewport right edge.
+          */}
           <div
-            className={`right-panel w-[47.5%] flex flex-col items-center justify-start pt-0 ${visible ? "show" : ""}`}
+            className={`right-panel -mr-12 w-[47.5%] flex-shrink-0 flex flex-col items-center justify-start pt-0 pl-0 ${visible ? "show" : ""}`}
             style={{ background: "linear-gradient(to top left, #E8F5D6 0%, #FDF8E1 53%, #E8F0D0 98%)" }}
           >
             <div className={`logo-entrance ${visible ? "show" : ""}`}>
