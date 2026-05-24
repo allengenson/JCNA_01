@@ -21,10 +21,10 @@ const WeddingsPanel = () => {
   const [animating, setAnimating] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalIndex, setModalIndex] = useState(0);
-  const touchStartX = useRef(null);
+  const touchStartX = useRef<number | null>(null);
 
   const goTo = useCallback(
-    (index) => {
+    (index: number) => {
       if (animating) return;
       setAnimating(true);
       setTimeout(() => { setCurrent(index); setAnimating(false); }, 350);
@@ -45,7 +45,7 @@ const WeddingsPanel = () => {
 
   useEffect(() => {
     if (!modalOpen) return;
-    const handler = (e) => { if (e.key === "Escape") setModalOpen(false); };
+    const handler = (e: KeyboardEvent) => { if (e.key === "Escape") setModalOpen(false); };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
   }, [modalOpen]);
@@ -55,17 +55,17 @@ const WeddingsPanel = () => {
     return () => { document.body.style.overflow = ""; };
   }, [modalOpen]);
 
-  const openModal = (index) => { setModalIndex(index); setModalOpen(true); };
+  const openModal = (index: number) => { setModalIndex(index); setModalOpen(true); };
 
-  const handleTouchStart = (e) => { touchStartX.current = e.touches[0].clientX; };
-  const handleTouchEnd = (e) => {
+  const handleTouchStart = (e: React.TouchEvent) => { touchStartX.current = e.touches[0].clientX; };
+  const handleTouchEnd = (e: React.TouchEvent) => {
     if (touchStartX.current === null) return;
     const diff = touchStartX.current - e.changedTouches[0].clientX;
     if (Math.abs(diff) > 40) diff > 0 ? next() : prev();
     touchStartX.current = null;
   };
 
-  const getSlideStyle = (index) => {
+  const getSlideStyle = (index: number): React.CSSProperties => {
     const total = images.length;
     let pos = ((index - current + total) % total + total) % total;
     if (pos > total / 2) pos = pos - total;
@@ -93,20 +93,12 @@ const WeddingsPanel = () => {
   return (
     <>
       <div className="flex-1 flex flex-col lg:flex-row items-center lg:items-start px-4 sm:px-8 lg:px-[60px] pt-8 lg:pt-[33px] pb-10 lg:pb-[60px] gap-8 lg:gap-10">
-
-        {/* Left — Slider */}
         <div className="w-full lg:flex-1 flex-shrink-0" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
           <div className="relative w-full overflow-hidden" style={{ height: "clamp(190px, 54vw, 290px)", borderRadius: 20 }}>
             {images.map((src, i) => (
-              <img
-                key={i} src={src} alt={`Wedding photo ${i + 1}`}
-                style={getSlideStyle(i)}
-                onClick={() => i === current && openModal(i)}
-              />
+              <img key={i} src={src} alt={`Wedding photo ${i + 1}`} style={getSlideStyle(i)} onClick={() => i === current && openModal(i)} />
             ))}
-            <div style={{ position: "absolute", top: 8, right: 10, zIndex: 10, background: "rgba(0,0,0,0.45)", borderRadius: 6, padding: "3px 7px", fontSize: 10, color: "#fff", letterSpacing: "0.04em", pointerEvents: "none" }}>
-              Click to view
-            </div>
+            <div style={{ position: "absolute", top: 8, right: 10, zIndex: 10, background: "rgba(0,0,0,0.45)", borderRadius: 6, padding: "3px 7px", fontSize: 10, color: "#fff", letterSpacing: "0.04em", pointerEvents: "none" }}>Click to view</div>
             <button onClick={prev} aria-label="Previous" style={{ position: "absolute", left: 8, top: "50%", transform: "translateY(-50%)", background: "rgba(255,255,255,0.85)", border: "1px solid #82B657", borderRadius: "50%", width: 30, height: 30, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: "#2D5016", fontSize: 16, zIndex: 10, boxShadow: "0 2px 6px rgba(0,0,0,0.1)" }}>‹</button>
             <button onClick={next} aria-label="Next" style={{ position: "absolute", right: 8, top: "50%", transform: "translateY(-50%)", background: "rgba(255,255,255,0.85)", border: "1px solid #82B657", borderRadius: "50%", width: 30, height: 30, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: "#2D5016", fontSize: 16, zIndex: 10, boxShadow: "0 2px 6px rgba(0,0,0,0.1)" }}>›</button>
           </div>
@@ -116,8 +108,6 @@ const WeddingsPanel = () => {
             ))}
           </div>
         </div>
-
-        {/* Right — Text */}
         <div className="w-full lg:flex-1 flex flex-col justify-center">
           <p className="font-dm text-center lg:text-left mb-7" style={{ fontSize: "clamp(12px, 3vw, 14px)", color: "#4A7C2F", lineHeight: 1.8, letterSpacing: "0.02em" }}>
             We celebrate weddings as a sacred covenant before God — the joining of two lives in love, purpose, and faith. Our church honors this holy union by providing a worshipful setting for couples to exchange vows, supported by the prayers of the congregation and the blessing of the Holy Spirit over their new life together.
@@ -127,10 +117,7 @@ const WeddingsPanel = () => {
             <span style={{ fontStyle: "normal", fontWeight: 600 }}>Mark 10:9</span>
           </p>
         </div>
-
       </div>
-
-      {/* Lightbox Modal */}
       {modalOpen && (
         <div onClick={() => setModalOpen(false)} style={{ position: "fixed", inset: 0, zIndex: 9999, background: "rgba(0,0,0,0.88)", display: "flex", alignItems: "center", justifyContent: "center" }}>
           <div onClick={(e) => e.stopPropagation()} style={{ position: "relative", width: "min(92vw, 900px)", maxHeight: "90vh", display: "flex", flexDirection: "column", alignItems: "center" }}>

@@ -13,10 +13,10 @@ const ChildrenMinistryPanel = () => {
   const [animating, setAnimating] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalIndex, setModalIndex] = useState(0);
-  const touchStartX = useRef(null);
+  const touchStartX = useRef<number | null>(null);
 
   const goTo = useCallback(
-    (index) => {
+    (index: number) => {
       if (animating) return;
       setAnimating(true);
       setTimeout(() => { setCurrent(index); setAnimating(false); }, 350);
@@ -38,7 +38,7 @@ const ChildrenMinistryPanel = () => {
 
   useEffect(() => {
     if (!modalOpen) return;
-    const handler = (e) => { if (e.key === "Escape") setModalOpen(false); };
+    const handler = (e: KeyboardEvent) => { if (e.key === "Escape") setModalOpen(false); };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
   }, [modalOpen]);
@@ -48,17 +48,17 @@ const ChildrenMinistryPanel = () => {
     return () => { document.body.style.overflow = ""; };
   }, [modalOpen]);
 
-  const openModal = (index) => { setModalIndex(index); setModalOpen(true); };
+  const openModal = (index: number) => { setModalIndex(index); setModalOpen(true); };
 
-  const handleTouchStart = (e) => { touchStartX.current = e.touches[0].clientX; };
-  const handleTouchEnd = (e) => {
+  const handleTouchStart = (e: React.TouchEvent) => { touchStartX.current = e.touches[0].clientX; };
+  const handleTouchEnd = (e: React.TouchEvent) => {
     if (touchStartX.current === null) return;
     const diff = touchStartX.current - e.changedTouches[0].clientX;
     if (Math.abs(diff) > 40) diff > 0 ? next() : prev();
     touchStartX.current = null;
   };
 
-  const getSlideStyle = (index) => {
+  const getSlideStyle = (index: number): React.CSSProperties => {
     const total = images.length;
     let pos = ((index - current + total) % total + total) % total;
     if (pos > total / 2) pos = pos - total;
@@ -99,7 +99,6 @@ const ChildrenMinistryPanel = () => {
                 onClick={() => i === current && openModal(i)}
               />
             ))}
-            {/* Click-to-zoom hint */}
             <div style={{
               position: "absolute", top: 8, right: 10, zIndex: 10,
               background: "rgba(0,0,0,0.45)", borderRadius: 6, padding: "3px 7px",

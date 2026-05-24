@@ -28,7 +28,7 @@ const AdultsChoirPanel = () => {
 
   useEffect(() => {
     if (!modalOpen) return;
-    const handler = (e) => { if (e.key === "Escape") setModalOpen(false); };
+    const handler = (e: KeyboardEvent) => { if (e.key === "Escape") setModalOpen(false); };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
   }, [modalOpen]);
@@ -38,12 +38,12 @@ const AdultsChoirPanel = () => {
     return () => { document.body.style.overflow = ""; };
   }, [modalOpen]);
 
-  const openModal = (index) => {
+  const openModal = (index: number) => {
     setModalIndex(index);
     setModalOpen(true);
   };
 
-  const SliderContent = ({ onImageClick }) => (
+  const SliderContent = ({ onImageClick }: { onImageClick: (i: number) => void }) => (
     <>
       {slides.map((src, i) => (
         <img
@@ -120,7 +120,7 @@ const AdultsChoirPanel = () => {
     </>
   );
 
-  const sliderStyle = {
+  const sliderStyle: React.CSSProperties = {
     height: "clamp(220px, 45vw, 340px)",
     border: "1.5px solid #82B657",
     borderRadius: 20,

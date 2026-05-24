@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 const slides = [
   "/instru/1.jpg",
@@ -32,7 +32,7 @@ const InstrumentalistsPanel = () => {
 
   useEffect(() => {
     if (!modalOpen) return;
-    const handler = (e) => { if (e.key === "Escape") setModalOpen(false); };
+    const handler = (e: KeyboardEvent) => { if (e.key === "Escape") setModalOpen(false); };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
   }, [modalOpen]);
@@ -42,12 +42,16 @@ const InstrumentalistsPanel = () => {
     return () => { document.body.style.overflow = ""; };
   }, [modalOpen]);
 
-  const openModal = (index) => {
+  const openModal = (index: number) => {
     setModalIndex(index);
     setModalOpen(true);
   };
 
-  const SliderContent = ({ onImageClick }) => (
+  const SliderContent = ({
+  onImageClick,
+}: {
+  onImageClick: (index: number) => void;
+}) => (
     <>
       {slides.map((src, i) => (
         <img
@@ -124,14 +128,14 @@ const InstrumentalistsPanel = () => {
     </>
   );
 
-  const sliderStyle = {
-    height: "clamp(220px, 45vw, 340px)",
-    border: "1.5px solid #82B657",
-    borderRadius: 20,
-    background: "#0a1f06",
-    overflow: "hidden",
-    position: "relative",
-  };
+  const sliderStyle: React.CSSProperties = {
+  height: "clamp(220px, 45vw, 340px)",
+  border: "1.5px solid #82B657",
+  borderRadius: 20,
+  background: "#0a1f06",
+  overflow: "hidden",
+  position: "relative",
+};
 
   return (
     <>

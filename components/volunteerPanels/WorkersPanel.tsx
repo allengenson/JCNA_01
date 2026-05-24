@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 const slides = [
   "/workers/1.jpg",
@@ -26,7 +26,7 @@ const WorkersPanel = () => {
 
   useEffect(() => {
     if (!modalOpen) return;
-    const handler = (e) => { if (e.key === "Escape") setModalOpen(false); };
+    const handler = (e: KeyboardEvent) => { if (e.key === "Escape") setModalOpen(false); };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
   }, [modalOpen]);
@@ -36,12 +36,13 @@ const WorkersPanel = () => {
     return () => { document.body.style.overflow = ""; };
   }, [modalOpen]);
 
-  const openModal = (index) => {
+  const goTo = useCallback(
+  (index: number) => {
     setModalIndex(index);
     setModalOpen(true);
-  };
+  }, []);
 
-  const SliderContent = ({ onImageClick }) => (
+  const SliderContent = ({ onImageClick }: { onImageClick: (index: number) => void }) => (
     <>
       {slides.map((src, i) => (
         <img
@@ -126,14 +127,14 @@ const WorkersPanel = () => {
     </>
   );
 
-  const sliderStyle = {
-    height: "clamp(220px, 45vw, 340px)",
-    border: "1.5px solid #82B657",
-    borderRadius: 20,
-    background: "#0a1f06",
-    overflow: "hidden",
-    position: "relative",
-  };
+const sliderStyle: React.CSSProperties = {
+  height: "clamp(220px, 45vw, 340px)",
+  border: "1.5px solid #82B657",
+  borderRadius: 20,
+  background: "#0a1f06",
+  overflow: "hidden",
+  position: "relative",
+};
 
   return (
     <>
@@ -143,7 +144,7 @@ const WorkersPanel = () => {
 
           {/* Slider — mobile only */}
           <div className="w-full lg:hidden" style={sliderStyle}>
-            <SliderContent onImageClick={openModal} />
+            <SliderContent onImageClick={goTo} />
           </div>
 
           {/* Text + verse */}
@@ -172,7 +173,7 @@ const WorkersPanel = () => {
             className="hidden lg:block lg:flex-shrink-0 lg:ml-[40px] lg:-mt-[21px]"
             style={{ ...sliderStyle, width: 300, height: "clamp(220px, 35vw, 340px)" }}
           >
-            <SliderContent onImageClick={openModal} />
+            <SliderContent onImageClick={goTo} />
           </div>
 
         </div>
