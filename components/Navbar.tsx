@@ -4,9 +4,6 @@ import { useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import PrayerRequestModal from "./PrayerRequestModal";
 
-const SERMONS_URL =
-  "https://web.facebook.com/watch/live/?share_url=https%3A%2F%2Fweb.facebook.com%2Fshare%2Fv%2F1E21t363eA%2F%3F_rdc%3D1%26_rdr&ref=watch_permalink&v=1466177158314042&rdid=6Ar7woilInyAAOrb";
-
 const menuItems = ["HOME", "WHO WE ARE", "WHAT WE DO", "CONTACT", "VISIT US"];
 
 const scrollToId = (id: string) => {
@@ -14,9 +11,211 @@ const scrollToId = (id: string) => {
   if (el) el.scrollIntoView({ behavior: "smooth" });
 };
 
+/* ─── Contact Info Modal ─────────────────────────────────────── */
+const ContactModal = ({
+  isOpen,
+  onClose,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+}) => {
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    if (isOpen) document.addEventListener("keydown", handleKey);
+    return () => document.removeEventListener("keydown", handleKey);
+  }, [isOpen, onClose]);
+
+  if (!isOpen) return null;
+
+  return (
+    <>
+      <style>{`
+        @keyframes cmBackdropIn {
+          from { opacity: 0; }
+          to   { opacity: 1; }
+        }
+        @keyframes cmPanelIn {
+          from { opacity: 0; transform: translateY(12px) scale(0.97); }
+          to   { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .cm-backdrop {
+          animation: cmBackdropIn 200ms ease forwards;
+        }
+        .cm-panel {
+          animation: cmPanelIn 250ms ease forwards;
+        }
+        .cm-contact-link {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding: 14px 18px;
+          border-radius: 12px;
+          background: #F2F9EA;
+          border: 1px solid #D4EDBA;
+          text-decoration: none;
+          color: #2D5016;
+          transition: background 200ms ease, transform 150ms ease, box-shadow 200ms ease;
+        }
+        .cm-contact-link:hover {
+          background: #E3F5C8;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 14px rgba(45,80,22,0.12);
+        }
+        .cm-icon-wrap {
+          width: 40px;
+          height: 40px;
+          border-radius: 10px;
+          background: #2D5016;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+        }
+        .cm-close {
+          position: absolute;
+          top: 16px;
+          right: 16px;
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          background: #F2F9EA;
+          border: none;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #4A7C2F;
+          font-size: 18px;
+          transition: background 200ms ease, color 200ms ease;
+        }
+        .cm-close:hover {
+          background: #D4EDBA;
+          color: #2D5016;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .cm-backdrop, .cm-panel { animation: none !important; }
+          .cm-contact-link { transition: none !important; }
+        }
+      `}</style>
+
+      {/* Backdrop */}
+      <div
+        className="cm-backdrop fixed inset-0 z-[100] flex items-center justify-center px-4"
+        style={{ backgroundColor: "rgba(20, 40, 8, 0.45)", backdropFilter: "blur(4px)" }}
+        onClick={onClose}
+      >
+        {/* Panel */}
+        <div
+          className="cm-panel relative bg-[#FAFDF5] rounded-2xl shadow-2xl w-full max-w-sm p-8"
+          style={{ border: "1px solid #D4EDBA" }}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <button className="cm-close" onClick={onClose} aria-label="Close">
+            ✕
+          </button>
+
+          {/* Header */}
+          <div className="mb-6 text-center">
+            <div
+              className="mx-auto mb-3 flex items-center justify-center rounded-full"
+              style={{
+                width: 56,
+                height: 56,
+                background: "linear-gradient(135deg, #3a6b1e 0%, #2D5016 100%)",
+              }}
+            >
+              {/* Envelope icon */}
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="2" y="4" width="20" height="16" rx="2"/>
+                <path d="M2 7l10 7 10-7"/>
+              </svg>
+            </div>
+            <h2
+              style={{
+                fontFamily: "'Cormorant Garamond', Georgia, serif",
+                fontWeight: 700,
+                fontSize: "22px",
+                color: "#2D5016",
+                lineHeight: 1.2,
+                marginBottom: 4,
+              }}
+            >
+              Get in Touch
+            </h2>
+            <p style={{ fontSize: "13px", color: "#6B9A4A" }}>
+              We'd love to hear from you
+            </p>
+          </div>
+
+          {/* Contact items */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            {/* Email */}
+            <a
+              href="mailto:onefoldassembly@gmail.com"
+              className="cm-contact-link"
+            >
+              <div className="cm-icon-wrap">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="2" y="4" width="20" height="16" rx="2"/>
+                  <path d="M2 7l10 7 10-7"/>
+                </svg>
+              </div>
+              <div>
+                <p style={{ fontSize: "11px", color: "#6B9A4A", marginBottom: 2, fontFamily: "DM Sans, sans-serif" }}>
+                  Email us
+                </p>
+                <p style={{ fontSize: "13px", fontWeight: 600, color: "#2D5016", fontFamily: "DM Sans, sans-serif" }}>
+                  onefoldassembly@gmail.com
+                </p>
+              </div>
+            </a>
+
+            {/* Phone */}
+            <a
+              href="tel:+639514911577"
+              className="cm-contact-link"
+            >
+              <div className="cm-icon-wrap">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+                </svg>
+              </div>
+              <div>
+                <p style={{ fontSize: "11px", color: "#6B9A4A", marginBottom: 2, fontFamily: "DM Sans, sans-serif" }}>
+                  Call us
+                </p>
+                <p style={{ fontSize: "13px", fontWeight: 600, color: "#2D5016", fontFamily: "DM Sans, sans-serif" }}>
+                  +63 951 491 1577
+                </p>
+              </div>
+            </a>
+          </div>
+
+          {/* Footer note */}
+          <p
+            style={{
+              textAlign: "center",
+              fontSize: "11px",
+              color: "#9AB87A",
+              marginTop: 20,
+              fontFamily: "DM Sans, sans-serif",
+            }}
+          >
+            We typically respond within 24 hours
+          </p>
+        </div>
+      </div>
+    </>
+  );
+};
+
+/* ─── Navbar ─────────────────────────────────────────────────── */
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [prayerOpen, setPrayerOpen] = useState(false);
+  const [contactOpen, setContactOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [activeItem, setActiveItem] = useState<string | null>(null);
@@ -40,7 +239,7 @@ const Navbar = () => {
     setActiveItem(item);
 
     if (item === "CONTACT") {
-      window.open(SERMONS_URL, "_blank", "noopener,noreferrer");
+      setContactOpen(true);
       return;
     }
     if (item === "WHO WE ARE") { router.push("/WhoWeAre"); return; }
@@ -183,13 +382,11 @@ const Navbar = () => {
         }
       `}</style>
 
-      {/* sticky — stays at top on scroll; full-width bg/border */}
       <div
         className={`nb-root w-full bg-[#FAFDF5] border-b border-[#E8F5D6] sticky top-0 z-50 ${
           mounted ? "mounted" : ""
         } ${scrolled ? "scrolled" : ""}`}
       >
-        {/* Inner wrapper mirrors Container exactly */}
         <nav
           className={`mx-auto w-full max-w-[1418px] px-6 lg:px-12 flex items-center justify-between transition-all duration-300 ${
             scrolled ? "h-[62px] sm:h-[72px]" : "h-[70px] sm:h-[83px]"
@@ -291,9 +488,14 @@ const Navbar = () => {
         )}
       </div>
 
+      {/* Modals */}
       <PrayerRequestModal
         isOpen={prayerOpen}
         onClose={() => setPrayerOpen(false)}
+      />
+      <ContactModal
+        isOpen={contactOpen}
+        onClose={() => setContactOpen(false)}
       />
     </>
   );

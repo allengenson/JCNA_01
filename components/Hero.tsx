@@ -165,7 +165,7 @@ const Hero = () => {
                   rel="noopener noreferrer"
                   className="sermon-link font-dm text-[14px] sm:text-[16px] text-[#4A7C2F]"
                 >
-                  Watch latest sermon
+                  Watch live stream
                 </a>
               </div>
             </div>
