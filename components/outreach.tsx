@@ -1,401 +1,203 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
 
-const FONTS = `
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=DM+Sans:wght@400;500;600&display=swap');
-.org-root * { box-sizing: border-box; }
-.org-desktop { display: none; }
-.org-mobile  { display: flex; }
-@media (min-width: 701px) {
-  .org-mobile  { display: none !important; }
-  .org-desktop { display: block !important; }
+import React, { useState } from "react";
+import SendMessageModal from "@/components/SendMessageModal";
+
+interface OutreachItem {
+  name: string;
+  badge?: string;
+  badgeType?: "main" | "outreach";
+  address: string;
+  area: string;
+  mapUrl: string;
+  embedUrl: string;
 }
-`;
 
-const LINE = "#4A7C2F";
-
-const directorColumns = [
-  {
-    director: { name: "ANDONIE D. KADUSALE", role: "Ministries Director", preacher: true },
-    subs: ["Ministry of the Word & Evangelism", "Couples Ministry", "Children Ministry"],
-  },
-  {
-    director: { name: "JOBERTH P. CABUCOS", role: "Choir Director", preacher: true },
-    subs: ["Gospel Choir", "Adults Choir", "Children Choir"],
-  },
-  {
-    director: { name: "CHRISTIAN DAVE L. PITOGO", role: "Music Director", preacher: true },
-    subs: ["Praise & Worship Team", "Instrumentalists", "Sound Engineer"],
-  },
-  {
-    director: { name: "MICHAEL L. ATON", role: "Membership Director", preacher: true },
-    subs: ["Membership Retention", "Membership Growth", "Special Events"],
-  },
-  {
-    director: { name: "BELVIN L. ARMENION", role: "Secretary-General", preacher: false },
-    subs: ["Church Records", "Administration"],
-  },
-];
-
-const bracketCards = [
-  { name: "ANALYN V. DURANGO",     role: "Treasurer",               preacher: false },
-  { name: "ROY C. MENDREZ",        role: "Auditor",                 preacher: false },
-  { name: "RICWARREN A. CORNILLO", role: "Public Relations Officer", preacher: false },
-];
-
-const goldBar = (r = 13): React.CSSProperties => ({
-  position: "absolute", top: 0, left: 0, right: 0, height: 4,
-  background: "#C8960E", borderRadius: `${r}px ${r}px 0 0`,
-});
-
-const s = {
-  chairman: {
-    position: "relative" as const, overflow: "hidden", textAlign: "center" as const,
-    background: "#2D5016", borderRadius: 13, padding: "16px 28px 14px",
-    maxWidth: 380, margin: "0 auto",
-  },
-  vc: {
-    position: "relative" as const, overflow: "hidden", textAlign: "center" as const,
-    background: "#3B6D11", borderRadius: 11, padding: "12px 22px 11px", minWidth: 230,
-  },
-  sideBox: {
-    background: "#EAF5D8", border: "1.5px solid #4A7C2F", borderRadius: 9,
-    padding: "10px 14px", textAlign: "center" as const, minWidth: 120,
-  },
-  dirCard: {
-    position: "relative" as const, overflow: "hidden", textAlign: "center" as const,
-    background: "#2D5016", border: "1.5px solid #4A7C2F", borderRadius: 9,
-    padding: "14px 4px 10px", width: "100%", minHeight: 72,
-    display: "flex", flexDirection: "column" as const,
-    alignItems: "center" as const, justifyContent: "center" as const,
-  },
-  sub: {
-    background: "#D8EEC0", border: "1px solid #7AAB50", borderRadius: 7,
-    padding: "5px 4px", textAlign: "center" as const, fontSize: 9,
-    color: "#2D5016", fontFamily: "'DM Sans', sans-serif", lineHeight: 1.3,
-  },
-  footer: {
-    position: "relative" as const, overflow: "hidden", textAlign: "center" as const,
-    background: "#4A7C2F", borderRadius: 12, padding: "14px 20px", marginTop: 20,
-  },
+const SHARED = {
+  phone: "+63 951 491 1577",
+  email: "onefoldassembly@gmail.com",
+  fbUrl: "https://web.facebook.com/profile.php?id=100093108589005",
+  fbHandle: "Jesus Christ of Nazareth Onefold Assembly",
+  ytUrl: "https://www.youtube.com/@JCNA777",
+  ytHandle: "@JCNA777",
 };
 
-const VLine = ({ h = 20 }: { h?: number }) => (
-  <div style={{ width: 2, height: h, background: LINE, flexShrink: 0, margin: "0 auto" }} />
+const outreaches: OutreachItem[] = [
+  {
+    name: "Minglanilla",
+    badge: "Main Church",
+    badgeType: "main",
+    address: "Natalio B. Bacalso National Highway, Upper Tulay, Minglanilla, Cebu, Philippines",
+    area: "Minglanilla, Cebu",
+    mapUrl: "https://www.google.com/maps/place/JESUS+CHRIST+OF+NAZARETH+ONEFOLD+ASSEMBLY/@10.2417709,123.7841194,17z",
+    embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3926.2489925238006!2d123.78391809736237!3d10.241491337433638!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33a977fac09dc6af%3A0xda93be23da18c422!2sJESUS%20CHRIST%20OF%20NAZARETH%20ONEFOLD%20ASSEMBLY!5e0!3m2!1sen!2sph!4v1779194289293!5m2!1sen!2sph",
+  },
+  {
+  name: "Danao Outreach",
+  badge: "Outreach",
+  badgeType: "outreach",
+  address: "Bonifacio Street corner Duterte Street,Danao City, Cebu, Philippines",
+  area: "Danao, Cebu",
+  mapUrl: "https://www.google.com/maps/@10.52146289240467,124.0267796599791,3a,75y,184.76266h,90t/data=!3m7!1e1!3m5!1sbHwm22latB_2-Csx-x5H3A!2e0!5s20250501T000000!7i16384!8i8192",
+  embedUrl: "https://www.google.com/maps/embed?pb=!4v1779611936126!6m8!1m7!1sbHwm22latB_2-Csx-x5H3A!2m2!1d10.52146289240467!2d124.0267796599791!3f184.76266!4f0!5f0.7820865974627469",
+},
+  {
+    name: "Lapu-Lapu City Outreach",
+    badge: "Outreach",
+    badgeType: "outreach",
+    address: "Pajac, Lapu-Lapu City, Cebu",
+    area: "Lapu-Lapu City",
+    mapUrl: "https://maps.app.goo.gl/NkNhnp6b6PMYzQhT7",
+    embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3925.5!2d123.972!3d10.308!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33a8987654321abc%3A0xfedcba9876543210!2sPajac%2C+Lapu-Lapu+City%2C+Cebu!5e0!3m2!1sen!2sph!4v1680000000002!5m2!1sen!2sph",
+  },
+  {
+    name: "Negros Outreach",
+    badge: "Outreach",
+    badgeType: "outreach",
+    address: "Mandalupang, Manjuyod, Negros Oriental",
+    area: "Negros Oriental",
+    mapUrl: "https://maps.app.goo.gl/aNE4DTf4zoSdEHsPA",
+    embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15706.0!2d123.083!3d9.654!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33ab1234abcdef00%3A0x00fedcba43210000!2sMandalupang%2C+Manjuyod%2C+Negros+Oriental!5e0!3m2!1sen!2sph!4v1680000000003!5m2!1sen!2sph",
+  },
+];
+
+const PinIcon = () => (
+  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, marginTop: "2px", color: "#7a9c7b" }}>
+    <path d="M12 2a7 7 0 0 1 7 7c0 5.25-7 13-7 13S5 14.25 5 9a7 7 0 0 1 7-7z" />
+    <circle cx="12" cy="9" r="2.5" />
+  </svg>
 );
 
-/* ── Mobile accordion card — controlled via openIndex ── */
-function MobileDirectorCard({
-  name, role, preacher, subs, isOpen, onToggle,
-}: {
-  name: string;
-  role: string;
-  preacher?: boolean;
-  subs?: string[];
-  isOpen: boolean;
-  onToggle: () => void;
-}) {
-  const hasChildren = (subs?.length ?? 0) > 0;
+const RouteIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="6" cy="19" r="3" />
+    <path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15" />
+    <circle cx="18" cy="5" r="3" />
+  </svg>
+);
+
+const PhoneIcon = () => (
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#7a9c7b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 3.07 9.81 19.79 19.79 0 0 1 2 1.18 2 2 0 0 1 4 0h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 7.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+  </svg>
+);
+
+const EmailIcon = () => (
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#7a9c7b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="2" y="4" width="20" height="16" rx="2" />
+    <polyline points="22,6 12,13 2,6" />
+  </svg>
+);
+
+const FacebookDot = () => (
+  <span style={{ width: "20px", height: "20px", borderRadius: "4px", background: "#1877f2", color: "#fff", display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: "11px", fontWeight: 700, flexShrink: 0, fontFamily: "sans-serif" }}>f</span>
+);
+
+const YouTubeDot = () => (
+  <span style={{ width: "20px", height: "20px", borderRadius: "4px", background: "#ff0000", color: "#fff", display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+    <svg width="8" height="8" viewBox="0 0 10 10" fill="white"><polygon points="3,2 8,5 3,8" /></svg>
+  </span>
+);
+
+const SendIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <line x1="22" y1="2" x2="11" y2="13" />
+    <polygon points="22 2 15 22 11 13 2 9 22 2" />
+  </svg>
+);
+
+const VDivider = () => (
+  <div style={{ width: "1px", background: "#3d5c3e", alignSelf: "stretch" }} />
+);
+
+const OutreachCard = ({ name, badge, badgeType, address, mapUrl, embedUrl }: OutreachItem) => (
+  <div style={{ background: "#1e3a1f", borderRadius: "14px", overflow: "hidden", display: "flex", flexDirection: "column" }}>
+    <iframe src={embedUrl} style={{ width: "100%", height: "170px", border: "none", display: "block" }} loading="lazy" referrerPolicy="no-referrer-when-downgrade" title={`Map for ${name}`} />
+    <div style={{ padding: "1rem 1.1rem 1.15rem", display: "flex", flexDirection: "column", gap: "0.35rem", flex: 1 }}>
+      {badge && (
+        <span className="font-dm" style={{ display: "inline-block", fontSize: "10px", fontWeight: 500, letterSpacing: "0.08em", textTransform: "uppercase", padding: "2px 9px", borderRadius: "100px", width: "fit-content", ...(badgeType === "main" ? { background: "#c8a84b", color: "#1e3a1f" } : { background: "transparent", border: "1px solid rgba(200,168,75,0.35)", color: "#c8a84b" }) }}>
+          {badge}
+        </span>
+      )}
+      <p className="font-cormorant" style={{ fontSize: "1.05rem", fontWeight: 600, color: "#f5f2eb" }}>{name}</p>
+      <p className="font-dm" style={{ fontSize: "0.78rem", color: "#9db39e", display: "flex", alignItems: "flex-start", gap: "4px", lineHeight: 1.4 }}>
+        <PinIcon />{address}
+      </p>
+      <a href={mapUrl} target="_blank" rel="noopener noreferrer" className="font-dm" style={{ display: "inline-flex", alignItems: "center", gap: "5px", marginTop: "0.5rem", fontSize: "0.78rem", fontWeight: 500, color: "#c8a84b", textDecoration: "none", border: "1px solid rgba(200,168,75,0.3)", padding: "5px 13px", borderRadius: "100px", width: "fit-content" }}>
+        <RouteIcon />Get Directions
+      </a>
+    </div>
+  </div>
+);
+
+const OutreachSection = () => {
+  const [modalOpen, setModalOpen] = useState(false);
 
   return (
-    <div style={{ borderRadius: 9, width: "100%" }}>
-      <button
-        onClick={() => { if (hasChildren) onToggle(); }}
-        style={{
-          display: "flex", alignItems: "center", width: "100%",
-          background: "#fff", border: `1.5px solid ${LINE}`,
-          borderRadius: isOpen && hasChildren ? "9px 9px 0 0" : 9,
-          padding: "14px 12px 10px", cursor: hasChildren ? "pointer" : "default",
-          textAlign: "left", position: "relative",
-          WebkitTapHighlightColor: "transparent",
-        }}
-      >
-        <div style={goldBar(9)} />
-        <div style={{ flex: 1, paddingTop: 4, minWidth: 0 }}>
-          {preacher && (
-            <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 8, color: "#C8960E", letterSpacing: "1.4px", marginBottom: 3 }}>
-              PREACHER
-            </div>
-          )}
-          <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 14, fontWeight: 700, color: "#2D5016", lineHeight: 1.25, wordBreak: "break-word" }}>
-            {name}
-          </div>
-          <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 10, color: "#4A7C2F", marginTop: 3 }}>
-            {role}
-          </div>
-        </div>
-        {hasChildren && (
-          <div style={{
-            flexShrink: 0, marginLeft: 10, width: 26, height: 26,
-            borderRadius: "50%", background: isOpen ? LINE : "#EAF3DE",
-            color: isOpen ? "#fff" : "#2D5016",
-            display: "flex", alignItems: "center", justifyContent: "center",
-            fontSize: 20, lineHeight: 1,
-            transition: "transform .25s ease, background .25s ease",
-            transform: isOpen ? "rotate(45deg)" : "rotate(0deg)",
-            userSelect: "none" as const,
-          }}>+</div>
-        )}
-      </button>
+    <>
+      <SendMessageModal isOpen={modalOpen} onClose={() => setModalOpen(false)} outreachName="JCNA Onefold Assembly" outreachEmail={SHARED.email} outreachPhone={SHARED.phone} />
 
-      {hasChildren && isOpen && (
-        <div style={{
-          borderLeft: `1.5px solid ${LINE}`, borderRight: `1.5px solid ${LINE}`,
-          borderBottom: `1.5px solid ${LINE}`,
-          borderRadius: "0 0 9px 9px", background: "#F7FCF0",
-        }}>
-          <div style={{
-            display: "flex", flexDirection: "column", gap: 6,
-            padding: "10px 10px 10px 14px",
-            borderLeft: "3px solid #A3C57A",
-            margin: "0 8px 10px 8px",
-          }}>
-            {subs!.map((sub, i) => (
-              <div key={i} style={{ ...s.sub, fontSize: 11, padding: "6px 8px" }}>{sub}</div>
+      {/* ✅ FIX: full-width section for bg, inner div matches Container */}
+      <div className="w-full bg-[#f5f2eb] py-12">
+        <div className="mx-auto w-full max-w-[1418px] px-6 lg:px-12">
+
+          {/* Section header */}
+          <div style={{ marginBottom: "2rem" }}>
+            <h2 className="font-cormorant" style={{ fontSize: "2.25rem", fontWeight: 600, color: "#1e3a1f", lineHeight: 1.2, marginBottom: "0.4rem" }}>
+              Find Us Near You
+            </h2>
+            <p className="font-dm" style={{ fontSize: "0.9rem", color: "#4a5c4b", fontWeight: 300, letterSpacing: "0.02em" }}>
+              Four outreaches across Cebu and Negros. Everyone is welcome.
+            </p>
+          </div>
+
+          {/* Cards grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+            {outreaches.map((o) => (
+              <OutreachCard key={o.name} {...o} />
             ))}
           </div>
-        </div>
-      )}
-    </div>
-  );
-}
 
-/* ── Desktop director card ── */
-function DirCard({ name, role, preacher }: { name: string; role: string; preacher?: boolean }) {
-  return (
-    <div style={s.dirCard}>
-      <div style={goldBar(9)} />
-      {preacher && (
-        <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 7, color: "#C8960E", letterSpacing: "1.4px", marginBottom: 2 }}>
-          PREACHER
-        </div>
-      )}
-      <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 10, fontWeight: 700, color: "#fff", lineHeight: 1.25 }}>
-        {name}
-      </div>
-      <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 8, color: "#A8D080", marginTop: 3 }}>
-        {role}
-      </div>
-    </div>
-  );
-}
-
-/* ── Bracket column ── */
-function BracketColumn() {
-  const cardsRef = useRef<HTMLDivElement>(null);
-  const svgRef   = useRef<SVGSVGElement>(null);
-  const rectRef  = useRef<SVGRectElement>(null);
-  const armRoyRef = useRef<HTMLDivElement>(null);
-  const armRicRef = useRef<HTMLDivElement>(null);
-
-  const drawTrunk = () => {
-    const bc = cardsRef.current;
-    const svg = svgRef.current;
-    if (!bc || !svg) return;
-    const cards = bc.querySelectorAll<HTMLElement>(".bracket-dir-card");
-    if (cards.length < 3) return;
-    const colRect = bc.getBoundingClientRect();
-    const anRect  = cards[0].getBoundingClientRect();
-    const royRect = cards[1].getBoundingClientRect();
-    const ricRect = cards[2].getBoundingClientRect();
-    const trunkTop = (anRect.top  + anRect.height  / 2) - colRect.top;
-    const trunkBot = (ricRect.top + ricRect.height / 2) - colRect.top;
-    svg.setAttribute("height", String(trunkBot + 4));
-    if (rectRef.current) {
-      rectRef.current.setAttribute("y",      String(trunkTop));
-      rectRef.current.setAttribute("height", String(trunkBot - trunkTop));
-    }
-    const armW = Math.max(4, (colRect.right - royRect.right) - 7);
-    if (armRoyRef.current) armRoyRef.current.style.width = armW + "px";
-    if (armRicRef.current) armRicRef.current.style.width = armW + "px";
-  };
-
-  useEffect(() => {
-    drawTrunk();
-    window.addEventListener("resize", drawTrunk);
-    const t = setTimeout(drawTrunk, 300);
-    return () => { window.removeEventListener("resize", drawTrunk); clearTimeout(t); };
-  }, []);
-
-  const armArrow: React.CSSProperties = {
-    width: 0, height: 0, flexShrink: 0,
-    borderTop: "5px solid transparent",
-    borderBottom: "5px solid transparent",
-    borderRight: `7px solid ${LINE}`,
-  };
-  const row: React.CSSProperties = { display: "flex", alignItems: "center", width: "100%" };
-
-  return (
-    <div style={{ flex: 1, position: "relative", display: "flex", flexDirection: "column", alignItems: "flex-start", paddingTop: 16 }}>
-      <div style={{ position: "absolute", top: -4, left: "50%", transform: "translateX(-4px)", width: 8, height: 8, borderRadius: "50%", background: LINE }} />
-      <div style={{ position: "absolute", top: 0, left: "50%", transform: "translateX(-1px)", width: 2, height: 16, background: LINE }} />
-      <svg ref={svgRef} style={{ position: "absolute", top: 16, right: 0, pointerEvents: "none" }} width="2" height="300">
-        <rect ref={rectRef} x="0" y="0" width="2" height="0" fill={LINE} />
-      </svg>
-      <div ref={cardsRef} style={{ display: "flex", flexDirection: "column", gap: 0, width: "100%", position: "relative" }}>
-        <div style={row}>
-          <div className="bracket-dir-card" style={{ ...s.dirCard, flex: 1 }}>
-            <div style={goldBar(9)} />
-            <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 10, fontWeight: 700, color: "#fff", lineHeight: 1.25 }}>ANALYN V. DURANGO</div>
-            <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 8, color: "#A8D080", marginTop: 3 }}>Treasurer</div>
-          </div>
-        </div>
-        <div style={{ ...row, marginTop: 8 }}>
-          <div className="bracket-dir-card" style={{ ...s.dirCard, flex: 1 }}>
-            <div style={goldBar(9)} />
-            <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 10, fontWeight: 700, color: "#fff", lineHeight: 1.25 }}>ROY C. MENDREZ</div>
-            <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 8, color: "#A8D080", marginTop: 3 }}>Auditor</div>
-          </div>
-          <div style={armArrow} />
-          <div ref={armRoyRef} style={{ height: 2, background: LINE, flexShrink: 0, width: 14 }} />
-        </div>
-        <div style={{ ...row, marginTop: 8 }}>
-          <div className="bracket-dir-card" style={{ ...s.dirCard, flex: 1 }}>
-            <div style={goldBar(9)} />
-            <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 10, fontWeight: 700, color: "#fff", lineHeight: 1.25 }}>RICWARREN A. CORNILLO</div>
-            <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 8, color: "#A8D080", marginTop: 3 }}>Public Relations Officer</div>
-          </div>
-          <div style={armArrow} />
-          <div ref={armRicRef} style={{ height: 2, background: LINE, flexShrink: 0, width: 14 }} />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* ── Main ── */
-export default function OrgChart() {
-  // Single index controls which card is open; null = all closed
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
-
-  const allCards = [
-    ...directorColumns.map((col) => ({ ...col.director, subs: col.subs })),
-    ...bracketCards.map((card) => ({ ...card, subs: [] as string[] })),
-  ];
-
-  const handleToggle = (index: number) => {
-    setOpenIndex((prev) => (prev === index ? null : index));
-  };
-
-  return (
-    <div className="org-root" style={{ background: "#F4F8EE", borderRadius: 16, padding: "20px 8px", fontFamily: "'DM Sans', sans-serif" }}>
-      <style>{FONTS}</style>
-
-      {/* ════ DESKTOP ════ */}
-      <div className="org-desktop">
-        <div style={s.chairman}>
-          <div style={goldBar(13)} />
-          <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 9, color: "#C8960E", letterSpacing: "1.8px", marginBottom: 6 }}>
-            APOSTLE · CHAIRMAN &amp; CHIEF EXECUTIVE
-          </div>
-          <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 20, fontWeight: 700, color: "#fff", lineHeight: 1.2 }}>
-            REBERO L. ARMENION
-          </div>
-        </div>
-        <VLine h={20} />
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <div style={s.sideBox}>
-            <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 13, fontWeight: 700, color: "#2D5016" }}>CHURCH PREACHERS</div>
-          </div>
-          <div style={{ height: 2, width: 22, background: LINE, flexShrink: 0 }} />
-          <div style={s.vc}>
-            <div style={goldBar(11)} />
-            <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 9, color: "#C8960E", letterSpacing: "1.6px", marginBottom: 5 }}>PASTOR · VICE CHAIRMAN</div>
-            <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 16, fontWeight: 700, color: "#fff" }}>BENJAMEN L. ARMENION, JR.</div>
-          </div>
-          <div style={{ height: 2, width: 22, background: LINE, flexShrink: 0 }} />
-          <div style={s.sideBox}>
-            <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 13, fontWeight: 700, color: "#2D5016" }}>CHURCH WORKERS</div>
-          </div>
-        </div>
-        <VLine h={20} />
-        <div style={{ width: "100%", height: 2, background: LINE }} />
-        <div style={{ display: "flex", width: "100%", alignItems: "flex-start" }}>
-          {directorColumns.map((col, i) => (
-            <div key={i} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", paddingTop: 16, position: "relative" }}>
-              <div style={{ position: "absolute", top: 0, left: "50%", transform: "translateX(-1px)", width: 2, height: 16, background: LINE }} />
-              <div style={{ position: "absolute", top: -4, left: "50%", transform: "translateX(-4px)", width: 8, height: 8, borderRadius: "50%", background: LINE }} />
-              <DirCard name={col.director.name} role={col.director.role} preacher={col.director.preacher} />
-              {col.subs.length > 0 && <VLine h={10} />}
-              <div style={{ display: "flex", flexDirection: "column", gap: 4, width: "100%" }}>
-                {col.subs.map((sub, j) => <div key={j} style={s.sub}>{sub}</div>)}
-              </div>
+          {/* Footer band */}
+          <div style={{ background: "#1e3a1f", borderRadius: "14px", padding: "1.5rem 1.75rem", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "1.25rem", flexWrap: "wrap" }}>
+            {/* Contacts */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "0.55rem" }}>
+              <span className="font-dm" style={{ fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.12em", color: "#7a9c7b", fontWeight: 500 }}>Our Contacts</span>
+              <a href={`tel:${SHARED.phone.replace(/\s/g, "")}`} className="font-dm" style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "0.83rem", color: "#d4e8d5", textDecoration: "none" }}>
+                <PhoneIcon />{SHARED.phone}
+              </a>
+              <a href={`mailto:${SHARED.email}`} className="font-dm" style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "0.83rem", color: "#d4e8d5", textDecoration: "none" }}>
+                <EmailIcon />{SHARED.email}
+              </a>
             </div>
-          ))}
-          <BracketColumn />
-        </div>
-        <div style={s.footer}>
-          <div style={goldBar(12)} />
-          <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 17, fontWeight: 700, color: "#fff", letterSpacing: "1.5px" }}>
-            CHURCH MEMBERS &amp; OUTREACHES
+
+            <VDivider />
+
+            {/* Socials */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "0.55rem" }}>
+              <span className="font-dm" style={{ fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.12em", color: "#7a9c7b", fontWeight: 500 }}>Our Socials</span>
+              <a href={SHARED.fbUrl} target="_blank" rel="noopener noreferrer" className="font-dm" style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "0.83rem", color: "#d4e8d5", textDecoration: "none" }}>
+                <FacebookDot />{SHARED.fbHandle}
+              </a>
+              <a href={SHARED.ytUrl} target="_blank" rel="noopener noreferrer" className="font-dm" style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "0.83rem", color: "#d4e8d5", textDecoration: "none" }}>
+                <YouTubeDot />{SHARED.ytHandle}
+              </a>
+            </div>
+
+            <VDivider />
+
+            {/* CTA */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "0.55rem", alignItems: "flex-end" }}>
+              <button onClick={() => setModalOpen(true)} className="font-dm" style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "#c8a84b", color: "#1e3a1f", fontWeight: 500, fontSize: "0.87rem", padding: "10px 22px", borderRadius: "100px", border: "none", cursor: "pointer", whiteSpace: "nowrap" }}>
+                <SendIcon />Send Message
+              </button>
+            </div>
           </div>
+
         </div>
       </div>
-
-      {/* ════ MOBILE ════ */}
-      <div className="org-mobile" style={{ flexDirection: "column", gap: 10, alignItems: "stretch", padding: "0 4px" }}>
-
-        {/* Chairman */}
-        <div style={{ ...s.chairman, maxWidth: "100%", borderRadius: 11 }}>
-          <div style={goldBar(11)} />
-          <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 8, color: "#C8960E", letterSpacing: "1.5px", marginBottom: 4 }}>
-            APOSTLE · CHAIRMAN &amp; CHIEF EXECUTIVE
-          </div>
-          <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 18, fontWeight: 700, color: "#fff", lineHeight: 1.2 }}>
-            REBERO L. ARMENION
-          </div>
-        </div>
-
-        {/* Preachers + Workers side by side */}
-        <div style={{ display: "flex", gap: 8 }}>
-          <div style={{ ...s.sideBox, flex: 1, padding: "8px 10px" }}>
-            <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 12, fontWeight: 700, color: "#2D5016" }}>CHURCH PREACHERS</div>
-          </div>
-          <div style={{ ...s.sideBox, flex: 1, padding: "8px 10px" }}>
-            <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 12, fontWeight: 700, color: "#2D5016" }}>CHURCH WORKERS</div>
-          </div>
-        </div>
-
-        {/* Vice Chairman */}
-        <div style={{ ...s.vc, width: "100%", minWidth: "unset", borderRadius: 11 }}>
-          <div style={goldBar(11)} />
-          <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 8, color: "#C8960E", letterSpacing: "1.3px", marginBottom: 4 }}>
-            PASTOR · VICE CHAIRMAN
-          </div>
-          <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 16, fontWeight: 700, color: "#fff" }}>
-            BENJAMEN L. ARMENION, JR.
-          </div>
-        </div>
-
-        {/* Divider label */}
-        <div style={{ display: "flex", alignItems: "center", gap: 8, margin: "2px 0" }}>
-          <div style={{ flex: 1, height: 1, background: "#A3C57A" }} />
-          <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 9, color: "#4A7C2F", letterSpacing: "1.2px", whiteSpace: "nowrap" }}>DIRECTORS &amp; OFFICERS</div>
-          <div style={{ flex: 1, height: 1, background: "#A3C57A" }} />
-        </div>
-
-        {/* All cards — controlled by single openIndex */}
-        {allCards.map((card, i) => (
-          <MobileDirectorCard
-            key={i}
-            name={card.name}
-            role={card.role}
-            preacher={card.preacher}
-            subs={card.subs}
-            isOpen={openIndex === i}
-            onToggle={() => handleToggle(i)}
-          />
-        ))}
-
-        {/* Footer */}
-        <div style={{ ...s.footer, marginTop: 4, borderRadius: 11 }}>
-          <div style={goldBar(11)} />
-          <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 15, fontWeight: 700, color: "#fff", letterSpacing: "1.2px" }}>
-            CHURCH MEMBERS &amp; OUTREACHES
-          </div>
-        </div>
-
-      </div>
-    </div>
+    </>
   );
-}
+};
+
+export default OutreachSection;
