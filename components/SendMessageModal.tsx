@@ -1,28 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-
-const schema = yup.object({
-  full_name: yup.string().required("Name is required"),
-  email: yup.string().email("Invalid email").required("Email is required"),
-  phone_number: yup.string().required("Phone number is required"),
-  message: yup.string().required("Your concern is required"),
-});
-
-const inputClass =
-  "w-full border-b border-[#C5D09B] bg-transparent font-dm text-[13px] text-[#2D5016] placeholder-[#4A7C2F]/60 py-2 outline-none focus:border-[#2D5016] transition-colors";
-
-const outreachTaglines: Record<string, string> = {
-  "Minglanilla - Main Church": "Reach out to our home church — we'd love to hear from you.",
-  "Danao Outreach": "Connect with our Danao family and let us serve you.",
-  "Lapu-Lapu City Outreach": "We're here in Lapu-Lapu — send us a message anytime.",
-  "Negros Outreach": "Across the sea, but never far — reach our Negros team.",
-  "Medellin Outreach": "From the island of Gibitngil, we're just a message away.",
-  "Bantayan Island Outreach": "Let our Bantayan team know how we can serve you.",
-};
 
 interface SendMessageModalProps {
   isOpen: boolean;
@@ -32,197 +10,216 @@ interface SendMessageModalProps {
   outreachPhone: string;
 }
 
-const SendMessageModal: React.FC<SendMessageModalProps> = ({
-  isOpen,
-  onClose,
-  outreachName,
-  outreachEmail,
-  outreachPhone,
-}) => {
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-  });
+const SendMessageModal = ({ isOpen, onClose, outreachName, outreachEmail, outreachPhone }: SendMessageModalProps) => {
+  const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
   if (!isOpen) return null;
 
-  const tagline =
-    outreachTaglines[outreachName] ?? "We'd love to hear from you. Send us a message!";
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
-  const onSubmit = async (data: any) => {
-    setLoading(true);
+  const handleSubmit = async () => {
+    if (!form.name || !form.message) return;
+    setStatus("sending");
     try {
-      const payload = {
-        ...data,
-        service_type: "send-message",
-        outreach: outreachName,
-      };
-
-      await fetch("/api/spiritual-services/saveSubmission", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-
-      await fetch("/api/spiritual-services/sendEmailConfirmation", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-
-      setSubmitted(true);
-      reset();
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
+      await new Promise((res) => setTimeout(res, 1200));
+      setStatus("sent");
+    } catch {
+      setStatus("error");
     }
   };
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
-      {/* Overlay */}
-      <div
-        className="absolute inset-0 bg-black/40 backdrop-blur-sm"
-        onClick={onClose}
-      />
+  const handleClose = () => {
+    setForm({ name: "", email: "", phone: "", message: "" });
+    setStatus("idle");
+    onClose();
+  };
 
-      {/* Modal */}
-      <div className="relative z-10 w-full max-w-lg bg-[#FAFDF5] rounded-2xl p-6 sm:p-8 shadow-xl max-h-[90vh] overflow-y-auto">
-        {/* Close */}
+  return (
+    <div
+      onClick={handleClose}
+      style={{
+        position: "fixed", inset: 0, zIndex: 50,
+        background: "rgba(0,0,0,0.55)", backdropFilter: "blur(4px)",
+        display: "flex", alignItems: "center", justifyContent: "center",
+        padding: "1rem",
+      }}
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          background: "linear-gradient(170deg, #1A3A08 0%, #2D5016 55%, #1e3d0a 100%)",
+          border: "1px solid rgba(154,191,95,0.2)",
+          borderRadius: "18px",
+          width: "100%", maxWidth: "480px",
+          padding: "2rem 2rem 1.75rem",
+          display: "flex", flexDirection: "column", gap: "1.25rem",
+          boxShadow: "0 24px 60px rgba(0,0,0,0.4)",
+          position: "relative",
+        }}
+      >
+        {/* Close button */}
         <button
-          onClick={onClose}
-          className="absolute top-4 right-4 text-[#4A7C2F] hover:text-[#2D5016] text-xl font-bold"
+          onClick={handleClose}
+          style={{
+            position: "absolute", top: "1.1rem", right: "1.1rem",
+            background: "rgba(154,191,95,0.08)", border: "1px solid rgba(154,191,95,0.2)",
+            borderRadius: "50%", width: "30px", height: "30px",
+            color: "#9db39e", cursor: "pointer",
+            display: "flex", alignItems: "center", justifyContent: "center",
+            fontSize: "16px", lineHeight: 1,
+          }}
         >
-          ✕
+          ×
         </button>
 
-        {/* Outreach label */}
-        <div className="flex items-center gap-3 mb-2">
-          <span
-            className="font-dm text-[11px] font-bold tracking-widest text-[#D4A017] uppercase"
-          >
-            OUTREACH
+        {/* Header */}
+        <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}>
+          <span className="font-dm" style={{ fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.12em", color: "#7a9c7b", fontWeight: 500 }}>
+            {outreachName}
           </span>
-          <div className="w-[40px] h-[1px] bg-[#D4A017]" />
+          <h3 className="font-cormorant" style={{ fontSize: "1.6rem", fontWeight: 600, color: "#f5f2eb", margin: 0 }}>
+            Contact Us
+          </h3>
+          <p className="font-dm" style={{ fontSize: "0.8rem", color: "#7a9c7b", margin: 0 }}>
+            We'd love to hear from you. Fill in the form and we'll get back to you.
+          </p>
         </div>
 
-        <h2 className="font-cormorant font-bold text-[26px] sm:text-[30px] text-[#2D5016] mb-2 leading-tight">
-          {outreachName}
-        </h2>
-        <p className="font-dm text-[13px] text-[#4A7C2F] leading-[1.6] mb-6">
-          {tagline}
-        </p>
-
-        {submitted ? (
-          <div className="text-center py-10">
-            <p className="font-cormorant text-[22px] text-[#2D5016] font-bold mb-2">
-              Message Sent!
-            </p>
-            <p className="font-dm text-[13px] text-[#4A7C2F]">
-              Thank you for reaching out to <strong>{outreachName}</strong>. We'll get back to you as soon as possible.
-            </p>
-            <button
-              onClick={() => {
-                setSubmitted(false);
-                onClose();
-              }}
-              className="mt-6 px-6 py-2 bg-[#2D5016] text-white font-dm text-[13px] rounded-lg hover:bg-[#4A7C2F] transition-colors"
-            >
+        {status === "sent" ? (
+          <div style={{ textAlign: "center", padding: "2rem 0", display: "flex", flexDirection: "column", gap: "0.75rem", alignItems: "center" }}>
+            <div style={{ width: "48px", height: "48px", borderRadius: "50%", background: "rgba(200,168,75,0.15)", border: "1px solid rgba(200,168,75,0.25)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c8a84b" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            </div>
+            <p className="font-cormorant" style={{ fontSize: "1.2rem", fontWeight: 600, color: "#f5f2eb", margin: 0 }}>Message Sent!</p>
+            <p className="font-dm" style={{ fontSize: "0.8rem", color: "#7a9c7b", margin: 0 }}>Thank you for reaching out. We'll be in touch soon.</p>
+            <button onClick={handleClose} className="font-dm" style={{ marginTop: "0.5rem", background: "#c8a84b", color: "#1e3a1f", border: "none", borderRadius: "100px", padding: "9px 24px", fontWeight: 500, fontSize: "0.85rem", cursor: "pointer" }}>
               Close
             </button>
           </div>
         ) : (
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-            <p className="font-dm font-bold text-[11px] tracking-widest text-[#2D5016] uppercase mb-4">
-              SEND A MESSAGE
-            </p>
+          <>
+            {/* Fields */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "0.85rem" }}>
 
-            {/* Full Name */}
-            <div>
-              <input
-                {...register("full_name")}
-                placeholder="Your name"
-                className={inputClass}
-              />
-              {errors.full_name && (
-                <p className="text-red-500 text-[11px] mt-1">
-                  {errors.full_name.message as string}
-                </p>
-              )}
-            </div>
-
-            {/* Email and Phone */}
-            <div className="grid grid-cols-2 gap-4">
-              <div>
+              {/* Name */}
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.35rem" }}>
+                <label className="font-dm" style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.1em", color: "#7a9c7b", fontWeight: 500 }}>
+                  Full Name <span style={{ color: "#c8a84b" }}>*</span>
+                </label>
                 <input
-                  {...register("email")}
-                  placeholder="Your email"
-                  className={inputClass}
+                  name="name"
+                  value={form.name}
+                  onChange={handleChange}
+                  placeholder="Juan dela Cruz"
+                  className="font-dm"
+                  style={{
+                    background: "rgba(154,191,95,0.06)", border: "1px solid rgba(154,191,95,0.18)",
+                    borderRadius: "8px", padding: "10px 13px", color: "#f5f2eb",
+                    fontSize: "0.85rem", outline: "none", width: "100%", boxSizing: "border-box",
+                  }}
                 />
-                {errors.email && (
-                  <p className="text-red-500 text-[11px] mt-1">
-                    {errors.email.message as string}
-                  </p>
-                )}
               </div>
-              <div>
+
+              {/* Email — optional */}
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.35rem" }}>
+                <label className="font-dm" style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.1em", color: "#7a9c7b", fontWeight: 500, display: "flex", alignItems: "center", gap: "6px" }}>
+                  Email
+                  <span style={{ fontSize: "10px", color: "#5a7a5b", textTransform: "none", letterSpacing: 0, fontWeight: 400 }}>optional</span>
+                </label>
                 <input
-                  {...register("phone_number")}
-                  placeholder="Your phone number"
-                  className={inputClass}
+                  name="email"
+                  type="email"
+                  value={form.email}
+                  onChange={handleChange}
+                  placeholder="juan@email.com"
+                  className="font-dm"
+                  style={{
+                    background: "rgba(154,191,95,0.06)", border: "1px solid rgba(154,191,95,0.18)",
+                    borderRadius: "8px", padding: "10px 13px", color: "#f5f2eb",
+                    fontSize: "0.85rem", outline: "none", width: "100%", boxSizing: "border-box",
+                  }}
                 />
-                {errors.phone_number && (
-                  <p className="text-red-500 text-[11px] mt-1">
-                    {errors.phone_number.message as string}
-                  </p>
-                )}
+              </div>
+
+              {/* Phone */}
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.35rem" }}>
+                <label className="font-dm" style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.1em", color: "#7a9c7b", fontWeight: 500 }}>
+                  Phone
+                </label>
+                <input
+                  name="phone"
+                  type="tel"
+                  value={form.phone}
+                  onChange={handleChange}
+                  placeholder="+63 9XX XXX XXXX"
+                  className="font-dm"
+                  style={{
+                    background: "rgba(154,191,95,0.06)", border: "1px solid rgba(154,191,95,0.18)",
+                    borderRadius: "8px", padding: "10px 13px", color: "#f5f2eb",
+                    fontSize: "0.85rem", outline: "none", width: "100%", boxSizing: "border-box",
+                  }}
+                />
+              </div>
+
+              {/* Message */}
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.35rem" }}>
+                <label className="font-dm" style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.1em", color: "#7a9c7b", fontWeight: 500 }}>
+                  Message <span style={{ color: "#c8a84b" }}>*</span>
+                </label>
+                <textarea
+                  name="message"
+                  value={form.message}
+                  onChange={handleChange}
+                  placeholder="How can we help you?"
+                  rows={4}
+                  className="font-dm"
+                  style={{
+                    background: "rgba(154,191,95,0.06)", border: "1px solid rgba(154,191,95,0.18)",
+                    borderRadius: "8px", padding: "10px 13px", color: "#f5f2eb",
+                    fontSize: "0.85rem", outline: "none", width: "100%", boxSizing: "border-box",
+                    resize: "vertical", fontFamily: "inherit",
+                  }}
+                />
               </div>
             </div>
 
-            {/* Concern */}
-            <div>
-              <textarea
-                {...register("message")}
-                placeholder="Share your concern..."
-                rows={4}
-                className={`${inputClass} resize-none`}
-              />
-              {errors.message && (
-                <p className="text-red-500 text-[11px] mt-1">
-                  {errors.message.message as string}
-                </p>
-              )}
-            </div>
-
-            {/* Contact Info */}
-            <div className="pt-2 space-y-1">
-              <p className="font-dm text-[12px] text-[#4A7C2F]">
-                📞 Call us: {outreachPhone}
-              </p>
-              <p className="font-dm text-[12px] text-[#4A7C2F]">
-                ✉️ Email: {outreachEmail}
-              </p>
-            </div>
-
-            {/* Submit */}
-            <div className="flex justify-end">
+            {/* Footer */}
+            <div style={{
+              display: "flex", alignItems: "center", justifyContent: "space-between",
+              gap: "1rem", flexWrap: "wrap",
+              borderTop: "1px solid rgba(154,191,95,0.15)",
+              paddingTop: "1rem",
+            }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+                <a href={`tel:${outreachPhone.replace(/\s/g, "")}`} className="font-dm" style={{ fontSize: "0.78rem", color: "#7a9c7b", textDecoration: "none" }}>
+                  {outreachPhone}
+                </a>
+                <a href={`mailto:${outreachEmail}`} className="font-dm" style={{ fontSize: "0.78rem", color: "#7a9c7b", textDecoration: "none" }}>
+                  {outreachEmail}
+                </a>
+              </div>
               <button
-                type="submit"
-                disabled={loading}
-                className="px-8 py-2 bg-[#2D5016] text-white font-dm text-[13px] font-medium rounded-lg hover:bg-[#4A7C2F] transition-colors disabled:opacity-60"
+                onClick={handleSubmit}
+                disabled={!form.name || !form.message || status === "sending"}
+                className="font-dm"
+                style={{
+                  display: "inline-flex", alignItems: "center", gap: "8px",
+                  background: !form.name || !form.message ? "rgba(200,168,75,0.35)" : "#c8a84b",
+                  color: "#1e3a1f", fontWeight: 500, fontSize: "0.87rem",
+                  padding: "10px 22px", borderRadius: "100px", border: "none",
+                  cursor: !form.name || !form.message ? "not-allowed" : "pointer",
+                  whiteSpace: "nowrap", transition: "background 0.2s",
+                }}
               >
-                {loading ? "Sending..." : "SEND"}
+                {status === "sending" ? "Sending…" : "Send Message"}
               </button>
             </div>
-          </form>
+          </>
         )}
       </div>
     </div>

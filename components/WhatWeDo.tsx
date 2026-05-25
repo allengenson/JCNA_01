@@ -182,13 +182,13 @@ const WhatWeDo = () => {
           border:1px solid #C5D09B; background:transparent;
           font-family:'DM Sans',sans-serif;
           font-size:clamp(11px,2.8vw,13px); letter-spacing:0.1em;
-          font-weight:500; cursor:pointer; white-space:nowrap; color:#D4A017;
+          font-weight:500; cursor:pointer; white-space:nowrap; color:#4A7C2F;
           transition:background 220ms ease, color 220ms ease,
                       border-color 220ms ease, transform 120ms ease;
         }
         .wwd-top-pill:active { transform:scale(0.96); }
         .wwd-top-pill.active { background:#2D5016; border-color:#2D5016; color:#F6F8F1; font-weight:700; }
-        .wwd-top-pill:not(.active):hover { border-color:#82B657; color:#82B657; }
+        .wwd-top-pill:not(.active):hover { border-color:#7AAB50; color:#7AAB50; }
 
         .wwd-tab-body { transition:opacity 220ms ease, transform 220ms ease; }
         .wwd-tab-body.fading  { opacity:0; transform:translateY(8px); }
@@ -206,13 +206,13 @@ const WhatWeDo = () => {
         .wwd-card {
           display:flex; align-items:center; justify-content:center;
           padding:20px 14px; background:#fff;
-          border:1.5px solid #E5DECA; border-radius:10px; cursor:pointer;
+          border:1.5px solid #E2EAC8; border-radius:10px; cursor:pointer;
           transition:border-color 250ms ease, background 250ms ease,
                       transform 150ms ease, box-shadow 250ms ease;
           text-align:center;
         }
         .wwd-card:hover {
-          border-color:#82B657;
+          border-color:#7AAB50;
           box-shadow:0 4px 16px rgba(45,80,22,0.10);
           transform:translateY(-2px);
         }
@@ -224,7 +224,7 @@ const WhatWeDo = () => {
           font-family:'Cormorant Garamond',serif;
           font-size:clamp(14px,2.2vw,16px);
           letter-spacing:0.07em; font-weight:500;
-          color:#D4A017; line-height:1.3;
+          color:#4A7C2F; line-height:1.3;
           transition:color 250ms ease;
         }
         .wwd-card.is-open .wwd-card-label { color:#2D5016; font-weight:600; font-style:italic; }
@@ -236,7 +236,7 @@ const WhatWeDo = () => {
         }
         .wwd-panel-header {
           display:flex; align-items:center; justify-content:space-between;
-          padding:14px 20px; border-bottom:1px solid #E5DECA; background:#F0F5E8;
+          padding:14px 20px; border-bottom:1px solid #E2EAC8; background:#F0F5E8;
         }
         .wwd-panel-title {
           font-family:'Cormorant Garamond',serif;
@@ -255,10 +255,7 @@ const WhatWeDo = () => {
         @media(max-width:520px){ .wwd-panel-body { padding:18px 16px 24px; } }
       `}</style>
 
-      {/* Full-width bg wrapper — NO overflow-hidden here so the border isn't clipped */}
       <div id="what-we-do" ref={sectionRef} className="w-full bg-[#F6F8F1]">
-
-        {/* ── All content + the two divider lines live inside the same constrained inner div ── */}
         <div className="mx-auto w-full max-w-[1418px] px-6 lg:px-12 pt-14 pb-16 lg:pt-[70px] lg:pb-[80px]">
 
           {/* HEADING */}
@@ -271,14 +268,10 @@ const WhatWeDo = () => {
           >
             <h2
               className="font-cormorant"
-              style={{
-                fontSize: "clamp(30px,5.5vw,46px)", color: "#D4A017",
-                letterSpacing: "0.15em", fontWeight: 500, lineHeight: 1,
-              }}
+              style={{ fontSize: "clamp(30px,5.5vw,46px)", color: "#2D5016", letterSpacing: "0.15em", fontWeight: 700, lineHeight: 1 }}
             >
               What We Do
             </h2>
-            {/* ✅ Top divider — stays inside the constrained div, matches content edges */}
             <div
               style={{
                 height: "1px", background: "#C5D09B", marginTop: "22px",
@@ -308,7 +301,6 @@ const WhatWeDo = () => {
             ))}
           </div>
 
-          {/* ✅ Mid divider — stays inside the constrained div */}
           <div style={{ height: "1px", background: "#C5D09B", margin: "18px 0 0" }} />
 
           {/* CARD GRID + PANEL */}
@@ -367,7 +359,7 @@ const WhatWeDo = () => {
             })()}
           </div>
 
-          {/* ✅ Bottom border — now inside the constrained div so it aligns with navbar content */}
+          {/* BOTTOM DIVIDER */}
           <div
             className="h-[1px] bg-[#C5D09B] mt-16 lg:mt-[80px]"
             style={{
@@ -376,8 +368,8 @@ const WhatWeDo = () => {
               opacity: inView ? undefined : 0,
             }}
           />
-        </div>
 
+        </div>
       </div>
     </>
   );

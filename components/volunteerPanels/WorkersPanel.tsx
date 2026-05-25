@@ -150,11 +150,11 @@ const sliderStyle: React.CSSProperties = {
           {/* Text + verse */}
           <div className="w-full lg:w-[510px] lg:flex-shrink-0">
             <p className="font-dm" style={{ fontSize: "clamp(12px, 3vw, 14px)", color: "#4A7C2F", lineHeight: 1.8, letterSpacing: "0.03em" }}>
-              Workers play a vital role in supporting the church through service, preparation,
-              and practical tasks. They ensure that every ministry and activity runs smoothly
-              and effectively. Through their dedication, they help create a welcoming and
-              orderly environment for worship and fellowship. Their faithful service reflects
-              humility, teamwork, and commitment to God's work.
+           Church workers play a vital role in the life and function of the church. Before services, they prepare everything needed for worship, including setup, instruments, cleaning, and seating arrangements. After services, they continue maintaining the church and supporting ongoing activities.
+
+Some workers stay in the church headquarters or pastoral housing, where they join regular praise, worship, and prayer every morning from Monday to Sunday, and every afternoon to evening from Monday to Saturday, except Fridays and Sundays. They include part-time workers who assist on schedules and full-time workers who dedicate their lives to service, while other members return home after services.
+
+
             </p>
 
             <div

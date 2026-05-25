@@ -28,15 +28,6 @@ const Hero = () => {
           animation: floatLogo 6s ease-in-out infinite;
         }
 
-        @keyframes pulseRing {
-          0%   { box-shadow: 0 0 0 0   rgba(212,160,23,0.35); }
-          70%  { box-shadow: 0 0 0 10px rgba(212,160,23,0);   }
-          100% { box-shadow: 0 0 0 0   rgba(212,160,23,0);    }
-        }
-        .service-card {
-          animation: pulseRing 2.8s ease-out infinite;
-        }
-
         .title-line {
           opacity: 0;
           transform: translateY(22px);
@@ -106,18 +97,10 @@ const Hero = () => {
         }
         .logo-entrance.show { opacity: 1; transform: scale(1); }
 
-        .card-entrance {
-          opacity: 0;
-          transform: translateY(12px);
-          transition: opacity 600ms ease, transform 600ms ease;
-          transition-delay: 650ms;
-        }
-        .card-entrance.show { opacity: 1; transform: translateY(0); }
-
         @media (prefers-reduced-motion: reduce) {
-          .logo-float, .service-card { animation: none !important; }
+          .logo-float { animation: none !important; }
           .title-line, .welcome-label, .body-text, .btn-wrap,
-          .right-panel, .logo-entrance, .card-entrance {
+          .right-panel, .logo-entrance {
             opacity: 1 !important;
             transform: none !important;
             transition: none !important;
@@ -126,7 +109,7 @@ const Hero = () => {
         }
       `}</style>
 
-      {/* ── MOBILE & TABLET (stacked, unchanged) ── */}
+      {/* ── MOBILE & TABLET (stacked) ── */}
       <section className="w-full bg-[#FAFDF5] lg:hidden">
         <div className="mx-auto w-full max-w-[1418px] px-6">
           <div className="flex flex-col min-h-[auto]">
@@ -154,18 +137,13 @@ const Hero = () => {
                 className={`btn-wrap flex flex-col sm:flex-row items-center gap-4 sm:gap-6 ${visible ? "show" : ""}`}
                 style={{ transitionDelay: "660ms" }}
               >
-                <Link href="/VisitUs">
-                  <button className="btn-visit w-full sm:w-auto font-dm text-[14px] sm:text-[16px] text-white px-6 py-3 rounded-full bg-gradient-to-r from-[#4A7C2F] to-[#2D5016]">
-                    VISIT US
-                  </button>
-                </Link>
                 <a
                   href="https://web.facebook.com/watch/live/?ref=watch_permalink&v=1466177158314042&rdid=N3v7QbbwKdr60noS"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="sermon-link font-dm text-[14px] sm:text-[16px] text-[#4A7C2F]"
                 >
-                  Watch live stream
+                  Watch Our Latest Service
                 </a>
               </div>
             </div>
@@ -182,34 +160,16 @@ const Hero = () => {
                   className="logo-float w-[220px] h-[200px] sm:w-[300px] sm:h-[260px] object-contain"
                 />
               </div>
-              <div
-                className={`card-entrance service-card mt-0 flex flex-col items-center justify-center w-[160px] h-[70px] sm:w-[185px] sm:h-[76px] rounded-full bg-white border ${visible ? "show" : ""}`}
-                style={{ borderColor: "rgba(212,160,23,0.5)" }}
-              >
-                <p className="font-semibold text-[12px] sm:text-[13px] text-[#4A7C2F] font-dm">Sunday Service</p>
-                <p className="text-[12px] sm:text-[13px] text-[#4A7C2F] font-dm">10:00 AM - 3:00 PM</p>
-              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* ── DESKTOP ── */}
-      {/*
-        FIX: Use the same mx-auto w-full max-w-[1418px] px-6 lg:px-12 as the navbar
-        so left and right edges are pixel-identical.
-
-        The right panel's gradient bg needs to bleed to the right edge of the
-        viewport, so we use a negative right margin + padding trick:
-        - Give the outer container the standard px-12 padding
-        - Left panel content sits naturally within that
-        - Right panel uses -mr-12 to undo the right padding, then pr-0, so its
-          background reaches the viewport edge while content stays aligned
-      */}
       <section className="hidden lg:block w-full bg-[#FAFDF5]">
         <div className="mx-auto w-full max-w-[1418px] px-6 lg:px-12 flex min-h-[676px]">
 
-          {/* LEFT — text content, already inside the padded container */}
+          {/* LEFT — text content */}
           <div className="flex-1 flex flex-col justify-center py-10">
             <p className={`welcome-label font-dm text-[13px] text-[#D4A017] mb-6 ${visible ? "show" : ""}`}>
               — WELCOME HOME
@@ -233,31 +193,20 @@ const Hero = () => {
               className={`btn-wrap flex items-center gap-6 ${visible ? "show" : ""}`}
               style={{ transitionDelay: "660ms" }}
             >
-              <Link href="/VisitUs">
-                <button className="btn-visit font-dm text-[16px] text-white px-6 py-3 rounded-full bg-gradient-to-r from-[#4A7C2F] to-[#2D5016]">
-                  VISIT US
-                </button>
-              </Link>
               <a
                 href="https://web.facebook.com/watch/live/?ref=watch_permalink&v=1466177158314042&rdid=N3v7QbbwKdr60noS"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="sermon-link font-dm text-[16px] text-[#4A7C2F]"
               >
-                Watch latest sermon
+                Watch Our Latest Service
               </a>
             </div>
           </div>
 
-          {/*
-            RIGHT — gradient bg panel.
-            -mr-12 cancels the container's right px-12 so the bg bleeds to the
-            viewport edge (matching how the original design looked).
-            pl-12 keeps the internal content (logo, card) inset from the left.
-            The bg colour fills from left edge of this div to the viewport right edge.
-          */}
+          {/* RIGHT — gradient bg panel */}
           <div
-            className={`right-panel -mr-12 w-[47.5%] flex-shrink-0 flex flex-col items-center justify-start pt-0 pl-0 ${visible ? "show" : ""}`}
+            className={`right-panel -mr-12 w-[47.5%] flex-shrink-0 flex flex-col items-center justify-center pl-0 ${visible ? "show" : ""}`}
             style={{ background: "linear-gradient(to top left, #E8F5D6 0%, #FDF8E1 53%, #E8F0D0 98%)" }}
           >
             <div className={`logo-entrance ${visible ? "show" : ""}`}>
@@ -266,13 +215,6 @@ const Hero = () => {
                 alt="Logo"
                 className="logo-float w-[360px] h-[320px] md:w-[600px] md:h-[550px] object-contain"
               />
-            </div>
-            <div
-              className={`card-entrance service-card mt-0 flex flex-col items-center justify-center w-[185px] h-[76px] rounded-full bg-white border ${visible ? "show" : ""}`}
-              style={{ borderColor: "rgba(212,160,23,0.5)" }}
-            >
-              <p className="font-semibold text-[13px] text-[#4A7C2F] font-dm">Sunday Service</p>
-              <p className="text-[13px] text-[#4A7C2F] font-dm">10:00 AM - 3:00 PM</p>
             </div>
           </div>
 

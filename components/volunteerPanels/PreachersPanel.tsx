@@ -27,7 +27,7 @@ const PreachersPanel = () => {
 
   useEffect(() => {
     if (!modalOpen) return;
-    const handler = (e: KeyboardEvent) => {if (e.key === "Escape") setModalOpen(false); };
+    const handler = (e: KeyboardEvent) => { if (e.key === "Escape") setModalOpen(false); };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
   }, [modalOpen]);
@@ -38,16 +38,16 @@ const PreachersPanel = () => {
   }, [modalOpen]);
 
   const goTo = useCallback(
-  (index: number) => {
-    setModalIndex(index);
-    setModalOpen(true);
-  }, []);
+    (index: number) => {
+      setModalIndex(index);
+      setModalOpen(true);
+    }, []);
 
   const SliderContent = ({
-  onImageClick,
-}: {
-  onImageClick: (index: number) => void;
-}) => (
+    onImageClick,
+  }: {
+    onImageClick: (index: number) => void;
+  }) => (
     <>
       {slides.map((src, i) => (
         <img
@@ -82,7 +82,7 @@ const PreachersPanel = () => {
         }}
       >
         <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-          <polyline points="7,1 3,5 7,9" stroke="#2D5016" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+          <polyline points="7,1 3,5 7,9" stroke="#2D5016" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </button>
 
@@ -98,7 +98,7 @@ const PreachersPanel = () => {
         }}
       >
         <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-          <polyline points="3,1 7,5 3,9" stroke="#2D5016" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+          <polyline points="3,1 7,5 3,9" stroke="#2D5016" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </button>
 
@@ -132,14 +132,14 @@ const PreachersPanel = () => {
     </>
   );
 
- const sliderStyle: React.CSSProperties = {
-  height: "clamp(220px, 45vw, 340px)",
-  border: "1.5px solid #82B657",
-  borderRadius: 20,
-  background: "#0a1f06",
-  overflow: "hidden",
-  position: "relative",
-};
+  const sliderStyle: React.CSSProperties = {
+    height: "clamp(220px, 45vw, 340px)",
+    border: "1.5px solid #82B657",
+    borderRadius: 20,
+    background: "#0a1f06",
+    overflow: "hidden",
+    position: "relative",
+  };
 
   return (
     <>
@@ -155,11 +155,7 @@ const PreachersPanel = () => {
           {/* Text + verse */}
           <div className="w-full lg:w-[510px] lg:flex-shrink-0">
             <p className="font-dm" style={{ fontSize: "clamp(12px, 3vw, 14px)", color: "#4A7C2F", lineHeight: 1.8, letterSpacing: "0.03em" }}>
-              Preachers are called to teach and share God's Word. They guide, correct,
-              and encourage the church through biblical messages, helping people grow
-              in faith. They also serve as role models, living out the teachings they
-              preach. Through their faithful service, they help strengthen unity and
-              spiritual maturity within the body of believers.
+              Preachers are not hired individuals but are called by God to serve through Bible-based teaching and guidance. Their role is to enrich the church with biblical wisdom, strengthen faith, teach, guide, and correct. They devote themselves to studying and understanding the Scriptures deeply before sharing and proclaiming the Word of God to others.
             </p>
 
             <div
@@ -247,7 +243,7 @@ const PreachersPanel = () => {
                 }}
               >
                 <svg width="12" height="12" viewBox="0 0 10 10" fill="none">
-                  <polyline points="7,1 3,5 7,9" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <polyline points="7,1 3,5 7,9" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </button>
 
@@ -263,7 +259,7 @@ const PreachersPanel = () => {
                 }}
               >
                 <svg width="12" height="12" viewBox="0 0 10 10" fill="none">
-                  <polyline points="3,1 7,5 3,9" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <polyline points="3,1 7,5 3,9" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </button>
             </div>

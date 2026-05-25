@@ -26,18 +26,13 @@ const TithesPanel = ({ onNavigate }: Props) => {
 
       {/* Right — Text */}
       <div className="w-full lg:flex-1 flex flex-col justify-center">
-        <p
-          className="font-cormorant italic text-center lg:text-left mb-4"
-          style={{ fontSize: "clamp(14px, 2.8vw, 17px)", color: "#D4A017", lineHeight: 1.5 }}
-        >
-          "Giving with love, faith, and gratitude to God."
-        </p>
 
         <p
           className="font-dm text-center lg:text-left mb-6"
           style={{ fontSize: "clamp(12px, 2.5vw, 14px)", color: "#4A7C2F", lineHeight: 1.85 }}
         >
-          Tithes, love, and offering are acts of giving to God as an expression of gratitude, faith, and obedience. They acknowledge that everything we have comes from Him, support the work of the ministry, and help those in need. They reflect a willing and cheerful heart in serving God, deepening trust in His provision and blessings.
+  Tithes and Love Offering is a part of the worship service where we praise and glorify the Lord through our blessings and resources. Members faithfully offer a portion of their income, with tithes commonly being ten percent, while love offerings are given voluntarily according to one’s heart and ability. This act of giving is done with gratitude, faith, and devotion to God.
+
         </p>
 
         <p

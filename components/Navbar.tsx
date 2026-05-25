@@ -2,220 +2,12 @@
 
 import { useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import PrayerRequestModal from "./PrayerRequestModal";
 
-const menuItems = ["HOME", "WHO WE ARE", "WHAT WE DO", "CONTACT", "VISIT US"];
-
-const scrollToId = (id: string) => {
-  const el = document.getElementById(id);
-  if (el) el.scrollIntoView({ behavior: "smooth" });
-};
-
-/* ─── Contact Info Modal ─────────────────────────────────────── */
-const ContactModal = ({
-  isOpen,
-  onClose,
-}: {
-  isOpen: boolean;
-  onClose: () => void;
-}) => {
-  useEffect(() => {
-    const handleKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    if (isOpen) document.addEventListener("keydown", handleKey);
-    return () => document.removeEventListener("keydown", handleKey);
-  }, [isOpen, onClose]);
-
-  if (!isOpen) return null;
-
-  return (
-    <>
-      <style>{`
-        @keyframes cmBackdropIn {
-          from { opacity: 0; }
-          to   { opacity: 1; }
-        }
-        @keyframes cmPanelIn {
-          from { opacity: 0; transform: translateY(12px) scale(0.97); }
-          to   { opacity: 1; transform: translateY(0) scale(1); }
-        }
-        .cm-backdrop {
-          animation: cmBackdropIn 200ms ease forwards;
-        }
-        .cm-panel {
-          animation: cmPanelIn 250ms ease forwards;
-        }
-        .cm-contact-link {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          padding: 14px 18px;
-          border-radius: 12px;
-          background: #F2F9EA;
-          border: 1px solid #D4EDBA;
-          text-decoration: none;
-          color: #2D5016;
-          transition: background 200ms ease, transform 150ms ease, box-shadow 200ms ease;
-        }
-        .cm-contact-link:hover {
-          background: #E3F5C8;
-          transform: translateY(-2px);
-          box-shadow: 0 4px 14px rgba(45,80,22,0.12);
-        }
-        .cm-icon-wrap {
-          width: 40px;
-          height: 40px;
-          border-radius: 10px;
-          background: #2D5016;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-shrink: 0;
-        }
-        .cm-close {
-          position: absolute;
-          top: 16px;
-          right: 16px;
-          width: 32px;
-          height: 32px;
-          border-radius: 50%;
-          background: #F2F9EA;
-          border: none;
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: #4A7C2F;
-          font-size: 18px;
-          transition: background 200ms ease, color 200ms ease;
-        }
-        .cm-close:hover {
-          background: #D4EDBA;
-          color: #2D5016;
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .cm-backdrop, .cm-panel { animation: none !important; }
-          .cm-contact-link { transition: none !important; }
-        }
-      `}</style>
-
-      {/* Backdrop */}
-      <div
-        className="cm-backdrop fixed inset-0 z-[100] flex items-center justify-center px-4"
-        style={{ backgroundColor: "rgba(20, 40, 8, 0.45)", backdropFilter: "blur(4px)" }}
-        onClick={onClose}
-      >
-        {/* Panel */}
-        <div
-          className="cm-panel relative bg-[#FAFDF5] rounded-2xl shadow-2xl w-full max-w-sm p-8"
-          style={{ border: "1px solid #D4EDBA" }}
-          onClick={(e) => e.stopPropagation()}
-        >
-          <button className="cm-close" onClick={onClose} aria-label="Close">
-            ✕
-          </button>
-
-          {/* Header */}
-          <div className="mb-6 text-center">
-            <div
-              className="mx-auto mb-3 flex items-center justify-center rounded-full"
-              style={{
-                width: 56,
-                height: 56,
-                background: "linear-gradient(135deg, #3a6b1e 0%, #2D5016 100%)",
-              }}
-            >
-              {/* Envelope icon */}
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="2" y="4" width="20" height="16" rx="2"/>
-                <path d="M2 7l10 7 10-7"/>
-              </svg>
-            </div>
-            <h2
-              style={{
-                fontFamily: "'Cormorant Garamond', Georgia, serif",
-                fontWeight: 700,
-                fontSize: "22px",
-                color: "#2D5016",
-                lineHeight: 1.2,
-                marginBottom: 4,
-              }}
-            >
-              Get in Touch
-            </h2>
-            <p style={{ fontSize: "13px", color: "#6B9A4A" }}>
-              We'd love to hear from you
-            </p>
-          </div>
-
-          {/* Contact items */}
-          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-            {/* Email */}
-            <a
-              href="mailto:onefoldassembly@gmail.com"
-              className="cm-contact-link"
-            >
-              <div className="cm-icon-wrap">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="2" y="4" width="20" height="16" rx="2"/>
-                  <path d="M2 7l10 7 10-7"/>
-                </svg>
-              </div>
-              <div>
-                <p style={{ fontSize: "11px", color: "#6B9A4A", marginBottom: 2, fontFamily: "DM Sans, sans-serif" }}>
-                  Email us
-                </p>
-                <p style={{ fontSize: "13px", fontWeight: 600, color: "#2D5016", fontFamily: "DM Sans, sans-serif" }}>
-                  onefoldassembly@gmail.com
-                </p>
-              </div>
-            </a>
-
-            {/* Phone */}
-            <a
-              href="tel:+639514911577"
-              className="cm-contact-link"
-            >
-              <div className="cm-icon-wrap">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
-                </svg>
-              </div>
-              <div>
-                <p style={{ fontSize: "11px", color: "#6B9A4A", marginBottom: 2, fontFamily: "DM Sans, sans-serif" }}>
-                  Call us
-                </p>
-                <p style={{ fontSize: "13px", fontWeight: 600, color: "#2D5016", fontFamily: "DM Sans, sans-serif" }}>
-                  +63 951 491 1577
-                </p>
-              </div>
-            </a>
-          </div>
-
-          {/* Footer note */}
-          <p
-            style={{
-              textAlign: "center",
-              fontSize: "11px",
-              color: "#9AB87A",
-              marginTop: 20,
-              fontFamily: "DM Sans, sans-serif",
-            }}
-          >
-            We typically respond within 24 hours
-          </p>
-        </div>
-      </div>
-    </>
-  );
-};
+const menuItems = ["HOME", "WHO WE ARE", "WHAT WE DO", "CONTACT US"];
 
 /* ─── Navbar ─────────────────────────────────────────────────── */
 const Navbar = () => {
   const [open, setOpen] = useState(false);
-  const [prayerOpen, setPrayerOpen] = useState(false);
-  const [contactOpen, setContactOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [activeItem, setActiveItem] = useState<string | null>(null);
@@ -234,22 +26,34 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const scrollOrNavigate = (id: string) => {
+    if (isHome) {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    } else {
+      router.push(`/#${id}`);
+    }
+  };
+
   const handleClick = (item: string) => {
     setOpen(false);
     setActiveItem(item);
 
-    if (item === "CONTACT") {
-      setContactOpen(true);
-      return;
-    }
-    if (item === "WHO WE ARE") { router.push("/WhoWeAre"); return; }
-    if (item === "VISIT US") { router.push("/VisitUs"); return; }
-    if (item === "WHAT WE DO") {
-      isHome ? scrollToId("what-we-do") : router.push("/#what-we-do");
-      return;
-    }
     if (item === "HOME") {
-      isHome ? scrollToId("hero") : router.push("/");
+      if (isHome) window.scrollTo({ top: 0, behavior: "smooth" });
+      else router.push("/");
+      return;
+    }
+    if (item === "WHO WE ARE") {
+      scrollOrNavigate("who-we-are");
+      return;
+    }
+    if (item === "WHAT WE DO") {
+      scrollOrNavigate("what-we-do");
+      return;
+    }
+    if (item === "CONTACT US") {
+      router.push("/ContactUs");
       return;
     }
   };
@@ -288,8 +92,6 @@ const Navbar = () => {
         .nb-root.mounted .nb-ditem:nth-child(2) { transition-delay: 200ms; opacity: 1; }
         .nb-root.mounted .nb-ditem:nth-child(3) { transition-delay: 250ms; opacity: 1; }
         .nb-root.mounted .nb-ditem:nth-child(4) { transition-delay: 300ms; opacity: 1; }
-        .nb-root.mounted .nb-ditem:nth-child(5) { transition-delay: 350ms; opacity: 1; }
-        .nb-root.mounted .nb-ditem:nth-child(6) { transition-delay: 400ms; opacity: 1; }
 
         .nb-link {
           position: relative;
@@ -314,16 +116,6 @@ const Navbar = () => {
         .nb-link:hover { color: #2D5016 !important; }
         .nb-link:hover::after,
         .nb-link.active::after { width: 100%; }
-
-        .nb-prayer {
-          transition: background-color 250ms ease, transform 200ms ease, box-shadow 250ms ease;
-        }
-        .nb-prayer:hover {
-          background-color: #3a6b1e !important;
-          transform: translateY(-1px);
-          box-shadow: 0 4px 14px rgba(45,80,22,0.25);
-        }
-        .nb-prayer:active { transform: translateY(0); }
 
         .nb-burger {
           width: 24px;
@@ -372,7 +164,7 @@ const Navbar = () => {
         .nb-mitem:hover { color: #2D5016; }
 
         @media (prefers-reduced-motion: reduce) {
-          .nb-root, .nb-logo, .nb-ditem, .nb-link::after, .nb-prayer, .nb-burger span {
+          .nb-root, .nb-logo, .nb-ditem, .nb-link::after, .nb-burger span {
             transition: none !important;
             opacity: 1 !important;
             transform: none !important;
@@ -439,14 +231,6 @@ const Navbar = () => {
                 </button>
               </div>
             ))}
-            <div className="nb-ditem">
-              <button
-                onClick={() => setPrayerOpen(true)}
-                className="nb-prayer bg-[#2D5016] text-white text-[12px] lg:text-[13px] font-dm px-3 lg:px-5 py-2 rounded-full whitespace-nowrap"
-              >
-                Prayer Request
-              </button>
-            </div>
           </div>
 
           {/* MOBILE HAMBURGER */}
@@ -474,29 +258,9 @@ const Navbar = () => {
                 {item}
               </button>
             ))}
-            <button
-              onClick={() => {
-                setOpen(false);
-                setPrayerOpen(true);
-              }}
-              className="nb-mitem nb-prayer bg-[#2D5016] text-white text-[14px] font-dm px-6 py-2 rounded-full"
-              style={{ animationDelay: `${menuItems.length * 55}ms` }}
-            >
-              Prayer Request
-            </button>
           </div>
         )}
       </div>
-
-      {/* Modals */}
-      <PrayerRequestModal
-        isOpen={prayerOpen}
-        onClose={() => setPrayerOpen(false)}
-      />
-      <ContactModal
-        isOpen={contactOpen}
-        onClose={() => setContactOpen(false)}
-      />
     </>
   );
 };

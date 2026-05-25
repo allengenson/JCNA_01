@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-
+import WhoWeAreSection from "@/components/WhoWeAre";
 import VerseSection from "@/components/VerseSection";
 import WhatWeDo from "@/components/WhatWeDo";
 import OutreachSection from "@/components/outreach";
@@ -27,6 +27,7 @@ export default function Home() {
         <Hero />
       </div>
       <VerseSection />
+      <WhoWeAreSection />
       <WhatWeDo />
       <OutreachSection />
       <Footer />

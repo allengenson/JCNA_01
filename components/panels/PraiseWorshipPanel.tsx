@@ -30,21 +30,14 @@ const JoyfulContent = () => (
 
     {/* Right — Text */}
     <div className="w-full lg:flex-1 flex flex-col justify-center">
-      <p
-        className="font-cormorant italic text-center lg:text-left mb-4"
-        style={{ fontSize: "clamp(14px, 2.8vw, 17px)", color: "#D4A017", lineHeight: 1.5 }}
-      >
-        "Where joy overflows, His glory fills the room."
-      </p>
 
       <p
         className="font-dm text-center lg:text-left mb-6"
         style={{ fontSize: "clamp(12px, 2.5vw, 14px)", color: "#4A7C2F", lineHeight: 1.85 }}
       >
-        <span style={{ fontWeight: 700, color: "#2D5016" }}>Joyful praise</span> is an exuberant, celebratory expression of worship offered to God with singing, clapping, and uplifted voices. It celebrates His goodness, faithfulness, and the victory found only in Him — an outward declaration of an inward joy that cannot be contained.
-      </p>
-
-      <p
+        <span style={{ fontWeight: 700, color: "#2D5016" }}>Joyful worship - </span>We sing and dance for the glory of the Lord through lively praise and worship songs with moderate to fast tempos. For nearly an hour, the congregation joins in singing, clapping, and dancing with one purpose—to glorify the Lord. The worship service is led by a song leader together with assisting singers.
+</p>
+      <p  
         className="font-cormorant italic text-center lg:text-left"
         style={{ fontSize: "clamp(14px, 2.8vw, 17px)", color: "#D4A017", lineHeight: 1.75 }}
       >
@@ -78,18 +71,14 @@ const SolemnContent = () => (
 
     {/* Right — Text */}
     <div className="w-full lg:flex-1 flex flex-col justify-center">
-      <p
-        className="font-cormorant italic text-center lg:text-left mb-4"
-        style={{ fontSize: "clamp(14px, 2.8vw, 17px)", color: "#D4A017", lineHeight: 1.5 }}
-      >
-        "In stillness and reverence, we draw near to the Holy."
-      </p>
+      
 
       <p
         className="font-dm text-center lg:text-left mb-6"
         style={{ fontSize: "clamp(12px, 2.5vw, 14px)", color: "#4A7C2F", lineHeight: 1.85 }}
       >
-        <span style={{ fontWeight: 700, color: "#2D5016" }}>Solemn worship</span> is a reverent, quiet, and deeply heartfelt form of praise offered before God with humility and awe. It acknowledges His holiness, His majesty, and the weight of His presence — a sacred stillness where the soul bows low and listens for His voice.
+        <span style={{ fontWeight: 700, color: "#2D5016" }}>Solemn worship - </span> A series of solemn worship songs with slow tempos are sung while the congregation kneels in reverence and sings in unison. In this form of worship, the songs become prayers offered to the Lord. This sacred moment may last from 30 minutes to an hour and is led by a song leader together with assisting singers. 
+
       </p>
 
       <p

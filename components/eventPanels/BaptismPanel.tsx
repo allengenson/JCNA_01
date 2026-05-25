@@ -116,7 +116,8 @@ const BaptismPanel = () => {
         {/* Right — Text */}
         <div className="w-full lg:flex-1 flex flex-col justify-center">
           <p className="font-dm text-center lg:text-left mb-7" style={{ fontSize: "clamp(12px, 3vw, 14px)", color: "#4A7C2F", lineHeight: 1.8, letterSpacing: "0.02em" }}>
-            Baptism is one of the most sacred milestones in a believer's journey — a public declaration of faith and a symbolic burial and resurrection with Christ. Our church celebrates each baptism as a joyful community event, walking alongside every individual as they take this meaningful step of obedience and commitment to God.
+           Baptism is a step of faith where a believer voluntarily declares their commitment to the Lord Jesus Christ as their King and Savior. It is done by fully submerging the body in water as a public declaration of faith and obedience to God, symbolizing that the believer should walk in newness of life.
+
           </p>
           <p className="font-dm italic text-center lg:text-left" style={{ fontSize: "clamp(12px, 3vw, 14px)", color: "#4A7C2F", lineHeight: 1.75, letterSpacing: "0.01em" }}>
             Therefore we are buried with him by baptism into death: that like as Christ was raised up from the dead by the glory of the Father, even so we also should walk in newness of life.&nbsp;

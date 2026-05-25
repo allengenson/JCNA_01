@@ -110,7 +110,8 @@ const WeddingsPanel = () => {
         </div>
         <div className="w-full lg:flex-1 flex flex-col justify-center">
           <p className="font-dm text-center lg:text-left mb-7" style={{ fontSize: "clamp(12px, 3vw, 14px)", color: "#4A7C2F", lineHeight: 1.8, letterSpacing: "0.02em" }}>
-            We celebrate weddings as a sacred covenant before God — the joining of two lives in love, purpose, and faith. Our church honors this holy union by providing a worshipful setting for couples to exchange vows, supported by the prayers of the congregation and the blessing of the Holy Spirit over their new life together.
+          Wedding is a sacred service where a couple is united in marriage before God through prayer and blessing. It may be held as a single ceremony or as a mass wedding with several couples. The preacher leads the service, asking for God’s guidance, love, and protection over each couple’s life together. The couples exchange vows before God and witnesses, committing to love, honor, and remain faithful to one another according to God’s Word, dedicating their marriage to the Lord for His glory.
+
           </p>
           <p className="font-dm italic text-center lg:text-left" style={{ fontSize: "clamp(12px, 3vw, 14px)", color: "#4A7C2F", lineHeight: 1.75, letterSpacing: "0.01em" }}>
             Therefore what God has joined together, let no one separate.&nbsp;

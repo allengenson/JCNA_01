@@ -102,7 +102,7 @@ const DedicationsPanel = () => {
         </div>
         <div className="w-full lg:flex-1 flex flex-col justify-center">
           <p className="font-dm text-center lg:text-left mb-7" style={{ fontSize: "clamp(12px, 3vw, 14px)", color: "#4A7C2F", lineHeight: 1.8, letterSpacing: "0.02em" }}>
-            Child dedications are a beautiful act of surrender — parents presenting their little ones to the Lord and committing to raise them in the ways of God. Our church gathers to stand alongside these families in prayer, pledging as a community to nurture, encourage, and support each child as they grow in faith.
+           Dedication is a special service where babies are presented and dedicated to the Lord through prayer and blessing. It is a moment of gathering where the preacher prays over the child, seeking God’s guidance, protection, and grace over their life. The godparents, serving as second parents, join in the commitment to support and help raise the child according to God’s Word, entrusting the baby to the Lord for His glory.
           </p>
           <p className="font-dm italic text-center lg:text-left" style={{ fontSize: "clamp(12px, 3vw, 14px)", color: "#4A7C2F", lineHeight: 1.75, letterSpacing: "0.01em" }}>
             Train up a child in the way he should go; even when he is old he will not depart from it.&nbsp;

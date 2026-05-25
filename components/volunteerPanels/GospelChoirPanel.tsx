@@ -159,12 +159,8 @@ const GospelChoirPanel = () => {
           {/* Text + verse */}
           <div className="w-full lg:w-[510px] lg:flex-shrink-0">
             <p className="font-dm" style={{ fontSize: "clamp(12px, 3vw, 14px)", color: "#4A7C2F", lineHeight: 1.8, letterSpacing: "0.03em" }}>
-              The Gospel Choirs serve by leading vibrant and spirit-filled worship through
-              contemporary and gospel-inspired songs. They express their faith through
-              music that uplifts, encourages, and connects with both the young and the
-              young at heart. Through their passion and unity, they help bring energy and joy
-              into church worship. Their ministry inspires others to serve God boldly and
-              wholeheartedly.
+              A gospel choir composed of members aged 16 to 35 participates in the worship service by leading a larger set of songs compared to other choirs. Their song offering often begins with a solemn rendition of “The Lord’s Prayer,” sung with reverence and devotion. Some songs include coordinated movements that support the flow of worship while keeping the focus on glorifying God. In each service, they typically perform around six songs dedicated to uplifting and honoring the Lord.
+
             </p>
 
             <div

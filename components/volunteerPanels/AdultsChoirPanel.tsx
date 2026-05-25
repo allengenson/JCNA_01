@@ -73,7 +73,7 @@ const AdultsChoirPanel = () => {
         }}
       >
         <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-          <polyline points="7,1 3,5 7,9" stroke="#2D5016" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+          <polyline points="7,1 3,5 7,9" stroke="#2D5016" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </button>
 
@@ -88,7 +88,7 @@ const AdultsChoirPanel = () => {
         }}
       >
         <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-          <polyline points="3,1 7,5 3,9" stroke="#2D5016" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+          <polyline points="3,1 7,5 3,9" stroke="#2D5016" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </button>
 
@@ -140,11 +140,9 @@ const AdultsChoirPanel = () => {
 
           <div className="w-full lg:w-[510px] lg:flex-shrink-0">
             <p className="font-dm" style={{ fontSize: "clamp(12px, 3vw, 14px)", color: "#4A7C2F", lineHeight: 1.8, letterSpacing: "0.03em" }}>
-              The Adult Choir serves by leading the congregation in worship through
-              blended voices that glorify God. They use their musical gifts to create a
-              meaningful and uplifting atmosphere during services. Through dedication and
-              discipline, they help strengthen the spirit of worship within the church. Their
-              ministry reflects unity, faith, and wholehearted service to God.
+
+              The adult choir is composed of mature members aged 41 and above who take part in the worship service through song. They sing a set of three songs, usually consisting of two joyful songs and one solemn song. Their heavenly songs are performed without choreography, focusing on vocal harmony, reverence, and sincere worship to glorify God.
+
             </p>
 
             <div
@@ -221,7 +219,7 @@ const AdultsChoirPanel = () => {
                 }}
               >
                 <svg width="12" height="12" viewBox="0 0 10 10" fill="none">
-                  <polyline points="7,1 3,5 7,9" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <polyline points="7,1 3,5 7,9" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </button>
               <button
@@ -234,7 +232,7 @@ const AdultsChoirPanel = () => {
                 }}
               >
                 <svg width="12" height="12" viewBox="0 0 10 10" fill="none">
-                  <polyline points="3,1 7,5 3,9" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <polyline points="3,1 7,5 3,9" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </button>
             </div>

@@ -105,8 +105,7 @@ return (
     {/* Right — Text */}
     <div className="w-full lg:flex-1 flex flex-col justify-center">
       <p className="font-dm text-center lg:text-left mb-7" style={{ fontSize: "clamp(12px, 3vw, 14px)", color: "#4A7C2F", lineHeight: 1.8, letterSpacing: "0.02em" }}>
-        Anniversaries are moments of gratitude and remembrance — celebrating the faithfulness of God over the years. Whether marking the church's founding, a ministry milestone, or years of dedicated service, these gatherings inspire the congregation to reflect on what God has done and to press forward with renewed vision and hope.
-      </p>
+       Anniversaries are a celebration of another year of God’s overflowing grace and love through . It is a time where we gather together to give thanks to the Lord for a blessed and prosperous year He has given us. After the event, food is prepared and shared as part of the fellowship and thanksgiving.</p>
       <p className="font-dm italic text-center lg:text-left" style={{ fontSize: "clamp(12px, 3vw, 14px)", color: "#4A7C2F", lineHeight: 1.75, letterSpacing: "0.01em" }}>
         I have not stopped giving thanks for you, remembering you in my prayers.&nbsp;
         <span style={{ fontStyle: "normal", fontWeight: 600 }}>Ephesians 1:16</span>

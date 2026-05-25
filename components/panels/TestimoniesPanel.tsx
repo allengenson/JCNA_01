@@ -6,7 +6,7 @@ interface Props {
   onNavigate: (id: string) => void;
 }
 
-const TestimoniesPanel = ({ onNavigate }: Props) => {
+const PreachingPanel = ({ onNavigate }: Props) => {
   return (
     <div className="flex flex-col lg:flex-row items-center lg:items-start w-full gap-8 lg:gap-10">
 
@@ -16,7 +16,7 @@ const TestimoniesPanel = ({ onNavigate }: Props) => {
         style={{ border: "1px solid #6AAD4F", aspectRatio: "16/9" }}
       >
         <iframe
-          src="https://www.youtube.com/embed/ne0QFV6YMmQ?si=IShq7lpuPYZ7OHTI"
+          src="https://www.youtube.com/embed/p3LQ91OYZjw?si=lXKM7uPWbsOPc82i"
           className="w-full h-full"
           style={{ border: "none", display: "block" }}
           title="Testimony of Beloved Sis. Rutchie Armenion"
@@ -28,18 +28,13 @@ const TestimoniesPanel = ({ onNavigate }: Props) => {
 
       {/* Right — Text */}
       <div className="w-full lg:flex-1 flex flex-col justify-center">
-        <p
-          className="font-cormorant italic text-center lg:text-left mb-4"
-          style={{ fontSize: "clamp(14px, 2.8vw, 17px)", color: "#D4A017", lineHeight: 1.5 }}
-        >
-          "Real Stories. Real Faith. Real Transformation."
-        </p>
+        
 
         <p
           className="font-cormorant text-center lg:text-left"
           style={{ fontSize: "clamp(18px, 3.5vw, 24px)", color: "#2D5016", fontWeight: 600, marginBottom: "6px" }}
         >
-          Beloved Sis. Rutchie Armenion
+          Most o=imprtant part of the worship is this where the preacher teach 
         </p>
 
         <p
@@ -75,4 +70,4 @@ const TestimoniesPanel = ({ onNavigate }: Props) => {
   );
 };
 
-export default TestimoniesPanel;
+export default PreachingPanel;

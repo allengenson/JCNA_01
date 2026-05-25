@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import SendMessageModal from "@/components/SendMessageModal";
+import SendMessageModal from "./SendMessageModal";
 
 interface OutreachItem {
   name: string;
@@ -33,14 +33,14 @@ const outreaches: OutreachItem[] = [
     embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3926.2489925238006!2d123.78391809736237!3d10.241491337433638!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33a977fac09dc6af%3A0xda93be23da18c422!2sJESUS%20CHRIST%20OF%20NAZARETH%20ONEFOLD%20ASSEMBLY!5e0!3m2!1sen!2sph!4v1779194289293!5m2!1sen!2sph",
   },
   {
-  name: "Danao Outreach",
-  badge: "Outreach",
-  badgeType: "outreach",
-  address: "Bonifacio Street corner Duterte Street,Danao City, Cebu, Philippines",
-  area: "Danao, Cebu",
-  mapUrl: "https://www.google.com/maps/@10.52146289240467,124.0267796599791,3a,75y,184.76266h,90t/data=!3m7!1e1!3m5!1sbHwm22latB_2-Csx-x5H3A!2e0!5s20250501T000000!7i16384!8i8192",
-  embedUrl: "https://www.google.com/maps/embed?pb=!4v1779611936126!6m8!1m7!1sbHwm22latB_2-Csx-x5H3A!2m2!1d10.52146289240467!2d124.0267796599791!3f184.76266!4f0!5f0.7820865974627469",
-},
+    name: "Danao Outreach",
+    badge: "Outreach",
+    badgeType: "outreach",
+    address: "Bonifacio Street corner Duterte Street, Danao City, Cebu, Philippines",
+    area: "Danao, Cebu",
+    mapUrl: "https://www.google.com/maps/@10.52146289240467,124.0267796599791,3a,75y,184.76266h,90t/data=!3m7!1e1!3m5!1sbHwm22latB_2-Csx-x5H3A!2e0!5s20250501T000000!7i16384!8i8192",
+    embedUrl: "https://www.google.com/maps/embed?pb=!4v1779611936126!6m8!1m7!1sbHwm22latB_2-Csx-x5H3A!2m2!1d10.52146289240467!2d124.0267796599791!3f184.76266!4f0!5f0.7820865974627469",
+  },
   {
     name: "Lapu-Lapu City Outreach",
     badge: "Outreach",
@@ -111,9 +111,15 @@ const VDivider = () => (
 );
 
 const OutreachCard = ({ name, badge, badgeType, address, mapUrl, embedUrl }: OutreachItem) => (
-  <div style={{ background: "#1e3a1f", borderRadius: "14px", overflow: "hidden", display: "flex", flexDirection: "column" }}>
-    <iframe src={embedUrl} style={{ width: "100%", height: "170px", border: "none", display: "block" }} loading="lazy" referrerPolicy="no-referrer-when-downgrade" title={`Map for ${name}`} />
-    <div style={{ padding: "1rem 1.1rem 1.15rem", display: "flex", flexDirection: "column", gap: "0.35rem", flex: 1 }}>
+  <div style={{
+    background: "linear-gradient(170deg, #1A3A08 0%, #2D5016 55%, #1e3d0a 100%)",
+    borderRadius: "14px",
+    overflow: "hidden",
+    display: "flex",
+    flexDirection: "column",
+    border: "1px solid rgba(154,191,95,0.2)",
+  }}>
+    <div style={{ padding: "1rem 1.1rem 1.15rem", display: "flex", flexDirection: "column", gap: "0.35rem" }}>
       {badge && (
         <span className="font-dm" style={{ display: "inline-block", fontSize: "10px", fontWeight: 500, letterSpacing: "0.08em", textTransform: "uppercase", padding: "2px 9px", borderRadius: "100px", width: "fit-content", ...(badgeType === "main" ? { background: "#c8a84b", color: "#1e3a1f" } : { background: "transparent", border: "1px solid rgba(200,168,75,0.35)", color: "#c8a84b" }) }}>
           {badge}
@@ -127,6 +133,7 @@ const OutreachCard = ({ name, badge, badgeType, address, mapUrl, embedUrl }: Out
         <RouteIcon />Get Directions
       </a>
     </div>
+    <iframe src={embedUrl} style={{ width: "100%", height: "170px", border: "none", display: "block" }} loading="lazy" referrerPolicy="no-referrer-when-downgrade" title={`Map for ${name}`} />
   </div>
 );
 
@@ -135,9 +142,8 @@ const OutreachSection = () => {
 
   return (
     <>
-      <SendMessageModal isOpen={modalOpen} onClose={() => setModalOpen(false)} outreachName="JCNA Onefold Assembly" outreachEmail={SHARED.email} outreachPhone={SHARED.phone} />
+      <SendMessageModal isOpen={modalOpen} onClose={() => setModalOpen(false)} outreachName="Jesus Christ Of Nazareth One Fold Assembly" outreachEmail={SHARED.email} outreachPhone={SHARED.phone} />
 
-      {/* ✅ FIX: full-width section for bg, inner div matches Container */}
       <div className="w-full bg-[#f5f2eb] py-12">
         <div className="mx-auto w-full max-w-[1418px] px-6 lg:px-12">
 
@@ -152,14 +158,14 @@ const OutreachSection = () => {
           </div>
 
           {/* Cards grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
             {outreaches.map((o) => (
               <OutreachCard key={o.name} {...o} />
             ))}
           </div>
 
           {/* Footer band */}
-          <div style={{ background: "#1e3a1f", borderRadius: "14px", padding: "1.5rem 1.75rem", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "1.25rem", flexWrap: "wrap" }}>
+          <div style={{ background: "linear-gradient(170deg, #1A3A08 0%, #2D5016 55%, #1e3d0a 100%)", border: "1px solid rgba(154,191,95,0.2)", borderRadius: "14px", padding: "1.5rem 1.75rem", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "1.25rem", flexWrap: "wrap" }}>
             {/* Contacts */}
             <div style={{ display: "flex", flexDirection: "column", gap: "0.55rem" }}>
               <span className="font-dm" style={{ fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.12em", color: "#7a9c7b", fontWeight: 500 }}>Our Contacts</span>

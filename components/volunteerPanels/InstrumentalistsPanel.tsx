@@ -150,11 +150,8 @@ const InstrumentalistsPanel = () => {
           {/* Text + verse */}
           <div className="w-full lg:w-[510px] lg:flex-shrink-0">
             <p className="font-dm" style={{ fontSize: "clamp(12px, 3vw, 14px)", color: "#4A7C2F", lineHeight: 1.8, letterSpacing: "0.03em" }}>
-              Instrumentalists serve by using their musical gifts to support and enhance
-              worship. They help create an atmosphere that leads the church into deeper
-              praise and connection with God. Through their dedication, they strengthen
-              unity in worship and encourage spiritual focus among believers. They faithfully
-              use their talents as an offering to God, supporting the ministry of praise.
+             The instrumentalists consist of the drummer, pianist, bassist, lead guitarist, and rhythm guitarist. They are assigned to specific sections of the worship service to support and guide the flow of music alongside the choirs and congregation. Their role is to keep the music aligned with the voices in worship, while also dedicating time to practice newly assigned songs for Sunday services, overnight worship, and special events.
+
             </p>
 
             <div

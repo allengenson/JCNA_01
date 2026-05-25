@@ -18,7 +18,7 @@ const ChildrenChoirPanel = () => {
   const [modalIndex, setModalIndex] = useState(0);
 
   const goTo = useCallback(
-  (index: number) => {
+    (index: number) => {
       if (animating) return;
       setAnimating(true);
       setTimeout(() => {
@@ -45,7 +45,7 @@ const ChildrenChoirPanel = () => {
 
   useEffect(() => {
     if (!modalOpen) return;
-    const handler = (e: KeyboardEvent) => {if (e.key === "Escape") setModalOpen(false); };
+    const handler = (e: KeyboardEvent) => { if (e.key === "Escape") setModalOpen(false); };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
   }, [modalOpen]);
@@ -55,16 +55,16 @@ const ChildrenChoirPanel = () => {
     return () => { document.body.style.overflow = ""; };
   }, [modalOpen]);
 
-const openModal = (index: number) => {
+  const openModal = (index: number) => {
     setModalIndex(index);
     setModalOpen(true);
   };
 
-const SliderContent = ({
-  onImageClick,
-}: {
-  onImageClick: (index: number) => void;
-}) => (
+  const SliderContent = ({
+    onImageClick,
+  }: {
+    onImageClick: (index: number) => void;
+  }) => (
     <>
       {images.map((src, i) => (
         <img
@@ -96,7 +96,7 @@ const SliderContent = ({
         }}
       >
         <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-          <polyline points="7,1 3,5 7,9" stroke="#2D5016" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+          <polyline points="7,1 3,5 7,9" stroke="#2D5016" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </button>
 
@@ -112,7 +112,7 @@ const SliderContent = ({
         }}
       >
         <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-          <polyline points="3,1 7,5 3,9" stroke="#2D5016" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+          <polyline points="3,1 7,5 3,9" stroke="#2D5016" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </button>
 
@@ -144,14 +144,14 @@ const SliderContent = ({
     </>
   );
 
- const sliderStyle: React.CSSProperties = {
-  height: "clamp(220px, 45vw, 340px)",
-  border: "1.5px solid #82B657",
-  borderRadius: 20,
-  background: "#0a1f06",
-  overflow: "hidden",
-  position: "relative",
-};
+  const sliderStyle: React.CSSProperties = {
+    height: "clamp(220px, 45vw, 340px)",
+    border: "1.5px solid #82B657",
+    borderRadius: 20,
+    background: "#0a1f06",
+    overflow: "hidden",
+    position: "relative",
+  };
 
   return (
     <>
@@ -164,11 +164,8 @@ const SliderContent = ({
 
           <div className="w-full lg:w-[510px] lg:flex-shrink-0">
             <p className="font-dm" style={{ fontSize: "clamp(12px, 3vw, 14px)", color: "#4A7C2F", lineHeight: 1.8, letterSpacing: "0.03em" }}>
-              The Children's Choir helps lead worship through songs that express faith, joy,
-              and gratitude to God. They are trained to develop their gifts in singing while
-              learning the values of worship and teamwork. Through their voices, they inspire
-              the church with innocence, joy, and heartfelt praise. Their ministry helps
-              nurture a lifelong love for God and worship.
+              The children’s choir is composed of members aged 5 to 15 years old who take part in the worship service through song. They sing a set of three children’s songs with choreography, expressing joy and praise to God in a simple and heartfelt way. Before starting their song set, they also recite an assigned memory verse, helping them grow in understanding and remembrance of God’s Word.
+
             </p>
 
             <div
@@ -245,7 +242,7 @@ const SliderContent = ({
                 }}
               >
                 <svg width="12" height="12" viewBox="0 0 10 10" fill="none">
-                  <polyline points="7,1 3,5 7,9" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <polyline points="7,1 3,5 7,9" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </button>
               <button
@@ -258,7 +255,7 @@ const SliderContent = ({
                 }}
               >
                 <svg width="12" height="12" viewBox="0 0 10 10" fill="none">
-                  <polyline points="3,1 7,5 3,9" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <polyline points="3,1 7,5 3,9" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </button>
             </div>

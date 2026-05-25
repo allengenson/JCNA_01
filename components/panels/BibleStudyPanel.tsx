@@ -26,18 +26,13 @@ const BibleStudyPanel = ({ onNavigate }: Props) => {
 
       {/* Right — Text */}
       <div className="w-full lg:flex-1 flex flex-col justify-center">
-        <p
-          className="font-cormorant italic text-center lg:text-left mb-4"
-          style={{ fontSize: "clamp(14px, 2.8vw, 17px)", color: "#D4A017", lineHeight: 1.5 }}
-        >
-          "God's Word, studied for real growth."
-        </p>
-
+      
         <p
           className="font-dm text-center lg:text-left mb-6"
           style={{ fontSize: "clamp(12px, 2.5vw, 14px)", color: "#4A7C2F", lineHeight: 1.85 }}
         >
-          Bible study is the intentional reading and examination of God's Word to understand His truth more deeply. It helps believers grow in knowledge, faith, and wisdom, and allows individuals to reflect on Scripture and apply its teachings to daily life. It encourages spiritual discipline, discernment, and obedience to God's will, strengthening one's relationship with Him through deeper understanding.
+        In this section, we dedicate around 30 minutes to studying and learning more about the Holy Bible. Assigned preachers lead this part of the worship service by selecting a topic for the day and explaining it clearly to the congregation. The main goal is to deepen understanding, strengthen faith, and provide spiritual refreshment in every scheduled worship service.
+
         </p>
 
         <p
