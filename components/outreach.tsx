@@ -19,7 +19,7 @@ const SHARED = {
   fbUrl: "https://web.facebook.com/profile.php?id=100093108589005",
   fbHandle: "Jesus Christ of Nazareth Onefold Assembly",
   ytUrl: "https://www.youtube.com/@JCNA777",
-  ytHandle: "@JCNA777",
+  ytHandle: "JCNA MINISTRY",
 };
 
 const outreaches: OutreachItem[] = [
@@ -27,7 +27,7 @@ const outreaches: OutreachItem[] = [
     name: "Minglanilla",
     badge: "Main Church",
     badgeType: "main",
-    address: "Natalio B. Bacalso National Highway, Upper Tulay, Minglanilla, Cebu, Philippines",
+    address: "Cebu South Road , Upper Tulay, Minglanilla, Cebu, Philippines",
     area: "Minglanilla, Cebu",
     mapUrl: "https://www.google.com/maps/place/JESUS+CHRIST+OF+NAZARETH+ONEFOLD+ASSEMBLY/@10.2417709,123.7841194,17z",
     embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3926.2489925238006!2d123.78391809736237!3d10.241491337433638!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33a977fac09dc6af%3A0xda93be23da18c422!2sJESUS%20CHRIST%20OF%20NAZARETH%20ONEFOLD%20ASSEMBLY!5e0!3m2!1sen!2sph!4v1779194289293!5m2!1sen!2sph",
@@ -150,7 +150,7 @@ const OutreachSection = () => {
           {/* Section header */}
           <div style={{ marginBottom: "2rem" }}>
             <h2 className="font-cormorant" style={{ fontSize: "2.25rem", fontWeight: 600, color: "#1e3a1f", lineHeight: 1.2, marginBottom: "0.4rem" }}>
-              Find Us Near You
+              Visit Us
             </h2>
             <p className="font-dm" style={{ fontSize: "0.9rem", color: "#4a5c4b", fontWeight: 300, letterSpacing: "0.02em" }}>
               Four outreaches across Cebu and Negros. Everyone is welcome.
@@ -168,7 +168,7 @@ const OutreachSection = () => {
           <div style={{ background: "linear-gradient(170deg, #1A3A08 0%, #2D5016 55%, #1e3d0a 100%)", border: "1px solid rgba(154,191,95,0.2)", borderRadius: "14px", padding: "1.5rem 1.75rem", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "1.25rem", flexWrap: "wrap" }}>
             {/* Contacts */}
             <div style={{ display: "flex", flexDirection: "column", gap: "0.55rem" }}>
-              <span className="font-dm" style={{ fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.12em", color: "#7a9c7b", fontWeight: 500 }}>Our Contacts</span>
+              <span className="font-dm" style={{ fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.12em", color: "#7a9c7b", fontWeight: 500 }}>Contact Us</span>
               <a href={`tel:${SHARED.phone.replace(/\s/g, "")}`} className="font-dm" style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "0.83rem", color: "#d4e8d5", textDecoration: "none" }}>
                 <PhoneIcon />{SHARED.phone}
               </a>
@@ -181,7 +181,7 @@ const OutreachSection = () => {
 
             {/* Socials */}
             <div style={{ display: "flex", flexDirection: "column", gap: "0.55rem" }}>
-              <span className="font-dm" style={{ fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.12em", color: "#7a9c7b", fontWeight: 500 }}>Our Socials</span>
+              <span className="font-dm" style={{ fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.12em", color: "#7a9c7b", fontWeight: 500 }}>Follow Us</span>
               <a href={SHARED.fbUrl} target="_blank" rel="noopener noreferrer" className="font-dm" style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "0.83rem", color: "#d4e8d5", textDecoration: "none" }}>
                 <FacebookDot />{SHARED.fbHandle}
               </a>

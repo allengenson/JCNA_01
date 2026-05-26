@@ -177,7 +177,7 @@ const VerseSection = () => {
                 textShadow: "0 2px 20px rgba(0,0,0,0.3)",
               }}
             >
-              &ldquo;I am the vine, you are the branches. Whoever{" "}
+              &ldquo; "And other sheep I have, which are {" "}
               <br className="hidden sm:block" />
               <span
                 style={{
@@ -185,11 +185,11 @@ const VerseSection = () => {
                   animation: "verseAccentPulse 3.5s ease-in-out 1.6s infinite",
                 }}
               >
-                abides in me
+                not of this fold:
               </span>{" "}
-              and I in him, he it is that bears{" "}
+             them also I must bring, and they shall hear my voice; {" "}
               <br className="hidden sm:block" />
-              much fruit.&rdquo;
+              and there shall be one fold, and one shepherd."&rdquo;
             </p>
 
             {/* Reference */}
@@ -203,7 +203,7 @@ const VerseSection = () => {
               }}
             >
               <span className="verse-ref-line" style={{ display: "inline-flex", alignItems: "center" }}>
-                JOHN 15:5 · ESV
+                JOHN 10:16 KJV
               </span>
             </p>
           </div>
