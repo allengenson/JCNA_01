@@ -61,6 +61,29 @@ const Navbar = () => {
   return (
     <>
       <style>{`
+        /* ── Reveal animation (used by RevealObserver) ── */
+        .reveal {
+          opacity: 0;
+          transform: translateY(18px);
+          transition: opacity 600ms ease, transform 600ms ease;
+        }
+        .reveal.visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .reveal-children > * {
+          opacity: 0;
+          transform: translateY(14px);
+          transition: opacity 500ms ease, transform 500ms ease;
+        }
+        .reveal-children.visible > *:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0ms; }
+        .reveal-children.visible > *:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 80ms; }
+        .reveal-children.visible > *:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 160ms; }
+        .reveal-children.visible > *:nth-child(4) { opacity: 1; transform: translateY(0); transition-delay: 240ms; }
+        .reveal-children.visible > *:nth-child(5) { opacity: 1; transform: translateY(0); transition-delay: 320ms; }
+
+        /* ── Existing Navbar animations ── */
         .nb-root {
           opacity: 0;
           transform: translateY(-8px);
@@ -164,6 +187,11 @@ const Navbar = () => {
         .nb-mitem:hover { color: #2D5016; }
 
         @media (prefers-reduced-motion: reduce) {
+          .reveal, .reveal-children > * {
+            opacity: 1 !important;
+            transform: none !important;
+            transition: none !important;
+          }
           .nb-root, .nb-logo, .nb-ditem, .nb-link::after, .nb-burger span {
             transition: none !important;
             opacity: 1 !important;
@@ -218,7 +246,8 @@ const Navbar = () => {
           </div>
 
           {/* DESKTOP MENU */}
-          <div className="hidden md:flex items-center gap-4 lg:gap-6">
+          {/* reveal-children so menu items animate in when navbar enters view */}
+          <div className="hidden md:flex items-center gap-4 lg:gap-6 reveal-children">
             {menuItems.map((item) => (
               <div key={item} className="nb-ditem">
                 <button
@@ -266,3 +295,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+ 

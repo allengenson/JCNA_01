@@ -34,7 +34,7 @@ const Footer = () => {
 
   return (
     <>
-      <div className="w-full bg-[#F6F8F1] py-5">
+      <div className="w-full bg-[#F6F8F1] py-5 reveal">
         <div className="mx-auto w-full max-w-[1418px] px-6 lg:px-12">
           <div
             style={{
@@ -44,17 +44,18 @@ const Footer = () => {
               padding: "32px 36px",
             }}
           >
-            {/* Main 3-column grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center reveal-children">
 
               {/* COL 1: Logo + Full Church Name */}
-              <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "14px" }}>
+              {/* Mobile: centered | Desktop: left with paddingLeft */}
+              <div className="flex flex-col items-center md:items-start gap-[14px] md:pl-10">
                 <img
                   src="/logo.png"
                   alt="Church Logo"
-                  style={{ width: "120px", height: "110px", objectFit: "contain" }}
+                  style={{ width: "150px", height: "150px", objectFit: "contain" }}
                 />
                 <p
+                  className="text-center md:text-left"
                   style={{
                     fontFamily: "'Cormorant Garamond', serif",
                     fontWeight: 700,
@@ -62,15 +63,23 @@ const Footer = () => {
                     color: "#2D5016",
                     lineHeight: 1.35,
                     margin: 0,
-                    textAlign: "left",
                   }}
                 >
                   Jesus Christ Of Nazareth<br />One Fold Assembly
                 </p>
               </div>
 
-              {/* COL 2: Explore Links — vertical stack */}
-              <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+              {/* COL 2: Explore Links */}
+              {/* Mobile: centered, two rows | Desktop: original single-row centered */}
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  height: "100%",
+                }}
+              >
                 <p
                   style={{
                     fontFamily: "'DM Sans', sans-serif",
@@ -78,12 +87,70 @@ const Footer = () => {
                     fontSize: "13px",
                     letterSpacing: "0.15em",
                     color: "#D4A017",
-                    margin: "0 0 14px 0",
+                    margin: "0 0 18px 0",
+                    textAlign: "center",
                   }}
                 >
                   EXPLORE
                 </p>
-                <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+
+                {/* Mobile: two rows of 2 */}
+                <div className="flex flex-col items-center gap-[10px] md:hidden">
+                  <div style={{ display: "flex", gap: "28px" }}>
+                    {["Home", "Who we are"].map((item) => (
+                      <button
+                        key={item}
+                        onClick={() => handleExploreClick(item)}
+                        style={{
+                          fontFamily: "'DM Sans', sans-serif",
+                          fontWeight: 400,
+                          fontSize: "14px",
+                          color: "#4A7C2F",
+                          cursor: "pointer",
+                          background: "none",
+                          border: "none",
+                          padding: 0,
+                          textAlign: "center",
+                        }}
+                      >
+                        {item}
+                      </button>
+                    ))}
+                  </div>
+                  <div style={{ display: "flex", gap: "28px" }}>
+                    {["What we do", "Contact Us"].map((item) => (
+                      <button
+                        key={item}
+                        onClick={() => handleExploreClick(item)}
+                        style={{
+                          fontFamily: "'DM Sans', sans-serif",
+                          fontWeight: 400,
+                          fontSize: "14px",
+                          color: "#4A7C2F",
+                          cursor: "pointer",
+                          background: "none",
+                          border: "none",
+                          padding: 0,
+                          textAlign: "center",
+                        }}
+                      >
+                        {item}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Desktop: original single row */}
+                <div
+                  className="hidden md:flex"
+                  style={{
+                    flexDirection: "row",
+                    gap: "28px",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexWrap: "wrap",
+                  }}
+                >
                   {["Home", "Who we are", "What we do", "Contact Us"].map((item) => (
                     <button
                       key={item}
@@ -97,9 +164,7 @@ const Footer = () => {
                         background: "none",
                         border: "none",
                         padding: 0,
-                        textAlign: "left",
-                        display: "block",
-                        width: "100%",
+                        textAlign: "center",
                       }}
                     >
                       {item}
@@ -108,8 +173,9 @@ const Footer = () => {
                 </div>
               </div>
 
-              {/* COL 3: Stay Connected */}
-              <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+              {/* COL 3: Follow Us */}
+              {/* Mobile: centered | Desktop: original left with paddingLeft */}
+              <div className="flex flex-col items-center md:items-start md:pl-[60px]">
                 <p
                   style={{
                     fontFamily: "'DM Sans', sans-serif",
@@ -120,7 +186,7 @@ const Footer = () => {
                     margin: "0 0 14px 0",
                   }}
                 >
-                  STAY CONNECTED
+                  FOLLOW US
                 </p>
                 <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
 
@@ -203,6 +269,7 @@ const Footer = () => {
 
             {/* Divider + Copyright */}
             <div
+              className="reveal"
               style={{
                 borderTop: "1px solid #E2EDD6",
                 marginTop: "24px",

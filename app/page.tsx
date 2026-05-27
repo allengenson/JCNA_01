@@ -21,16 +21,19 @@ export default function Home() {
   }, []);
 
   return (
-    <>
+
+    <div className="bg-[#FAFDF5] dark:bg-slate-950 text-[#2D5016] dark:text-slate-100 min-h-screen transition-colors duration-300">
       <Navbar />
+      
       <div id="hero">
         <Hero />
       </div>
+      
       <VerseSection />
       <WhoWeAreSection />
       <WhatWeDo />
       <OutreachSection />
       <Footer />
-    </>
+    </div>
   );
 }
