@@ -1,5 +1,4 @@
 import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider"
 
 // DM Sans
 import "@fontsource/dm-sans/400.css";
@@ -17,13 +16,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <body>
- 
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          {children}
-        </ThemeProvider>
+        {children}
       </body>
     </html>
   );
