@@ -34,105 +34,50 @@ const Footer = () => {
 
   return (
     <>
-      <div className="w-full bg-[#F6F8F1] py-5 reveal">
+      <div className="w-full bg-[#F6F8F1] dark:bg-slate-950 py-5 reveal transition-colors duration-300">
         <div className="mx-auto w-full max-w-[1418px] px-6 lg:px-12">
-          <div
-            style={{
-              background: "#fff",
-              border: "1px solid #82B657",
-              borderRadius: "24px",
-              padding: "32px 36px",
-            }}
-          >
+          
+          {/* Main Rounded Box Card wrapper */}
+          <div className="bg-white dark:bg-slate-900 border border-[#82B657] dark:border-slate-800 rounded-[24px] p-8 md:px-9 md:py-8 transition-colors duration-300">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center reveal-children">
 
               {/* COL 1: Logo + Full Church Name */}
-              {/* Mobile: centered | Desktop: left with paddingLeft */}
               <div className="flex flex-col items-center md:items-start gap-[14px] md:pl-10">
                 <img
                   src="/logo.png"
                   alt="Church Logo"
-                  style={{ width: "150px", height: "150px", objectFit: "contain" }}
+                  className="w-[150px] h-[150px] object-contain"
                 />
-                <p
-                  className="text-center md:text-left"
-                  style={{
-                    fontFamily: "'Cormorant Garamond', serif",
-                    fontWeight: 700,
-                    fontSize: "24px",
-                    color: "#2D5016",
-                    lineHeight: 1.35,
-                    margin: 0,
-                  }}
-                >
+                <p className="text-center md:text-left font-cormorant font-bold text-[24px] text-[#2D5016] dark:text-slate-100 leading-[1.35] transition-colors duration-300">
                   Jesus Christ Of Nazareth<br />One Fold Assembly
                 </p>
               </div>
 
-              {/* COL 2: Explore Links */}
-              {/* Mobile: centered, two rows | Desktop: original single-row centered */}
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  height: "100%",
-                }}
-              >
-                <p
-                  style={{
-                    fontFamily: "'DM Sans', sans-serif",
-                    fontWeight: 500,
-                    fontSize: "13px",
-                    letterSpacing: "0.15em",
-                    color: "#D4A017",
-                    margin: "0 0 18px 0",
-                    textAlign: "center",
-                  }}
-                >
+              {/* COL 2: Explore Links (FIXED COLLAPSE HERE) */}
+              <div className="flex flex-col items-center justify-center h-auto min-h-max">
+                <p className="font-dm font-medium text-[13px] tracking-[0.15em] text-[#D4A017] mb-[18px] text-center">
                   EXPLORE
                 </p>
 
-                {/* Mobile: two rows of 2 */}
+                {/* Mobile: Links stack wrapper */}
                 <div className="flex flex-col items-center gap-[10px] md:hidden">
-                  <div style={{ display: "flex", gap: "28px" }}>
+                  <div className="flex gap-[28px]">
                     {["Home", "Who we are"].map((item) => (
                       <button
                         key={item}
                         onClick={() => handleExploreClick(item)}
-                        style={{
-                          fontFamily: "'DM Sans', sans-serif",
-                          fontWeight: 400,
-                          fontSize: "14px",
-                          color: "#4A7C2F",
-                          cursor: "pointer",
-                          background: "none",
-                          border: "none",
-                          padding: 0,
-                          textAlign: "center",
-                        }}
+                        className="font-dm font-normal text-[14px] text-[#4A7C2F] dark:text-slate-300 bg-none border-none p-0 text-center cursor-pointer transition-colors duration-300 hover:text-[#2D5016] dark:hover:text-slate-100"
                       >
                         {item}
                       </button>
                     ))}
                   </div>
-                  <div style={{ display: "flex", gap: "28px" }}>
+                  <div className="flex gap-[28px]">
                     {["What we do", "Contact Us"].map((item) => (
                       <button
                         key={item}
                         onClick={() => handleExploreClick(item)}
-                        style={{
-                          fontFamily: "'DM Sans', sans-serif",
-                          fontWeight: 400,
-                          fontSize: "14px",
-                          color: "#4A7C2F",
-                          cursor: "pointer",
-                          background: "none",
-                          border: "none",
-                          padding: 0,
-                          textAlign: "center",
-                        }}
+                        className="font-dm font-normal text-[14px] text-[#4A7C2F] dark:text-slate-300 bg-none border-none p-0 text-center cursor-pointer transition-colors duration-300 hover:text-[#2D5016] dark:hover:text-slate-100"
                       >
                         {item}
                       </button>
@@ -140,32 +85,13 @@ const Footer = () => {
                   </div>
                 </div>
 
-                {/* Desktop: original single row */}
-                <div
-                  className="hidden md:flex"
-                  style={{
-                    flexDirection: "row",
-                    gap: "28px",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    flexWrap: "wrap",
-                  }}
-                >
+                {/* Desktop Menu layout view */}
+                <div className="hidden md:flex flex-row gap-[28px] items-center justify-center flex-wrap">
                   {["Home", "Who we are", "What we do", "Contact Us"].map((item) => (
                     <button
                       key={item}
                       onClick={() => handleExploreClick(item)}
-                      style={{
-                        fontFamily: "'DM Sans', sans-serif",
-                        fontWeight: 400,
-                        fontSize: "14px",
-                        color: "#4A7C2F",
-                        cursor: "pointer",
-                        background: "none",
-                        border: "none",
-                        padding: 0,
-                        textAlign: "center",
-                      }}
+                      className="font-dm font-normal text-[14px] text-[#4A7C2F] dark:text-slate-300 bg-none border-none p-0 text-center cursor-pointer transition-colors duration-300 hover:text-[#2D5016] dark:hover:text-slate-100"
                     >
                       {item}
                     </button>
@@ -173,55 +99,26 @@ const Footer = () => {
                 </div>
               </div>
 
-              {/* COL 3: Follow Us */}
-              {/* Mobile: centered | Desktop: original left with paddingLeft */}
+              {/* COL 3: Follow Us Social Media Wrapper */}
               <div className="flex flex-col items-center md:items-start md:pl-[60px]">
-                <p
-                  style={{
-                    fontFamily: "'DM Sans', sans-serif",
-                    fontWeight: 500,
-                    fontSize: "13px",
-                    letterSpacing: "0.15em",
-                    color: "#D4A017",
-                    margin: "0 0 14px 0",
-                  }}
-                >
+                <p className="font-dm font-medium text-[13px] tracking-[0.15em] text-[#D4A017] mb-[14px]">
                   FOLLOW US
                 </p>
-                <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+                <div className="flex flex-col gap-[16px]">
 
                   {/* Facebook */}
                   <a
                     href="https://web.facebook.com/profile.php?id=100093108589005"
                     target="_blank"
                     rel="noopener noreferrer"
-                    style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: "10px" }}
+                    className="no-underline flex items-center gap-[10px]"
                   >
-                    <div
-                      style={{
-                        width: "34px",
-                        height: "34px",
-                        borderRadius: "50%",
-                        background: "#1877F2",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        flexShrink: 0,
-                      }}
-                    >
+                    <div className="w-[34px] h-[34px] rounded-full bg-[#1877F2] flex items-center justify-center flex-shrink-0">
                       <svg width="17" height="17" viewBox="0 0 24 24" fill="white">
                         <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" />
                       </svg>
                     </div>
-                    <span
-                      style={{
-                        fontFamily: "'DM Sans', sans-serif",
-                        fontSize: "13px",
-                        fontWeight: 500,
-                        color: "#2D5016",
-                        lineHeight: 1.35,
-                      }}
-                    >
+                    <span className="font-dm text-[13px] font-medium text-[#2D5016] dark:text-slate-200 leading-[1.35] transition-colors duration-300">
                       Jesus Christ of Nazareth<br />Onefold Assembly
                     </span>
                   </a>
@@ -231,33 +128,14 @@ const Footer = () => {
                     href="https://www.youtube.com/@JCNA777"
                     target="_blank"
                     rel="noopener noreferrer"
-                    style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: "10px" }}
+                    className="no-underline flex items-center gap-[10px]"
                   >
-                    <div
-                      style={{
-                        width: "34px",
-                        height: "34px",
-                        borderRadius: "6px",
-                        background: "#FF0000",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        flexShrink: 0,
-                      }}
-                    >
+                    <div className="w-[34px] h-[34px] rounded-[6px] bg-[#FF0000] flex items-center justify-center flex-shrink-0">
                       <svg width="17" height="13" viewBox="0 0 24 18" fill="white">
                         <path d="M22.54 2.74A2.83 2.83 0 0020.55.74C18.77.27 12 .27 12 .27S5.23.27 3.45.74A2.83 2.83 0 001.46 2.74 29.62 29.62 0 001 9a29.62 29.62 0 00.46 6.26 2.83 2.83 0 001.99 2 29.62 29.62 0 003.55.47C8.77 17.73 12 17.73 12 17.73s6.77 0 8.55-.47a2.83 2.83 0 001.99-2A29.62 29.62 0 0023 9a29.62 29.62 0 00-.46-6.26zM9.75 12.75V5.25L15.5 9l-5.75 3.75z" />
                       </svg>
                     </div>
-                    <span
-                      style={{
-                        fontFamily: "'DM Sans', sans-serif",
-                        fontSize: "13px",
-                        fontWeight: 500,
-                        color: "#2D5016",
-                        lineHeight: 1.35,
-                      }}
-                    >
+                    <span className="font-dm text-[13px] font-medium text-[#2D5016] dark:text-slate-200 leading-[1.35] transition-colors duration-300">
                       JCNA MINISTRY
                     </span>
                   </a>
@@ -267,24 +145,9 @@ const Footer = () => {
 
             </div>
 
-            {/* Divider + Copyright */}
-            <div
-              className="reveal"
-              style={{
-                borderTop: "1px solid #E2EDD6",
-                marginTop: "24px",
-                paddingTop: "16px",
-                textAlign: "center",
-              }}
-            >
-              <p
-                style={{
-                  fontFamily: "'DM Sans', sans-serif",
-                  fontSize: "12px",
-                  color: "#7A9A5C",
-                  margin: 0,
-                }}
-              >
+            {/* Bottom Divider Line + Copyright Notice */}
+            <div className="reveal border-t border-[#E2EDD6] dark:border-slate-800 mt-[24px] pt-[16px] text-center transition-colors duration-300">
+              <p className="font-dm text-[12px] text-[#7A9A5C] dark:text-slate-400">
                 © {new Date().getFullYear()} Jesus Christ Of Nazareth One Fold Assembly. All rights reserved.
               </p>
             </div>
