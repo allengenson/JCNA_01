@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import OrgChart from "@/components/org";
@@ -16,9 +16,7 @@ function DoctrineContent() {
 
   const docItems: { id: string; num: string; title: string; content?: React.ReactNode }[] = [
     {
-      id: "bible",
-      num: "I",
-      title: "The Holy Bible",
+      id: "bible", num: "I", title: "The Holy Bible",
       content: (
         <div className="text-[#4A7C2F] text-[13px] leading-[1.9] flex flex-col gap-2">
           <p>The Bible was inspired by God — the Holy Spirit guided the authors in choosing every word (2 Tim. 3:16, 2 Pet. 1:20–21). Both Old and New Testaments claim divine origin and absolute authority (Ps. 19:7; 119:89, Matt. 5:17–18).</p>
@@ -28,9 +26,7 @@ function DoctrineContent() {
       ),
     },
     {
-      id: "god",
-      num: "II",
-      title: "One God — Apostolic Doctrine",
+      id: "god", num: "II", title: "One God — Apostolic Doctrine",
       content: (
         <div className="text-[#4A7C2F] text-[13px] leading-[1.9] flex flex-col gap-2">
           <p>JCNA believes there is only one God (Deut. 6:4), creator of heaven and earth, revealed through three titles and functions:</p>
@@ -51,9 +47,7 @@ function DoctrineContent() {
     },
     { id: "fall", num: "III", title: "The Fall of Man / Sin" },
     {
-      id: "salvation",
-      num: "IV",
-      title: "Salvation — Grace, Faith, and Works",
+      id: "salvation", num: "IV", title: "Salvation — Grace, Faith, and Works",
       content: (
         <div className="text-[#4A7C2F] text-[13px] leading-[1.9] font-semibold flex flex-col gap-1">
           <p>A. Justification</p>
@@ -64,9 +58,7 @@ function DoctrineContent() {
     },
     { id: "healing", num: "V", title: "Divine Healing" },
     {
-      id: "church",
-      num: "VI",
-      title: "The Church and Its Mission",
+      id: "church", num: "VI", title: "The Church and Its Mission",
       content: (
         <div className="text-[#4A7C2F] text-[13px] leading-[1.9] flex flex-col gap-1">
           {["Fivefold Ministries", "Discipleship", "Evangelism", "Holiness", "Restoration of Israel Salvation"].map((item, i) => (
@@ -76,9 +68,7 @@ function DoctrineContent() {
       ),
     },
     {
-      id: "ordinances",
-      num: "VII",
-      title: "Church Ordinances",
+      id: "ordinances", num: "VII", title: "Church Ordinances",
       content: (
         <div className="text-[#4A7C2F] text-[13px] leading-[1.9] flex flex-col gap-1">
           {["The Lord's Supper", "Child Dedication", "Baptism", "Matrimony", "Blessings (property, house, car, etc.)"].map((item, i) => (
@@ -88,9 +78,7 @@ function DoctrineContent() {
       ),
     },
     {
-      id: "culture",
-      num: "VIII",
-      title: "Church Culture and Practices",
+      id: "culture", num: "VIII", title: "Church Culture and Practices",
       content: (
         <div className="text-[#4A7C2F] text-[13px] leading-[1.9] flex flex-col gap-1">
           {["Prayer and Fasting", "Giving (tithes, offering, first fruit, charity)", "Dress Code", "Food", "Day of Church Worship or Rest"].map((item, i) => (
@@ -100,9 +88,7 @@ function DoctrineContent() {
       ),
     },
     {
-      id: "values",
-      num: "IX",
-      title: "The Church Core Values",
+      id: "values", num: "IX", title: "The Church Core Values",
       content: (
         <div className="flex flex-wrap gap-1.5 mt-1">
           {["Love", "Joy", "Peace", "Honesty", "Kindness", "Respect", "Self-Control", "Gentleness", "Obedience"].map((v) => (
@@ -112,9 +98,7 @@ function DoctrineContent() {
       ),
     },
     {
-      id: "baptism",
-      num: "X",
-      title: "Baptism",
+      id: "baptism", num: "X", title: "Baptism",
       content: (
         <div className="text-[#4A7C2F] text-[13px] leading-[1.9] flex flex-col gap-1">
           {["Baptism of Water", "Baptism of Holy Spirit", "Baptism of Fire"].map((item, i) => (
@@ -126,9 +110,7 @@ function DoctrineContent() {
     { id: "rapture", num: "XI", title: "The Rapture" },
     { id: "resurrection", num: "XII", title: "The Resurrection" },
     {
-      id: "judgment",
-      num: "XIII",
-      title: "Judgment",
+      id: "judgment", num: "XIII", title: "Judgment",
       content: (
         <div className="text-[#4A7C2F] text-[13px] leading-[1.9] flex flex-col gap-1">
           {[
@@ -192,8 +174,7 @@ function DoctrineContent() {
 // ── SECTIONS DATA ────────────────────────────────────────────────────
 const sections: { id: string; label: string; content: React.ReactNode }[] = [
   {
-    id: "goals",
-    label: "Goals",
+    id: "goals", label: "Goals",
     content: (
       <ul className="m-0 p-0 pl-1 text-[#4A7C2F] text-[13px] leading-[1.9] list-none flex flex-col gap-2">
         {[
@@ -210,8 +191,7 @@ const sections: { id: string; label: string; content: React.ReactNode }[] = [
     ),
   },
   {
-    id: "mission",
-    label: "Mission",
+    id: "mission", label: "Mission",
     content: (
       <p className="m-0 text-[#4A7C2F] text-[13px] leading-[1.9]">
         To bring back the lost soul and gather together into the one fold church to serve and glorify the One True Shepherd Jesus Christ by means of evangelizing, inviting, equipping and teaching the sound doctrine.
@@ -219,13 +199,11 @@ const sections: { id: string; label: string; content: React.ReactNode }[] = [
     ),
   },
   {
-    id: "doctrines",
-    label: "Doctrines",
+    id: "doctrines", label: "Doctrines",
     content: <DoctrineContent />,
   },
   {
-    id: "values",
-    label: "Values",
+    id: "values", label: "Values",
     content: (
       <div className="text-[#4A7C2F] text-[13px] leading-[1.9]">
         <p className="mb-2.5">Our community is rooted in the fruit of the Spirit and built on character that reflects Christ in every aspect of daily life.</p>
@@ -238,8 +216,7 @@ const sections: { id: string; label: string; content: React.ReactNode }[] = [
     ),
   },
   {
-    id: "culture",
-    label: "Culture",
+    id: "culture", label: "Culture",
     content: (
       <div className="text-[#4A7C2F] text-[13px] leading-[1.9]">
         <p className="mb-2.5 font-semibold text-[#2D5016]">Who We Are Together</p>
@@ -276,8 +253,7 @@ const sections: { id: string; label: string; content: React.ReactNode }[] = [
     ),
   },
   {
-    id: "leadership",
-    label: "Leadership",
+    id: "leadership", label: "Leadership",
     content: (
       <div className="text-[#4A7C2F] text-[13px] leading-[1.9]">
         <p className="mb-5">
@@ -290,21 +266,18 @@ const sections: { id: string; label: string; content: React.ReactNode }[] = [
   },
 ];
 
-// ── PAGE COMPONENT ───────────────────────────────────────────────────
-export default function WhoWeAreSection() {
+// ── INNER PAGE CONTENT (uses useSearchParams) ────────────────────────
+const WhoWeArePageContent = () => {
+  const searchParams = useSearchParams();
   const sectionRef = useRef<HTMLDivElement>(null);
+  const contentPaneRef = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
   const [openId, setOpenId] = useState<string | null>(null);
-  const contentPaneRef = useRef<HTMLDivElement>(null);
-
-  // Read ?section= param — works on ALL devices including mobile
-  const searchParams = useSearchParams();
 
   useEffect(() => {
     const section = searchParams.get("section");
     if (section && sections.some((s) => s.id === section)) {
       setOpenId(section);
-      // Wait for paint then scroll to pane
       requestAnimationFrame(() => {
         setTimeout(() => {
           contentPaneRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -337,10 +310,9 @@ export default function WhoWeAreSection() {
   const openSection = sections.find((s) => s.id === openId);
 
   return (
-    <>
+    <div className="min-h-screen flex flex-col bg-[#FAFDF5]">
       <Navbar />
-
-      <div id="who-we-are" ref={sectionRef} className="w-full bg-[#FAFDF5]">
+      <div id="who-we-are" ref={sectionRef} className="w-full bg-[#FAFDF5] flex-grow">
         <div className="mx-auto w-full max-w-[1418px] px-6 lg:px-12 pt-14 pb-16 lg:pt-[70px] lg:pb-[80px]">
 
           {/* HEADING */}
@@ -391,7 +363,7 @@ export default function WhoWeAreSection() {
             })}
           </motion.div>
 
-          {/* CONTENT PANE — ref is on the wrapper so scroll works before animation */}
+          {/* CONTENT PANE */}
           <div ref={contentPaneRef} className="relative w-full">
             <AnimatePresence initial={false}>
               {openId && openSection && (
@@ -449,8 +421,16 @@ export default function WhoWeAreSection() {
           />
         </div>
       </div>
-
       <Footer />
-    </>
+    </div>
+  );
+};
+
+// ── DEFAULT EXPORT — Suspense wrapper (same pattern as WhatWeDoPage) ──
+export default function WhoWeArePage() {
+  return (
+    <Suspense fallback={<div className="p-20 text-center text-[#2D5016]">Loading...</div>}>
+      <WhoWeArePageContent />
+    </Suspense>
   );
 }
