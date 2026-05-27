@@ -21,15 +21,14 @@ export default function Home() {
   }, []);
 
   return (
-
-    <div className="bg-[#FAFDF5] dark:bg-slate-950 text-[#2D5016] dark:text-slate-100 min-h-screen transition-colors duration-300">
+    <div className="bg-[#FAFDF5] text-[#2D5016] min-h-screen">
       <Navbar />
       
       <div id="hero">
         <Hero />
       </div>
       
-      <VerseSection />
+      <br />
       <WhoWeAreSection />
       <WhatWeDo />
       <OutreachSection />

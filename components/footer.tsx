@@ -34,50 +34,51 @@ const Footer = () => {
 
   return (
     <>
-      <div className="w-full bg-[#F6F8F1] dark:bg-slate-950 py-5 reveal transition-colors duration-300">
-        <div className="mx-auto w-full max-w-[1418px] px-6 lg:px-12">
+      {/* Changed reveal class to only run animations on desktop screens (md:) to stop mobile blockages */}
+      <div className="w-full bg-[#F6F8F1] dark:bg-slate-950 py-6 md:py-10 md:reveal transition-colors duration-300 block clear-both z-10 relative">
+        <div className="mx-auto w-full max-w-[1418px] px-4 sm:px-6 lg:px-12">
           
-          {/* Main Rounded Box Card wrapper */}
-          <div className="bg-white dark:bg-slate-900 border border-[#82B657] dark:border-slate-800 rounded-[24px] p-8 md:px-9 md:py-8 transition-colors duration-300">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center reveal-children">
+          {/* Adjusted padding defaults for cleaner mobile views */}
+          <div className="bg-white dark:bg-slate-900 border border-[#82B657] dark:border-slate-800 rounded-[24px] p-6 sm:p-8 md:px-9 md:py-8 transition-colors duration-300 shadow-sm">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center md:reveal-children">
 
               {/* COL 1: Logo + Full Church Name */}
               <div className="flex flex-col items-center md:items-start gap-[14px] md:pl-10">
                 <img
                   src="/logo.png"
                   alt="Church Logo"
-                  className="w-[150px] h-[150px] object-contain"
+                  className="w-[120px] h-[120px] sm:w-[150px] sm:h-[150px] object-contain"
                 />
-                <p className="text-center md:text-left font-cormorant font-bold text-[24px] text-[#2D5016] dark:text-slate-100 leading-[1.35] transition-colors duration-300">
+                <p className="text-center md:text-left font-cormorant font-bold text-[22px] sm:text-[24px] text-[#2D5016] dark:text-slate-100 leading-[1.35] transition-colors duration-300">
                   Jesus Christ Of Nazareth<br />One Fold Assembly
                 </p>
               </div>
 
-              {/* COL 2: Explore Links (FIXED COLLAPSE HERE) */}
-              <div className="flex flex-col items-center justify-center h-auto min-h-max">
+              {/* COL 2: Explore Links */}
+              <div className="flex flex-col items-center justify-center min-h-max w-full">
                 <p className="font-dm font-medium text-[13px] tracking-[0.15em] text-[#D4A017] mb-[18px] text-center">
                   EXPLORE
                 </p>
 
-                {/* Mobile: Links stack wrapper */}
-                <div className="flex flex-col items-center gap-[10px] md:hidden">
-                  <div className="flex gap-[28px]">
+                {/* Mobile Navigation Layout Options */}
+                <div className="flex flex-col items-center gap-[14px] md:hidden w-full">
+                  <div className="flex justify-center gap-[32px] w-full">
                     {["Home", "Who we are"].map((item) => (
                       <button
                         key={item}
                         onClick={() => handleExploreClick(item)}
-                        className="font-dm font-normal text-[14px] text-[#4A7C2F] dark:text-slate-300 bg-none border-none p-0 text-center cursor-pointer transition-colors duration-300 hover:text-[#2D5016] dark:hover:text-slate-100"
+                        className="font-dm font-normal text-[15px] text-[#4A7C2F] dark:text-slate-300 bg-transparent border-none p-2 text-center cursor-pointer transition-colors duration-300 active:text-[#2D5016]"
                       >
                         {item}
                       </button>
                     ))}
                   </div>
-                  <div className="flex gap-[28px]">
+                  <div className="flex justify-center gap-[32px] w-full">
                     {["What we do", "Contact Us"].map((item) => (
                       <button
                         key={item}
                         onClick={() => handleExploreClick(item)}
-                        className="font-dm font-normal text-[14px] text-[#4A7C2F] dark:text-slate-300 bg-none border-none p-0 text-center cursor-pointer transition-colors duration-300 hover:text-[#2D5016] dark:hover:text-slate-100"
+                        className="font-dm font-normal text-[15px] text-[#4A7C2F] dark:text-slate-300 bg-transparent border-none p-2 text-center cursor-pointer transition-colors duration-300 active:text-[#2D5016]"
                       >
                         {item}
                       </button>
@@ -85,7 +86,7 @@ const Footer = () => {
                   </div>
                 </div>
 
-                {/* Desktop Menu layout view */}
+                {/* Desktop Menu View Component */}
                 <div className="hidden md:flex flex-row gap-[28px] items-center justify-center flex-wrap">
                   {["Home", "Who we are", "What we do", "Contact Us"].map((item) => (
                     <button
@@ -106,7 +107,7 @@ const Footer = () => {
                 </p>
                 <div className="flex flex-col gap-[16px]">
 
-                  {/* Facebook */}
+                  {/* Facebook Link */}
                   <a
                     href="https://web.facebook.com/profile.php?id=100093108589005"
                     target="_blank"
@@ -123,7 +124,7 @@ const Footer = () => {
                     </span>
                   </a>
 
-                  {/* YouTube */}
+                  {/* YouTube Link */}
                   <a
                     href="https://www.youtube.com/@JCNA777"
                     target="_blank"
@@ -146,7 +147,7 @@ const Footer = () => {
             </div>
 
             {/* Bottom Divider Line + Copyright Notice */}
-            <div className="reveal border-t border-[#E2EDD6] dark:border-slate-800 mt-[24px] pt-[16px] text-center transition-colors duration-300">
+            <div className="border-t border-[#E2EDD6] dark:border-slate-800 mt-[24px] pt-[16px] text-center transition-colors duration-300">
               <p className="font-dm text-[12px] text-[#7A9A5C] dark:text-slate-400">
                 © {new Date().getFullYear()} Jesus Christ Of Nazareth One Fold Assembly. All rights reserved.
               </p>
