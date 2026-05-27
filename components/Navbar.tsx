@@ -5,7 +5,6 @@ import { useRouter, usePathname } from "next/navigation";
 
 const menuItems = ["HOME", "WHO WE ARE", "WHAT WE DO", "CONTACT US"];
 
-/* ─── Navbar ─────────────────────────────────────────────────── */
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -44,24 +43,14 @@ const Navbar = () => {
       else router.push("/");
       return;
     }
-    if (item === "WHO WE ARE") {
-      scrollOrNavigate("who-we-are");
-      return;
-    }
-    if (item === "WHAT WE DO") {
-      scrollOrNavigate("what-we-do");
-      return;
-    }
-    if (item === "CONTACT US") {
-      router.push("/ContactUs");
-      return;
-    }
+    if (item === "WHO WE ARE") { scrollOrNavigate("who-we-are"); return; }
+    if (item === "WHAT WE DO") { scrollOrNavigate("what-we-do"); return; }
+    if (item === "CONTACT US") { router.push("/ContactUs"); return; }
   };
 
   return (
     <>
       <style>{`
-        /* ── Reveal animation (used by RevealObserver) ── */
         .reveal {
           opacity: 0;
           transform: translateY(18px);
@@ -71,7 +60,6 @@ const Navbar = () => {
           opacity: 1;
           transform: translateY(0);
         }
-
         .reveal-children > * {
           opacity: 0;
           transform: translateY(14px);
@@ -83,7 +71,6 @@ const Navbar = () => {
         .reveal-children.visible > *:nth-child(4) { opacity: 1; transform: translateY(0); transition-delay: 240ms; }
         .reveal-children.visible > *:nth-child(5) { opacity: 1; transform: translateY(0); transition-delay: 320ms; }
 
-        /* ── Existing Navbar animations ── */
         .nb-root {
           opacity: 0;
           transform: translateY(-8px);
@@ -246,7 +233,6 @@ const Navbar = () => {
           </div>
 
           {/* DESKTOP MENU */}
-          {/* reveal-children so menu items animate in when navbar enters view */}
           <div className="hidden md:flex items-center gap-4 lg:gap-6 reveal-children">
             {menuItems.map((item) => (
               <div key={item} className="nb-ditem">
@@ -295,4 +281,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
- 
