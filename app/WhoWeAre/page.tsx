@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import OrgChart from "@/components/org";
 import Navbar from "@/components/Navbar";
@@ -20,20 +21,9 @@ function DoctrineContent() {
       title: "The Holy Bible",
       content: (
         <div className="text-[#4A7C2F] text-[13px] leading-[1.9] flex flex-col gap-2">
-          <p>
-            The Bible was inspired by God — the Holy Spirit guided the authors in choosing every word
-            (2 Tim. 3:16, 2 Pet. 1:20–21). Both Old and New Testaments claim divine origin and absolute
-            authority (Ps. 19:7; 119:89, Matt. 5:17–18).
-          </p>
-          <p>
-            The Bible contains no errors — it is historically accurate (e.g., the conquest of Jericho,
-            Pontius Pilate) and scientifically sound (e.g., the earth suspended in space — Job 26:7;
-            stars uncountable — Jer. 33:22; earth is a sphere — Isa. 40:22).
-          </p>
-          <p>
-            JCNA holds the Holy Bible as God's inspired, accurate, true, and infallible written
-            revelation — the final authority in all matters of faith and conduct (2 Tim. 3:16–17).
-          </p>
+          <p>The Bible was inspired by God — the Holy Spirit guided the authors in choosing every word (2 Tim. 3:16, 2 Pet. 1:20–21). Both Old and New Testaments claim divine origin and absolute authority (Ps. 19:7; 119:89, Matt. 5:17–18).</p>
+          <p>The Bible contains no errors — it is historically accurate (e.g., the conquest of Jericho, Pontius Pilate) and scientifically sound (e.g., the earth suspended in space — Job 26:7; stars uncountable — Jer. 33:22; earth is a sphere — Isa. 40:22).</p>
+          <p>JCNA holds the Holy Bible as God's inspired, accurate, true, and infallible written revelation — the final authority in all matters of faith and conduct (2 Tim. 3:16–17).</p>
         </div>
       ),
     },
@@ -43,33 +33,18 @@ function DoctrineContent() {
       title: "One God — Apostolic Doctrine",
       content: (
         <div className="text-[#4A7C2F] text-[13px] leading-[1.9] flex flex-col gap-2">
-          <p>
-            JCNA believes there is only one God (Deut. 6:4), creator of heaven and earth, revealed
-            through three titles and functions:
-          </p>
+          <p>JCNA believes there is only one God (Deut. 6:4), creator of heaven and earth, revealed through three titles and functions:</p>
           <div>
             <p className="font-semibold text-[#2D5016] mb-0.5">A. Father</p>
-            <p>
-              God is Spirit (John 4:24), eternal, unchanging, all-powerful, omnipresent, omniscient,
-              and perfectly holy, righteous, loving, and faithful. In the Old Testament He is revealed
-              through names like Jehovah-Jireh (Provider), Jehovah-Raphi (Healer), El Shaddai (Almighty).
-            </p>
+            <p>God is Spirit (John 4:24), eternal, unchanging, all-powerful, omnipresent, omniscient, and perfectly holy, righteous, loving, and faithful.</p>
           </div>
           <div>
             <p className="font-semibold text-[#2D5016] mb-0.5">B. Son — Jesus Christ</p>
-            <p>
-              Jesus is the visible expression of the invisible God (Col. 1:15) — fully God and fully
-              man. He lived, died, rose again, and ascended so that humanity could be redeemed (John 1:1,14;
-              Gal. 4:4–5; Rom. 4:25).
-            </p>
+            <p>Jesus is the visible expression of the invisible God (Col. 1:15) — fully God and fully man (John 1:1,14; Gal. 4:4–5; Rom. 4:25).</p>
           </div>
           <div>
             <p className="font-semibold text-[#2D5016] mb-0.5">C. Holy Spirit</p>
-            <p>
-              The Holy Spirit is the Spirit of God and of Jesus Christ (Rom. 8:9), not a separate
-              person but God's presence dwelling in believers for sanctification, purification, and
-              empowerment (John 3:5–7; 1 Cor. 3:16).
-            </p>
+            <p>The Holy Spirit is the Spirit of God and of Jesus Christ (Rom. 8:9), dwelling in believers for sanctification, purification, and empowerment (John 3:5–7; 1 Cor. 3:16).</p>
           </div>
         </div>
       ),
@@ -95,9 +70,7 @@ function DoctrineContent() {
       content: (
         <div className="text-[#4A7C2F] text-[13px] leading-[1.9] flex flex-col gap-1">
           {["Fivefold Ministries", "Discipleship", "Evangelism", "Holiness", "Restoration of Israel Salvation"].map((item, i) => (
-            <p key={i}>
-              <span className="font-semibold text-[#2D5016]">{String.fromCharCode(65 + i)}.</span> {item}
-            </p>
+            <p key={i}><span className="font-semibold text-[#2D5016]">{String.fromCharCode(65 + i)}.</span> {item}</p>
           ))}
         </div>
       ),
@@ -109,9 +82,7 @@ function DoctrineContent() {
       content: (
         <div className="text-[#4A7C2F] text-[13px] leading-[1.9] flex flex-col gap-1">
           {["The Lord's Supper", "Child Dedication", "Baptism", "Matrimony", "Blessings (property, house, car, etc.)"].map((item, i) => (
-            <p key={i}>
-              <span className="font-semibold text-[#2D5016]">{String.fromCharCode(65 + i)}.</span> {item}
-            </p>
+            <p key={i}><span className="font-semibold text-[#2D5016]">{String.fromCharCode(65 + i)}.</span> {item}</p>
           ))}
         </div>
       ),
@@ -123,9 +94,7 @@ function DoctrineContent() {
       content: (
         <div className="text-[#4A7C2F] text-[13px] leading-[1.9] flex flex-col gap-1">
           {["Prayer and Fasting", "Giving (tithes, offering, first fruit, charity)", "Dress Code", "Food", "Day of Church Worship or Rest"].map((item, i) => (
-            <p key={i}>
-              <span className="font-semibold text-[#2D5016]">{String.fromCharCode(65 + i)}.</span> {item}
-            </p>
+            <p key={i}><span className="font-semibold text-[#2D5016]">{String.fromCharCode(65 + i)}.</span> {item}</p>
           ))}
         </div>
       ),
@@ -137,9 +106,7 @@ function DoctrineContent() {
       content: (
         <div className="flex flex-wrap gap-1.5 mt-1">
           {["Love", "Joy", "Peace", "Honesty", "Kindness", "Respect", "Self-Control", "Gentleness", "Obedience"].map((v) => (
-            <span key={v} className="bg-[#EAF3DE] text-[#2D5016] rounded-[20px] px-3.5 py-1 text-xs font-semibold border border-[#C5D89A]">
-              {v}
-            </span>
+            <span key={v} className="bg-[#EAF3DE] text-[#2D5016] rounded-[20px] px-3.5 py-1 text-xs font-semibold border border-[#C5D89A]">{v}</span>
           ))}
         </div>
       ),
@@ -151,9 +118,7 @@ function DoctrineContent() {
       content: (
         <div className="text-[#4A7C2F] text-[13px] leading-[1.9] flex flex-col gap-1">
           {["Baptism of Water", "Baptism of Holy Spirit", "Baptism of Fire"].map((item, i) => (
-            <p key={i}>
-              <span className="font-semibold text-[#2D5016]">{String.fromCharCode(65 + i)}.</span> {item}
-            </p>
+            <p key={i}><span className="font-semibold text-[#2D5016]">{String.fromCharCode(65 + i)}.</span> {item}</p>
           ))}
         </div>
       ),
@@ -172,9 +137,7 @@ function DoctrineContent() {
             "Final Judgment — White Throne / Judgment of the Unbelievers",
             "New Heaven and New Earth",
           ].map((item, i) => (
-            <p key={i}>
-              <span className="font-semibold text-[#2D5016]">{String.fromCharCode(65 + i)}.</span> {item}
-            </p>
+            <p key={i}><span className="font-semibold text-[#2D5016]">{String.fromCharCode(65 + i)}.</span> {item}</p>
           ))}
         </div>
       ),
@@ -184,8 +147,7 @@ function DoctrineContent() {
   return (
     <div>
       <p className="mb-4 text-[#4A7C2F] text-[13px] leading-[1.9]">
-        We uphold the Holy Bible as inspired, infallible, and the absolute authority over all faith
-        and conduct. Click any article below to read more.
+        We uphold the Holy Bible as inspired, infallible, and the absolute authority over all faith and conduct. Click any article below to read more.
       </p>
       <div className="flex flex-col gap-2">
         {docItems.map((item) => {
@@ -199,52 +161,23 @@ function DoctrineContent() {
             >
               <button
                 onClick={() => hasContent && toggle(item.id)}
-                className={`w-full flex items-center gap-2.5 px-3.5 py-2.5 text-left transition-colors duration-200 ${
-                  isOpen ? "bg-[#F0F5E8]" : "bg-white"
-                } ${hasContent ? "cursor-pointer" : "cursor-default"}`}
+                className={`w-full flex items-center gap-2.5 px-3.5 py-2.5 text-left transition-colors duration-200 ${isOpen ? "bg-[#F0F5E8]" : "bg-white"} ${hasContent ? "cursor-pointer" : "cursor-default"}`}
               >
-                <span className="bg-[#2D5016] text-white rounded-[6px] px-2 py-0.5 text-[11px] font-bold shrink-0">
-                  {item.num}
-                </span>
-                <span className="font-semibold text-[13px] text-[#2D5016] flex-1">
-                  {item.title}
-                </span>
+                <span className="bg-[#2D5016] text-white rounded-[6px] px-2 py-0.5 text-[11px] font-bold shrink-0">{item.num}</span>
+                <span className="font-semibold text-[13px] text-[#2D5016] flex-1">{item.title}</span>
                 {hasContent && (
-                  <span
-                    className={`w-5 h-5 rounded-full flex items-center justify-center text-base font-light shrink-0 select-none transition-all duration-300 ${
-                      isOpen ? "bg-[#2D5016] text-white rotate-45" : "bg-[#EAF3DE] text-[#2D5016] rotate-0"
-                    }`}
-                  >
-                    +
-                  </span>
+                  <span className={`w-5 h-5 rounded-full flex items-center justify-center text-base font-light shrink-0 select-none transition-all duration-300 ${isOpen ? "bg-[#2D5016] text-white rotate-45" : "bg-[#EAF3DE] text-[#2D5016] rotate-0"}`}>+</span>
                 )}
               </button>
-
               <AnimatePresence initial={false}>
                 {isOpen && hasContent && (
                   <motion.div
                     initial={{ height: 0, opacity: 0 }}
-                    animate={{
-                      height: "auto",
-                      opacity: 1,
-                      transition: {
-                        height: { duration: 0.38, ease: EASE_CURVE },
-                        opacity: { duration: 0.22, delay: 0.05 }
-                      }
-                    }}
-                    exit={{
-                      height: 0,
-                      opacity: 0,
-                      transition: {
-                        height: { duration: 0.3, ease: EASE_CURVE },
-                        opacity: { duration: 0.15 }
-                      }
-                    }}
+                    animate={{ height: "auto", opacity: 1, transition: { height: { duration: 0.38, ease: EASE_CURVE }, opacity: { duration: 0.22, delay: 0.05 } } }}
+                    exit={{ height: 0, opacity: 0, transition: { height: { duration: 0.3, ease: EASE_CURVE }, opacity: { duration: 0.15 } } }}
                     className="overflow-hidden"
                   >
-                    <div className="p-4 border-t border-[#E2EAC8] bg-white">
-                      {item.content}
-                    </div>
+                    <div className="p-4 border-t border-[#E2EAC8] bg-white">{item.content}</div>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -256,7 +189,7 @@ function DoctrineContent() {
   );
 }
 
-// ── MAIN VIEW SECTIONS ───────────────────────────────────────────────
+// ── SECTIONS DATA ────────────────────────────────────────────────────
 const sections: { id: string; label: string; content: React.ReactNode }[] = [
   {
     id: "goals",
@@ -281,9 +214,7 @@ const sections: { id: string; label: string; content: React.ReactNode }[] = [
     label: "Mission",
     content: (
       <p className="m-0 text-[#4A7C2F] text-[13px] leading-[1.9]">
-        To bring back the lost soul and gather together into the one fold church to serve and glorify
-        the One True Shepherd Jesus Christ by means of evangelizing, inviting, equipping and teaching
-        the sound doctrine.
+        To bring back the lost soul and gather together into the one fold church to serve and glorify the One True Shepherd Jesus Christ by means of evangelizing, inviting, equipping and teaching the sound doctrine.
       </p>
     ),
   },
@@ -297,15 +228,10 @@ const sections: { id: string; label: string; content: React.ReactNode }[] = [
     label: "Values",
     content: (
       <div className="text-[#4A7C2F] text-[13px] leading-[1.9]">
-        <p className="mb-2.5">
-          Our community is rooted in the fruit of the Spirit and built on character that reflects
-          Christ in every aspect of daily life.
-        </p>
+        <p className="mb-2.5">Our community is rooted in the fruit of the Spirit and built on character that reflects Christ in every aspect of daily life.</p>
         <div className="flex flex-wrap gap-1.5">
           {["Love", "Joy", "Peace", "Honesty", "Kindness", "Respect", "Self-Control", "Gentleness", "Obedience"].map((v) => (
-            <span key={v} className="bg-[#EAF3DE] text-[#2D5016] rounded-[20px] px-3.5 py-1 text-xs font-semibold border border-[#C5D89A]">
-              {v}
-            </span>
+            <span key={v} className="bg-[#EAF3DE] text-[#2D5016] rounded-[20px] px-3.5 py-1 text-xs font-semibold border border-[#C5D89A]">{v}</span>
           ))}
         </div>
       </div>
@@ -355,25 +281,37 @@ const sections: { id: string; label: string; content: React.ReactNode }[] = [
     content: (
       <div className="text-[#4A7C2F] text-[13px] leading-[1.9]">
         <p className="mb-5">
-          JCNA is led by <strong className="text-[#2D5016]">Apostle Rebero L. Armenion</strong>,
-          Chairman &amp; Chief Executive, together with Vice Chairman{" "}
-          <strong className="text-[#2D5016]">Pastor Benjamen L. Armenion, Jr.</strong> Their team
-          of dedicated directors covers Ministries, Choir, Music, Membership, Administration, Finance,
-          and Public Relations — all committed to integrity, holiness, and a Spirit-filled life.
+          JCNA is led by <strong className="text-[#2D5016]">Apostle Rebero L. Armenion</strong>, Chairman &amp; Chief Executive, together with Vice Chairman <strong className="text-[#2D5016]">Pastor Benjamen L. Armenion, Jr.</strong> Their team of dedicated directors covers Ministries, Choir, Music, Membership, Administration, Finance, and Public Relations — all committed to integrity, holiness, and a Spirit-filled life.
         </p>
         <OrgChart />
-        <p className="mt-3 text-xs text-[#7AAB50] text-center">
-          Organizational Structure — Jesus Christ of Nazareth One Fold Assembly
-        </p>
+        <p className="mt-3 text-xs text-[#7AAB50] text-center">Organizational Structure — Jesus Christ of Nazareth One Fold Assembly</p>
       </div>
     ),
   },
 ];
 
+// ── PAGE COMPONENT ───────────────────────────────────────────────────
 export default function WhoWeAreSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
   const [openId, setOpenId] = useState<string | null>(null);
+  const contentPaneRef = useRef<HTMLDivElement>(null);
+
+  // Read ?section= param — works on ALL devices including mobile
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const section = searchParams.get("section");
+    if (section && sections.some((s) => s.id === section)) {
+      setOpenId(section);
+      // Wait for paint then scroll to pane
+      requestAnimationFrame(() => {
+        setTimeout(() => {
+          contentPaneRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 100);
+      });
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     if (!sectionRef.current) return;
@@ -385,32 +323,14 @@ export default function WhoWeAreSection() {
     return () => obs.disconnect();
   }, []);
 
-  useEffect(() => {
-    const handleHashCheck = () => {
-      const hash = window.location.hash.replace("#", "");
-      if (hash && sections.some((s) => s.id === hash)) {
-        setOpenId(hash);
-        setTimeout(() => {
-          const contentPane = document.getElementById("wwa-portal-pane");
-          if (contentPane) {
-            contentPane.scrollIntoView({ behavior: "smooth", block: "start" });
-          }
-        }, 150);
-      }
-    };
-
-    handleHashCheck();
-    window.addEventListener("hashchange", handleHashCheck);
-    return () => window.removeEventListener("hashchange", handleHashCheck);
-  }, []);
-
   const handleToggle = (id: string) => {
     if (openId === id) {
       setOpenId(null);
-      window.history.pushState(null, "", window.location.pathname);
     } else {
       setOpenId(id);
-      window.history.pushState(null, "", `#${id}`);
+      setTimeout(() => {
+        contentPaneRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 100);
     }
   };
 
@@ -423,7 +343,7 @@ export default function WhoWeAreSection() {
       <div id="who-we-are" ref={sectionRef} className="w-full bg-[#FAFDF5]">
         <div className="mx-auto w-full max-w-[1418px] px-6 lg:px-12 pt-14 pb-16 lg:pt-[70px] lg:pb-[80px]">
 
-          {/* HEADING CONTAINER */}
+          {/* HEADING */}
           <motion.div
             className="text-center mb-8 lg:mb-10"
             initial={{ opacity: 0, y: 20 }}
@@ -453,14 +373,13 @@ export default function WhoWeAreSection() {
               return (
                 <button
                   key={s.id}
-                  className={`flex items-center justify-center px-3.5 py-5 rounded-[10px] text-center cursor-pointer border-[1.5px] transition-all duration-250 ease-in-out hover:border-[#7AAB50] hover:shadow-[0_4px_16px_rgba(45,80,22,0.10)] hover:-translate-y-0.5 ${
-                    isCardOpen 
-                      ? "bg-[#F0F5E8] border-[#2D5016] shadow-[0_4px_18px_rgba(45,80,22,0.13)]" 
+                  className={`flex items-center justify-center px-3.5 py-5 rounded-[10px] text-center cursor-pointer border-[1.5px] transition-all duration-250 ease-in-out active:scale-95 hover:border-[#7AAB50] hover:shadow-[0_4px_16px_rgba(45,80,22,0.10)] hover:-translate-y-0.5 ${
+                    isCardOpen
+                      ? "bg-[#F0F5E8] border-[#2D5016] shadow-[0_4px_18px_rgba(45,80,22,0.13)]"
                       : "bg-white border-[#E2EAC8]"
                   }`}
                   onClick={() => handleToggle(s.id)}
                   aria-expanded={isCardOpen}
-                  aria-controls="wwa-portal-pane"
                 >
                   <span className={`font-cormorant text-[clamp(14px,2.2vw,16px)] tracking-[0.07em] transition-colors duration-250 ${
                     isCardOpen ? "text-[#2D5016] font-semibold italic" : "text-[#4A7C2F] font-medium"
@@ -472,34 +391,29 @@ export default function WhoWeAreSection() {
             })}
           </motion.div>
 
-          {/* SINGLE PORTAL CONTENT WRAPPER PANE */}
-          <div className="relative w-full">
+          {/* CONTENT PANE — ref is on the wrapper so scroll works before animation */}
+          <div ref={contentPaneRef} className="relative w-full">
             <AnimatePresence initial={false}>
               {openId && openSection && (
                 <motion.div
-                  id="wwa-portal-pane"
                   initial={{ height: 0, opacity: 0, y: 15 }}
-                  animate={{ 
-                    height: "auto", 
-                    opacity: 1, 
-                    y: 0,
+                  animate={{
+                    height: "auto", opacity: 1, y: 0,
                     transition: {
                       height: { duration: 0.42, ease: EASE_CURVE },
                       opacity: { duration: 0.25, delay: 0.05 },
-                      y: { duration: 0.35, ease: EASE_CURVE }
-                    }
+                      y: { duration: 0.35, ease: EASE_CURVE },
+                    },
                   }}
-                  exit={{ 
-                    height: 0, 
-                    opacity: 0, 
-                    y: 12,
+                  exit={{
+                    height: 0, opacity: 0, y: 12,
                     transition: {
                       height: { duration: 0.35, ease: EASE_CURVE },
                       opacity: { duration: 0.15 },
-                      y: { duration: 0.25 }
-                    }
+                      y: { duration: 0.25 },
+                    },
                   }}
-                  className="mt-5 border-[1.5px] border-[#2D5016] rounded-xl bg-white overflow-hidden scroll-mt-6"
+                  className="mt-5 border-[1.5px] border-[#2D5016] rounded-xl bg-white overflow-hidden"
                   role="region"
                   aria-label={openSection.label}
                 >

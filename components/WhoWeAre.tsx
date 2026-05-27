@@ -4,13 +4,12 @@ import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 
-// Premium, gentle spring physics configuration that eliminates shakiness
 const GENTLE_SPRING = {
   type: "spring",
-  stiffness: 70,   // Lower stiffness makes the movement slow and elegant
-  damping: 22,     // High damping ensures zero overshoot or shaky bouncing
-  mass: 1.2        // Slight mass gives the element an organic, premium weight
-} as const; // <-- Add 'as const' here
+  stiffness: 70,
+  damping: 22,
+  mass: 1.2,
+} as const;
 
 const sections = [
   { id: "goals", label: "Goals" },
@@ -28,7 +27,6 @@ export default function WhoWeArePreview() {
 
   useEffect(() => {
     if (!sectionRef.current) return;
-
     const obs = new IntersectionObserver(
       ([e]) => {
         if (e.isIntersecting) {
@@ -38,16 +36,20 @@ export default function WhoWeArePreview() {
       },
       { threshold: 0.08 }
     );
-
     obs.observe(sectionRef.current);
     return () => obs.disconnect();
   }, []);
 
+  const handleCardClick = (id: string) => {
+    // Use search param instead of hash — works reliably on mobile in Next.js
+    router.push(`/WhoWeAre?section=${id}`);
+  };
+
   return (
     <div id="who-we-are" ref={sectionRef} className="w-full bg-[#FAFDF5] overflow-hidden">
       <div className="mx-auto w-full max-w-[1418px] px-6 lg:px-12 pt-14 pb-16 lg:pt-[70px] lg:pb-[80px]">
-        
-        {/* HEADING CONTAINER */}
+
+        {/* HEADING */}
         <motion.div
           className="text-center mb-8 lg:mb-10"
           initial={{ opacity: 0, y: 30 }}
@@ -75,8 +77,8 @@ export default function WhoWeArePreview() {
           {sections.map((s) => (
             <button
               key={s.id}
-              className="flex items-center justify-center px-3.5 py-5 bg-white border-[1.5px] border-[#E2EAC8] rounded-[10px] text-center cursor-pointer transition-all duration-300 ease-out hover:border-[#7AAB50] hover:shadow-[0_6px_20px_rgba(45,80,22,0.08)] hover:-translate-y-1 group"
-              onClick={() => router.push(`/WhoWeAre#${s.id}`)}
+              onClick={() => handleCardClick(s.id)}
+              className="flex items-center justify-center px-3.5 py-5 bg-white border-[1.5px] border-[#E2EAC8] rounded-[10px] text-center cursor-pointer transition-all duration-300 ease-out hover:border-[#7AAB50] hover:shadow-[0_6px_20px_rgba(45,80,22,0.08)] hover:-translate-y-1 active:scale-95 group"
             >
               <span className="font-cormorant text-[clamp(14px,2.2vw,16px)] tracking-[0.07em] font-medium text-[#4A7C2F] leading-[1.3] transition-colors duration-300 group-hover:text-[#2D5016]">
                 {s.label}
